@@ -29,7 +29,7 @@
 #include "EffectHandler.h"
 #include "HapticGameCamera.h"
 
-#include "OpenAL/OAL_Init.h"
+#include "OALWrapper/OAL_Init.h"
 
 float gfMenuFadeAmount;
 bool gbMustRestart=false;
