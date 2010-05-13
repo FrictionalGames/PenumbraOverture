@@ -493,9 +493,6 @@
 				RelativePath=".\Triggers.h">
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\Penumbra.rc">
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
