@@ -28,10 +28,6 @@
 
 int hplMain(const tString& asCommandLine)
 {
-	#ifdef WIN32
-		HINSTANCE hBlackBoxLib = LoadLibrary( "BlackBox.dll" );
-	#endif
-
 	cInit *pInit = hplNew( cInit, () );
 
 	bool bRet = pInit->Init(asCommandLine);
@@ -49,10 +45,6 @@ int hplMain(const tString& asCommandLine)
 
 	hplDelete( pInit );
 	
-	#ifdef WIN32
-		if(hBlackBoxLib) FreeLibrary(hBlackBoxLib);
-	#endif
-
 	cMemoryManager::LogResults();
 
 	return 0;
