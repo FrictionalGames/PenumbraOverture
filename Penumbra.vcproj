@@ -230,9 +230,6 @@
 				RelativePath=".\Inventory.cpp">
 			</File>
 			<File
-				RelativePath=".\keyentry.cxx">
-			</File>
-			<File
 				RelativePath=".\Main.cpp">
 			</File>
 			<File
@@ -416,9 +413,6 @@
 			</File>
 			<File
 				RelativePath=".\Inventory.h">
-			</File>
-			<File
-				RelativePath=".\keyentry.h">
 			</File>
 			<File
 				RelativePath=".\MainMenu.h">

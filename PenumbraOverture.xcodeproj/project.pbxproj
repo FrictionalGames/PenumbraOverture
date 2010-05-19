@@ -63,7 +63,6 @@
 		DB06305B111D3E3F0048C5E9 /* MapLoadText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBFBA01E0B65E4660021DAE2 /* MapLoadText.cpp */; };
 		DB06305C111D3E3F0048C5E9 /* PreMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBFBA0200B65E4660021DAE2 /* PreMenu.cpp */; };
 		DB06305D111D3E3F0048C5E9 /* DemoEndText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB2AFF4B0B9E75FD00E872A8 /* DemoEndText.cpp */; };
-		DB06305E111D3E3F0048C5E9 /* keyentry.cxx in Sources */ = {isa = PBXBuildFile; fileRef = DB294DCE0C11D2B2005DA55C /* keyentry.cxx */; };
 		DB06305F111D3E3F0048C5E9 /* HapticGameCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB4AFB150D70708200809E03 /* HapticGameCamera.cpp */; };
 		DB063060111D3E3F0048C5E9 /* PlayerState_InteractHaptX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB4AFB170D70708200809E03 /* PlayerState_InteractHaptX.cpp */; };
 		DB063061111D3E3F0048C5E9 /* PlayerState_MiscHaptX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB4AFB190D70708200809E03 /* PlayerState_MiscHaptX.cpp */; };
@@ -148,8 +147,6 @@
 		DB2707770ACCDEE40054ACA3 /* GameEnemy_Spider.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GameEnemy_Spider.cpp; sourceTree = "<group>"; };
 		DB2707780ACCDEE40054ACA3 /* GameEnemy_Spider.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameEnemy_Spider.h; sourceTree = "<group>"; };
 		DB294D4F0C11BFEF005DA55C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		DB294DCE0C11D2B2005DA55C /* keyentry.cxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = keyentry.cxx; sourceTree = "<group>"; };
-		DB294DCF0C11D2B2005DA55C /* keyentry.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = keyentry.h; sourceTree = "<group>"; };
 		DB294DD00C11D2B2005DA55C /* Version.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Version.h; sourceTree = "<group>"; };
 		DB2AFF4B0B9E75FD00E872A8 /* DemoEndText.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DemoEndText.cpp; sourceTree = "<group>"; };
 		DB2AFF4C0B9E75FD00E872A8 /* DemoEndText.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DemoEndText.h; sourceTree = "<group>"; };
@@ -397,8 +394,6 @@
 				DBF84A590AC76D8F00BB15CD /* IntroStory.h */,
 				DBF84A5A0AC76D8F00BB15CD /* Inventory.cpp */,
 				DBF84A5B0AC76D8F00BB15CD /* Inventory.h */,
-				DB294DCE0C11D2B2005DA55C /* keyentry.cxx */,
-				DB294DCF0C11D2B2005DA55C /* keyentry.h */,
 				DBF84A5C0AC76D8F00BB15CD /* Main.cpp */,
 				DBF84A5D0AC76D8F00BB15CD /* MainMenu.cpp */,
 				DBF84A5E0AC76D8F00BB15CD /* MainMenu.h */,
@@ -668,7 +663,6 @@
 				DB06305B111D3E3F0048C5E9 /* MapLoadText.cpp in Sources */,
 				DB06305C111D3E3F0048C5E9 /* PreMenu.cpp in Sources */,
 				DB06305D111D3E3F0048C5E9 /* DemoEndText.cpp in Sources */,
-				DB06305E111D3E3F0048C5E9 /* keyentry.cxx in Sources */,
 				DB06305F111D3E3F0048C5E9 /* HapticGameCamera.cpp in Sources */,
 				DB063060111D3E3F0048C5E9 /* PlayerState_InteractHaptX.cpp in Sources */,
 				DB063061111D3E3F0048C5E9 /* PlayerState_MiscHaptX.cpp in Sources */,
