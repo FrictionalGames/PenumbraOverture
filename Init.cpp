@@ -406,8 +406,8 @@ bool cInit::Init(tString asCommandLine)
 	Vars.AddBool("UseVoiceManagement", mpConfig->GetBool("Sound","UseVoiceManagement",true));
 	Vars.AddInt("MaxMonoChannelsHint",mlMaxMonoChannelsHint);
 	Vars.AddInt("MaxStereoChannelsHint",mlMaxStereoChannelsHint);
-	Vars.AddInt("StreamBufferSize",mpConfig->GetInt("Sound", "StreamBufferSize", 64));
-	Vars.AddInt("StreamBufferCount",mpConfig->GetInt("Sound", "StreamBufferCount", 4));
+	Vars.AddInt("StreamBufferSize",mpConfig->GetInt("Sound", "StreamBufferSize", 4096));
+	Vars.AddInt("StreamBufferCount",mpConfig->GetInt("Sound", "StreamBufferCount", 8));
 	Vars.AddString("DeviceName",mpConfig->GetString("Sound", "DeviceName", "NULL"));
 	Vars.AddString("WindowCaption", "Penumbra Loading...");
 
