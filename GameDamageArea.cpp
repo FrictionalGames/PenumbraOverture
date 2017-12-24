@@ -141,7 +141,7 @@ void cGameDamageArea::Update(float afTimeStep)
 		////////////////////////////////////////////////////////
 		//Iterate all bodies in world and check for intersection
 		std::list<iPhysicsBody*>::iterator it = lstBodies.begin();
-        for(; it != lstBodies.end(); ++it)
+		for(; it != lstBodies.end(); ++it)
 		{
 			iPhysicsBody *pBody = *it;
 			iGameEntity *pEntity = (iGameEntity*)pBody->GetUserData();

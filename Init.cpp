@@ -119,7 +119,7 @@ bool CheckSupport(cInit *apInit)
 		apInit->msErrorMessage =	kTranslate("StartUp", "Error_NoVertexShader") + _W("\n") +
 									kTranslate("StartUp", "ErrorAdd01") + _W("\n") +
 									kTranslate("StartUp", "ErrorAdd02");
-        return false;
+		return false;
 	}
 	//Texture units
 	if(pLowLevelGraphics->GetCaps(eGraphicCaps_MaxTextureImageUnits)<=1)
@@ -321,7 +321,7 @@ bool cInit::Init(tString asCommandLine)
 		mpConfig->Save();
 	}
 
-    mpGameConfig = hplNew( cConfigFile, (_W("config/game.cfg")) );
+	mpGameConfig = hplNew( cConfigFile, (_W("config/game.cfg")) );
 	mpGameConfig->Load();
 
 	mvScreenSize.x = mpConfig->GetInt("Screen","Width",800);
@@ -402,7 +402,7 @@ bool cInit::Init(tString asCommandLine)
 	Vars.AddBool("ForceGeneric", mpConfig->GetBool("Sound", "ForceGeneric", false));
 	Vars.AddInt("MaxSoundChannels",mlMaxSoundChannels);
 	Vars.AddInt("StreamUpdateFreq",mlStreamUpdateFreq);
-    Vars.AddBool("UseSoundThreading", mbUseSoundThreading);
+	Vars.AddBool("UseSoundThreading", mbUseSoundThreading);
 	Vars.AddBool("UseVoiceManagement", mpConfig->GetBool("Sound","UseVoiceManagement",true));
 	Vars.AddInt("MaxMonoChannelsHint",mlMaxMonoChannelsHint);
 	Vars.AddInt("MaxStereoChannelsHint",mlMaxStereoChannelsHint);
@@ -467,7 +467,7 @@ bool cInit::Init(tString asCommandLine)
 
 	mpGame->GetResources()->AddEntity3DLoader(hplNew( cEntityLoader_GameEnemy,("Enemy",this)) );
 
-    mpGame->GetResources()->AddArea3DLoader(hplNew( cAreaLoader_GameArea,("script",this)) );
+	mpGame->GetResources()->AddArea3DLoader(hplNew( cAreaLoader_GameArea,("script",this)) );
 	mpGame->GetResources()->AddArea3DLoader(hplNew( cAreaLoader_GameLink,("link",this)) );
 
 #ifndef DEMO_VERSION
@@ -781,7 +781,7 @@ void cInit::Exit()
 	Log(" Exit Demo end text\n");
 	hplDelete( mpDemoEndText );
 
-    Log(" Saving config\n");
+	Log(" Saving config\n");
 	//Save engine stuff.
 	mpConfig->SetBool("Graphics", "Bloom",mpGame->GetGraphics()->GetRendererPostEffects()->GetBloomActive());
 	mpConfig->SetBool("Graphics", "MotionBlur",mpGame->GetGraphics()->GetRendererPostEffects()->GetMotionBlurActive());

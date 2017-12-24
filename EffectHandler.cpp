@@ -274,7 +274,7 @@ void cEffect_SaveEffect::Update(float afTimeStep)
 {
 	if(mbActive==false) return;
 
-    mfTime += afTimeStep;
+	mfTime += afTimeStep;
 
 	if(mbAutoSave)
 	{
@@ -720,7 +720,7 @@ void cEffect_SubTitle::Update(float afTimeStep)
 	{
 		cSubTitle &subTitle = *it;
 
-        if(subTitle.mbActive)
+		if(subTitle.mbActive)
 		{
 			if(subTitle.mfCount >0)
 			{

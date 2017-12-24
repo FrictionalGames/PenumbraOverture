@@ -186,7 +186,7 @@ private:
 
 	float mfLeaveAtTopCount;
 
-    void PlaySound(const tString &asSound);
+	void PlaySound(const tString &asSound);
 public:
 	cPlayerState_ClimbHaptX(cInit *apInit,cPlayer *apPlayer);
 

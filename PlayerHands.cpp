@@ -323,7 +323,7 @@ void cPlayerHands::Update(float afTimeStep)
 					{
 						//Log("Creating next model and destroying current!\n");
 
-                        pHudModel->mState = eHudModelState_Idle;
+						pHudModel->mState = eHudModelState_Idle;
 						pHudModel->mfTime =0;
 
 						pHudModel->DestroyEntities();

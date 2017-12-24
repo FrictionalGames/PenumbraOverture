@@ -612,7 +612,7 @@ void cPlayerState_WeaponMeleeHaptX::OnPostSceneDraw()
 	//Comment out this to see debug info!
 	return;
 
-    cCamera3D *pCamera = static_cast<cCamera3D*>(mpInit->mpGame->GetScene()->GetCamera());
+	cCamera3D *pCamera = static_cast<cCamera3D*>(mpInit->mpGame->GetScene()->GetCamera());
 
 	mpInit->mpGame->GetGraphics()->GetLowLevel()->DrawLine(mvPushBackPos,mvPushBackPos+mvPushBackVec,cColor(1,1));
 
@@ -664,7 +664,7 @@ void cPlayerState_WeaponMeleeHaptX::OnStartInteractMode()
 
 void cPlayerState_WeaponMeleeHaptX::OnStartInteract()
 {
-    mbInteractDown = true;
+	mbInteractDown = true;
 	mpPlayer->GetHapticCamera()->SetUseFrame(false);
 	mpImpulseForce->SetActive(true);
 	mpImpulseForce->SetForce(0);

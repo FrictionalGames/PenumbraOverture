@@ -84,7 +84,7 @@ bool cSplashDamageBlockCheck::CheckBlock(const cVector3f& avStart, const cVector
 	mbIntersected = false;
 	iPhysicsWorld *pWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
 
-    pWorld->CastRay(this,avStart,avEnd,false,false,false, true);
+	pWorld->CastRay(this,avStart,avEnd,false,false,false, true);
 
 	return mbIntersected;
 }
@@ -152,7 +152,7 @@ bool cAttackHandler::CreateLineAttack(const cVector3f& avStart, const cVector3f&
 	if(apPickedBody)*apPickedBody = NULL;
 
 	mRayCallback.Reset();
-    pPhysicsWorld->CastRay(&mRayCallback,avStart,avEnd,true,false,true);
+	pPhysicsWorld->CastRay(&mRayCallback,avStart,avEnd,true,false,true);
 
 	if(mRayCallback.mpClosestBody == NULL) return false;
 
@@ -191,7 +191,7 @@ bool cAttackHandler::CreateShapeAttack(	iCollideShape *apShape, const cMatrixf& 
 
 	///////////////////////////////
 	//Set up boudning box
-    cBoundingVolume tempBV = apShape->GetBoundingVolume();
+	cBoundingVolume tempBV = apShape->GetBoundingVolume();
 	tempBV.SetTransform(a_mtxOffset);
 
 	///////////////////////////////
@@ -366,7 +366,7 @@ bool cAttackHandler::CreateLineDestroyBody(const cVector3f& avStart, const cVect
 
 		cGameObject *pObject = static_cast<cGameObject*>(pEntity);
 
-        cVector3f vForward = avEnd - avStart;
+		cVector3f vForward = avEnd - avStart;
 		vForward.Normalise();
 
 		pBody->AddForce(vForward * afForce);
@@ -419,7 +419,7 @@ void cAttackHandler::CreateSplashDamage(const cVector3f& avCenter, float afRadiu
 	tempBV.SetSize(afRadius * 2);
 	tempBV.SetPosition(avCenter);
 
-    if(aTarget & eAttackTargetFlag_Player)
+	if(aTarget & eAttackTargetFlag_Player)
 	{
 		cBoundingVolume* pCharBV = mpInit->mpPlayer->GetCharacterBody()->GetBody()->GetBV();
 		if(cMath::CheckCollisionBV(tempBV, *pCharBV) &&
@@ -472,7 +472,7 @@ void cAttackHandler::CreateSplashDamage(const cVector3f& avCenter, float afRadiu
 
 			//if(pBody->IsCharacter() || pBody->GetMass()==0) continue;
 			//if(pBody->IsCharacter()) continue;
-            if(pBody->IsActive()==false) continue;
+			if(pBody->IsActive()==false) continue;
 			//if(pBody->GetMass() <= afMinMass) continue;
 
 			iGameEntity *pEntity = (iGameEntity*)pBody->GetUserData();

@@ -112,7 +112,7 @@ private:
 	cMapHandler *mpMapHandler;
 
 
-    cGameSwingDoor *mpLastSwingDoor;
+	cGameSwingDoor *mpLastSwingDoor;
 
 	cAttackRayCallback mRayCallback;
 	cSplashDamageBlockCheck *mpSplashBlockCheck;

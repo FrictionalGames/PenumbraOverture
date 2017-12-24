@@ -157,7 +157,7 @@ void cHudModel_Throw::OnAttackUp()
 
 		cVector3f vRot =cMath::MatrixMul(mtxStart.GetRotation(),mvTorque);
 
-        for(int i=0; i< pEntity->GetBodyNum(); ++i)
+		for(int i=0; i< pEntity->GetBodyNum(); ++i)
 		{
 			iPhysicsBody *pBody = pEntity->GetBody(i);
 			pBody->AddImpulse(pCam->GetForward() * fImpulse);

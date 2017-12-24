@@ -122,7 +122,7 @@ void cTriggerHandler::Update(float afTimeStep)
 		{
 			cGameTrigger *pTrigger = TriggerIt->second;
 
-            //Check if trigger is of right type
+			//Check if trigger is of right type
 			if(!(pTrigger->GetType() & pEnemy->GetTriggerTypes()))
 			{
 				continue;

@@ -52,7 +52,7 @@ iEntity3D* cAreaLoader_GameArea::Load(const tString &asName, const cVector3f &av
 	pArea->m_mtxOnLoadTransform = a_mtxTransform;
 
 	//Create physics data
-    iPhysicsWorld *pPhysicsWorld = apWorld->GetPhysicsWorld();
+	iPhysicsWorld *pPhysicsWorld = apWorld->GetPhysicsWorld();
 	iCollideShape* pShape = pPhysicsWorld->CreateBoxShape(avSize,NULL);
 	std::vector<iPhysicsBody*> vBodies;
 	vBodies.push_back(pPhysicsWorld->CreateBody(asName,pShape));

@@ -43,7 +43,7 @@ public:
 	{
 		mpInit = apInit;
 
-        mpPlayer = apPlayer;
+		mpPlayer = apPlayer;
 		mType = aType;
 
 		mPreviuosState = ePlayerState_LastEnum;

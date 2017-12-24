@@ -74,7 +74,7 @@ public:
 
 	float GetFlashAlpha(){ return mfFlashAlpha;}
 
-    const tString& GetImageFile(){ return msImageFile;}
+	const tString& GetImageFile(){ return msImageFile;}
 	eGameItemType GetItemType(){ return mItemType;}
 
 	bool CanBeDropped(){ return mbCanBeDropped;}

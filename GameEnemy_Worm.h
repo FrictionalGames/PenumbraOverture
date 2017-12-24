@@ -246,7 +246,7 @@ public:
 	cVector3f mvAttackDamageSize;
 
 private:
-    iCollideShape *mpAttackShape;
+	iCollideShape *mpAttackShape;
 
 	cBoneState *mpRootBone;
 	std::list<cVector3f> mlstRootPositions;

@@ -190,7 +190,7 @@ void cGameForceArea::Update(float afTimeStep)
 				//Log("Vel: %s Speed: %f Force: %f\n",pCharBody->GetForceVelocity().ToString().c_str(),
 				//									fRelSpeed,fForce);
 
-                pCharBody->AddForce(mvUp * fForce);
+				pCharBody->AddForce(mvUp * fForce);
 			}
 			///////////////////////////////
 			//Add Body Force
@@ -216,7 +216,7 @@ void cGameForceArea::Update(float afTimeStep)
 				//If speed is above wanted, do nothing.
 				if(fDiff<=0) continue;
 
-                float fForce = fDiff * mfConstant;
+				float fForce = fDiff * mfConstant;
 				if(mfMaxForce != 0 && fForce > mfMaxForce) fForce = mfMaxForce;
 				if(mbMulWithMass) fForce *= pBody->GetMass();
 

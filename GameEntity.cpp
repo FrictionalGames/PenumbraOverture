@@ -125,7 +125,7 @@ iGameEntity::~iGameEntity()
 
 	//////////////////////////////////////////////
 	// Destroy all graphics in the entity!
-    if(pWorld && mpInit->mbDestroyGraphics)
+	if(pWorld && mpInit->mbDestroyGraphics)
 	{
 		for(size_t i=0; i<mvBodies.size(); ++i)
 		{
@@ -550,7 +550,7 @@ void iGameEntity::OnUpdate(float afTimeStep)
 
 		if(pEntity->IsActive() ==false)continue;
 
-        bool bCollide = false;
+		bool bCollide = false;
 
 		for(size_t i=0; i< mvBodies.size(); ++i)
 			for(size_t j=0; j< pEntity->mvBodies.size(); ++j)
@@ -682,7 +682,7 @@ void iGameEntity::AddCollideScript(eGameCollideScriptType aType,const tString &a
 		}
 
 		//Set the entity
-        pCallback->mpEntity = pEntity;
+		pCallback->mpEntity = pEntity;
 
 		//Add to container
 		m_mapCollideCallbacks.insert(tGameCollideScriptMap::value_type(asEntity,pCallback));
@@ -767,7 +767,7 @@ void iGameEntity::AddScript(eGameEntityScriptType aType,const tString &asFunc)
 
 void iGameEntity::RemoveScript(eGameEntityScriptType aType)
 {
-    if(mvCallbackScripts[aType])
+	if(mvCallbackScripts[aType])
 	{
 		hplDelete( mvCallbackScripts[aType] );
 		mvCallbackScripts[aType] = NULL;

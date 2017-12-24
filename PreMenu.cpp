@@ -307,7 +307,7 @@ void cPreMenu::Update(float afTimeStep)
 		}
 	}
 
-    // Update rain sound fading
+	// Update rain sound fading
 	if (mbFadeRainSound)
 	{
 		cSoundEntry* pEntry = mpInit->mpGame->GetSound()->GetSoundHandler()->GetEntryFromSound(mpRainSound);
@@ -352,7 +352,7 @@ void cPreMenu::Update(float afTimeStep)
 		}
 	}
 
-    // Update raindrops
+	// Update raindrops
 	for ( int i = 0; i < (int)mvRaindropVector.size(); ++i )
 	{
 		cRaindrop *pRaindrop = &(mvRaindropVector[i]);
@@ -444,7 +444,7 @@ void cPreMenu::Update(float afTimeStep)
 		if ( mpRainSound == NULL )
 			mpRainSound = mpInit->mpGame->GetSound()->GetSoundHandler()->PlayGui("gui_rain1",true,0);
 
-        if ( mpWindSound && mbPlayingWindSound )
+		if ( mpWindSound && mbPlayingWindSound )
 		{
 			cSoundEntry* pEntry = mpInit->mpGame->GetSound()->GetSoundHandler()->GetEntryFromSound(mpWindSound);
 			if (pEntry)
@@ -578,7 +578,7 @@ void cPreMenu::Update(float afTimeStep)
 		if (mfStateTimer > 3.5f)
 		{
 			mlState = 1;
-            mfStateTimer = 0;
+			mfStateTimer = 0;
 		}
 
 	}
@@ -612,7 +612,7 @@ void cPreMenu::Update(float afTimeStep)
 		}
 		else if ( mfStateTimer >= 1.75f )
 		{
-            mfAdd = 0.03f *afTimeStep;
+			mfAdd = 0.03f *afTimeStep;
 
 			mfLogoFade -= 0.25f*afTimeStep;
 			mfEpFade = mfLogoFade;
@@ -626,7 +626,7 @@ void cPreMenu::Update(float afTimeStep)
 			if (mfRaindropFade > 0)
 				mfRaindropFade -= afTimeStep;
 			else
-                SetActive(false);
+				SetActive(false);
 		}
 	}
 }
@@ -729,7 +729,7 @@ void cPreMenu::SetActive(bool abX)
 		}
 		else
 		{
-            if (mpInit->mpGame->GetSound()->GetSoundHandler()->IsPlaying("gui_rain1"))
+			if (mpInit->mpGame->GetSound()->GetSoundHandler()->IsPlaying("gui_rain1"))
 				mpInit->mpGame->GetSound()->GetSoundHandler()->Stop("gui_rain1");
 
 			if (mpInit->mpGame->GetSound()->GetSoundHandler()->IsPlaying("gui_wind1"))

@@ -165,7 +165,7 @@ void cDemoEndText::SetActive(bool abX)
 		{
 			mpInit->mpGame->GetResources()->GetTextureManager()->Destroy(mvTextures[i]);
 		}
-        mvTextures.clear();
+		mvTextures.clear();
 
 		mpInit->mpGame->Exit();
 	}

@@ -373,7 +373,7 @@ public:
 
 	void ClearSavedMaps();
 
-    void OnWorldLoad();
+	void OnWorldLoad();
 	void OnStart();
 	void Reset();
 

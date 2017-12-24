@@ -50,7 +50,7 @@ public:
 
 	//////////////
 	//Variables
-    cVector3f mvCameraPosition;
+	cVector3f mvCameraPosition;
 	cVector3f mvFinalPos;
 	cVector3f mvPosStep;
 	float mfPosCount;

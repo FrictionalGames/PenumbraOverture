@@ -388,7 +388,7 @@ void cPlayerPickRayCallback::CalculateResults()
 			bUseArea = true;
 		}
 
-        if(bUseArea)
+		if(bUseArea)
 		{
 			mpPickedBody = mpPickedAreaBody;
 			mfPickedDist = mfPickedAreaDist;
@@ -427,7 +427,7 @@ void cPlayerHeadMove::Update(float afTimeStep)
 	iCharacterBody *pBody = mpPlayer->GetCharacterBody();
 	/*float fUpVel = (pBody->GetPosition().y - pBody->GetLastPosition().y) / afTimeStep;*/
 
-    if(pBody->IsClimbing() && mfClimbCount==0)
+	if(pBody->IsClimbing() && mfClimbCount==0)
 	{
 		mfClimbCount = 0.5f;
 		mfClimbPos = mfPos;
@@ -629,7 +629,7 @@ void cPlayerHealth::Update(float afTimeStep)
 				mfGfxGlobalAlpha = 1.0f;
 			}
 
-            mpInit->mpGame->GetSound()->GetSoundHandler()->PlayGui("player_heartbeat",false,fVolume);
+			mpInit->mpGame->GetSound()->GetSoundHandler()->PlayGui("player_heartbeat",false,fVolume);
 			mfGfxAlphaAdd = 3.5f;
 		}
 	}
@@ -680,7 +680,7 @@ void cPlayerHealth::Update(float afTimeStep)
 			}
 		}
 
-        if(mlTerrorLevel != lTerrorLevel)
+		if(mlTerrorLevel != lTerrorLevel)
 		{
 			mlTerrorLevel = lTerrorLevel;
 
@@ -930,11 +930,11 @@ void cPlayerLean::Update(float afTimeStep)
 		//Position
 		float fPrevMovement = mfMovement;
 		float fMoveSpeed = (fGoalPos - mfMovement);
-        if(fabsf(fMoveSpeed) <0.1f) fMoveSpeed = 0.1f*mfDir;
+		if(fabsf(fMoveSpeed) <0.1f) fMoveSpeed = 0.1f*mfDir;
 		mfMovement += fMoveSpeed * afTimeStep * 3;
 
 		if(fGoalPos < 0 && mfMovement < fGoalPos) mfMovement =fGoalPos;
-        if(fGoalPos > 0 && mfMovement > fGoalPos) mfMovement =fGoalPos;
+		if(fGoalPos > 0 && mfMovement > fGoalPos) mfMovement =fGoalPos;
 
 		//////////////
 		//Rotation
@@ -1270,7 +1270,7 @@ void cPlayerDeath::Draw()
 {
 	if(mbActive==false) return;
 
-    cVector3f vPos(-mfFadeAlpha*400 - mfBlackAlpha*200,-mfFadeAlpha*400 -  mfBlackAlpha*200,4);
+	cVector3f vPos(-mfFadeAlpha*400 - mfBlackAlpha*200,-mfFadeAlpha*400 -  mfBlackAlpha*200,4);
 	cVector2f vSize(800 + mfFadeAlpha*800 + mfBlackAlpha*400, 600 + mfFadeAlpha*800+ mfBlackAlpha*400);
 	mpDrawer->DrawGfxObject(mpFadeGfx,vPos,vSize,cColor(mfFadeAlpha,0));
 
@@ -1382,7 +1382,7 @@ void cPlayerFlashLight::Update(float afTimeStep)
 					float fSqrDist = vToEnemy.SqrLength();
 					vToEnemy.Normalise();
 
-                    if(fSqrDist < 100.0f)
+					if(fSqrDist < 100.0f)
 					{
 						float fAngle = cMath::Vector3Angle(vToEnemy,vForward);
 
@@ -1855,7 +1855,7 @@ cPlayerNoiseFilter::cPlayerNoiseFilter(cInit *apInit)
 
 	mlAmount = 6;
 
-    for(int i=0; i<mlAmount; ++i)
+	for(int i=0; i<mlAmount; ++i)
 	{
 		tString sFileName = "effect_noise0"+cString::ToString(i);
 		cGfxObject *pObject = mpDrawer->CreateGfxObject(sFileName,"smoke2d");
@@ -1899,7 +1899,7 @@ void cPlayerNoiseFilter::Draw()
 	{
 		cVector3f vPos((float)x*40, (float)y*40,0);
 
-        mpDrawer->DrawGfxObject(mvGfxNoise[mvCurrentGfx[x*y]],vPos,40,cColor(mfAlpha,0));
+		mpDrawer->DrawGfxObject(mvGfxNoise[mvCurrentGfx[x*y]],vPos,40,cColor(mfAlpha,0));
 		//mpDrawer->DrawGfxObject(mvGfxNoise[0],vPos,40,cColor(mfAlpha,mfAlpha));
 	}
 }
@@ -2610,7 +2610,7 @@ void cPlayerHidden::UpdateEnemyTooClose(float afTimeStep)
 			fAdd = sin(fT * kPi2f) * mfCloseEffectFovMin;
 		}
 
-        pCam->SetFOV(mfFov + fAdd);
+		pCam->SetFOV(mfFov + fAdd);
 
 		mpInit->mpGame->GetGraphics()->GetRendererPostEffects()->SetImageTrailActive(true);
 		mpInit->mpGame->GetGraphics()->GetRendererPostEffects()->SetImageTrailAmount(0.8f);

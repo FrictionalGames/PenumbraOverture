@@ -85,7 +85,7 @@ private:
 
 	bool mbLit;
 
-    float mfAlpha;
+	float mfAlpha;
 	float mfTurnOnTime;
 	float mfTurnOffTime;
 

@@ -78,7 +78,7 @@ tWString gsTempString = _W("");
 
 static void __stdcall AddToTempString(std::string asString)
 {
-    gsTempString += cString::To16Char(asString);
+	gsTempString += cString::To16Char(asString);
 }
 SCRIPT_DEFINE_FUNC_1(void, AddToTempString, string)
 
@@ -503,7 +503,7 @@ static void __stdcall CreateLightFlashAtArea(std::string asArea, float afRadius,
 		return;
 	}
 
-    gpInit->mpMapHandler->AddLightFlash(pArea->m_mtxTransform.GetTranslation(),afRadius,
+	gpInit->mpMapHandler->AddLightFlash(pArea->m_mtxTransform.GetTranslation(),afRadius,
 										cColor(afR,afG,afB,afA),afAddTime,afNegTime);
 }
 SCRIPT_DEFINE_FUNC_8(void, CreateLightFlashAtArea, string, float, float, float, float, float, float, float)
@@ -530,7 +530,7 @@ static void __stdcall CreateSplashDamage(std::string asAreaName, float afRadius,
 	}
 	cGameArea *pArea = static_cast<cGameArea*>(pEntity);
 
-    gpInit->mpAttackHandler->CreateSplashDamage(pArea->GetBody(0)->GetWorldPosition(),
+	gpInit->mpAttackHandler->CreateSplashDamage(pArea->GetBody(0)->GetWorldPosition(),
 												afRadius,afMinDamage,afMaxDamge,
 												afMinForce, afMaxForce, afMaxImpulse,
 												eAttackTargetFlag_Bodies |
@@ -814,7 +814,7 @@ static void __stdcall ReplaceEntity(std::string asName, std::string asBodyName,
 	GAME_ENTITY_BEGIN(asName)
 
 	if(pEntity->GetBodyNum()==0){
-        Error("Entity '%s' contains no bodies!\n",pEntity->GetName().c_str());
+		Error("Entity '%s' contains no bodies!\n",pEntity->GetName().c_str());
 		return;
 	}
 
@@ -987,7 +987,7 @@ static void __stdcall ChangeEntityAnimation(std::string asName,
 {
 	GAME_ENTITY_BEGIN(asName)
 
- 	pEntity->GetMeshEntity()->PlayName(asAnimation,abLoop, true);
+	pEntity->GetMeshEntity()->PlayName(asAnimation,abLoop, true);
 }
 SCRIPT_DEFINE_FUNC_3(void, ChangeEntityAnimation, string, string, bool)
 
@@ -1026,7 +1026,7 @@ static void __stdcall SetDoorState(std::string asName,
 	asState = cString::ToLowerCase(asState);
 	eGameDoorState DoorState;
 
-    if(asState == "open") DoorState = eGameDoorState_Open;
+	if(asState == "open") DoorState = eGameDoorState_Open;
 	else if(asState == "closed") DoorState = eGameDoorState_Closed;
 	else if(asState == "opening") DoorState = eGameDoorState_Opening;
 	else if(asState == "closing") DoorState = eGameDoorState_Closing;
@@ -1157,7 +1157,7 @@ static void __stdcall AddEnemyPatrolNode(std::string asEnemy,std::string asNode,
 	}
 	iGameEnemy *pEnemy = static_cast<iGameEnemy*>(pEntity);
 
-    pEnemy->AddPatrolNode(asNode,afTime,asAnimation);
+	pEnemy->AddPatrolNode(asNode,afTime,asAnimation);
 }
 SCRIPT_DEFINE_FUNC_4(void, AddEnemyPatrolNode,string, string, float, string)
 
@@ -1296,7 +1296,7 @@ static void __stdcall SetupStickArea(	std::string asArea, bool abCanDeatch,
 	}
 	cGameStickArea *pArea = static_cast<cGameStickArea*>(pEntity);
 
-    pArea->SetCanDeatch(abCanDeatch);
+	pArea->SetCanDeatch(abCanDeatch);
 
 	pArea->SetRotateBody(abRotateBody);
 	pArea->SetMoveBody(abMoveBody);
@@ -1337,7 +1337,7 @@ static void __stdcall SetLampLit(std::string asName,bool abLit, bool abFade)
 	}
 	cGameLamp *pLamp = static_cast<cGameLamp*>(pEntity);
 
-    pLamp->SetLit(abLit,abFade);
+	pLamp->SetLit(abLit,abFade);
 }
 SCRIPT_DEFINE_FUNC_3(void,SetLampLit,string,bool,bool)
 
@@ -1505,7 +1505,7 @@ static eGameCollideScriptType GetGameCollideScriptType(const tString &asType)
 {
 	tString sName = cString::ToLowerCase(asType);
 
-    if(sName == "enter") return eGameCollideScriptType_Enter;
+	if(sName == "enter") return eGameCollideScriptType_Enter;
 	if(sName == "leave") return eGameCollideScriptType_Leave;
 	if(sName == "during") return eGameCollideScriptType_During;
 
@@ -1631,7 +1631,7 @@ static void __stdcall RemoveEntityCallback(std::string asType,
 
 	eGameEntityScriptType type = GetGameScriptType(asType);
 
-    if(type!= eGameEntityScriptType_LastEnum)
+	if(type!= eGameEntityScriptType_LastEnum)
 	{
 		pEntity->RemoveScript(type);
 	}

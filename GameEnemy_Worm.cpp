@@ -207,7 +207,7 @@ void cGameEnemyState_Worm_Hunt::OnEnterState(iGameEnemyState *apPrevState)
 	mfLostPlayerCount =0;
 	mfMaxLostPlayerCount = mpEnemyWorm->mfHuntForLostPlayerTime;
 
-    mpInit->mpMusicHandler->AddAttacker(mpEnemy);
+	mpInit->mpMusicHandler->AddAttacker(mpEnemy);
 
 	mfAttackCount = mpEnemyWorm->mfAttackInterval;
 
@@ -909,7 +909,7 @@ void cGameEnemy_Worm::ExtraPostSceneDraw()
 
 	for(size_t i=0; i< mvTailSegments.size();++i)
 	{
-	    cWormTailSegment *pSegment = mvTailSegments[i];
+		cWormTailSegment *pSegment = mvTailSegments[i];
 
 		pLowLevelGfx->DrawSphere(pSegment->mvPostion,0.3f,cColor(1,1));
 

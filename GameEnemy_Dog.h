@@ -468,7 +468,7 @@ public:
 	float mfEatMinHearVolume;
 
 private:
-    iCollideShape *mpAttackShape;
+	iCollideShape *mpAttackShape;
 	iCollideShape *mpBreakDoorShape;
 };
 

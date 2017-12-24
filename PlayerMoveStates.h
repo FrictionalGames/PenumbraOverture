@@ -140,7 +140,7 @@ void iPlayerMoveState::Update(float afTimeStep)
 {
 	//Update height add
 	float fPlayerHeightAdd = mpPlayer->GetHeightAdd();
-    if(fPlayerHeightAdd < mfHeightAdd){
+	if(fPlayerHeightAdd < mfHeightAdd){
 		fPlayerHeightAdd+=mfHeightAddSpeed*afTimeStep;
 		if(fPlayerHeightAdd > mfHeightAdd) fPlayerHeightAdd = mfHeightAdd;
 	}
@@ -285,7 +285,7 @@ public:
 		mfDefaultFowardSpeed = mfForwardSpeed;
 		mfBackwardSpeed= mpGameConfig->GetFloat("Movement_Jump","BackwardSpeed",0);
 		mfSidewaySpeed = mpGameConfig->GetFloat("Movement_Jump","SidewaySpeed",0);
-        mfDefaultSidewaySpeed = mfSidewaySpeed;
+		mfDefaultSidewaySpeed = mfSidewaySpeed;
 
 		mfForwardAcc = mpGameConfig->GetFloat("Movement_Jump","ForwardAcc",0);
 		mfForwardDeacc = mpGameConfig->GetFloat("Movement_Jump","ForwardDeacc",0);
@@ -416,7 +416,7 @@ public:
 			pBody->AddForce(cVector3f(0,-20.0f * pBody->GetMass(),0));
 		}
 
-        //check if the body is on ground, and if so end jump.
+		//check if the body is on ground, and if so end jump.
 		if(pBody->IsOnGround() && pBody->GetForceVelocity().y==0)
 		{
 			mpPlayer->ChangeMoveState(mPrevMoveState);
@@ -489,7 +489,7 @@ public:
 		cInit *pInit = mpPlayer->GetInit();
 		iPhysicsWorld *pWorld = pInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
 
-        pBody->SetPosition(pBody->GetPosition() + cVector3f(0,0.005f,0));
+		pBody->SetPosition(pBody->GetPosition() + cVector3f(0,0.005f,0));
 
 		//Check with both bodies. This removes some bugs.
 		for(int i=0; i<2; ++i)

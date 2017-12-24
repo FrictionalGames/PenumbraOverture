@@ -579,7 +579,7 @@ void cGameObject::Update(float afTimeStep)
 						mDisappearProps.mfTime =0;
 						Break();
 					}
-                }
+				}
 			}
 			else
 			{
@@ -705,7 +705,7 @@ void cGameObject::BreakAction()
 	}
 
 	//////////////////
-    //Sound
+	//Sound
 	if(mBreakProps.msSound != "")
 	{
 		cSoundEntity *pSound = pWorld->CreateSoundEntity("Break",mBreakProps.msSound,true);
@@ -714,7 +714,7 @@ void cGameObject::BreakAction()
 
 	//////////////////
 	//Particle System
-    if(mBreakProps.msPS != "")
+	if(mBreakProps.msPS != "")
 	{
 		cParticleSystem3D *pPS = pWorld->CreateParticleSystem("Break",mBreakProps.msPS,cVector3f(1,1,1),
 															pParentBody->GetWorldMatrix());

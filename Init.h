@@ -133,7 +133,7 @@ public:
 	float mfHapticMaxInteractDist;
 
 	int mlMaxSoundChannels;
-    int mlStreamUpdateFreq;
+	int mlStreamUpdateFreq;
 	bool mbUseSoundHardware;
 	bool mbUseSoundThreading;
 	int mlMaxMonoChannelsHint;

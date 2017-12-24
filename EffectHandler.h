@@ -230,7 +230,7 @@ private:
 
 	iFontData *mpFont;
 
-    tSubTitleList mlstSubTitles;
+	tSubTitleList mlstSubTitles;
 };
 
 //-----------------------------------------

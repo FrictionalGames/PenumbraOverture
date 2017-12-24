@@ -35,7 +35,7 @@ cNumericalButton::cNumericalButton(cInit *apInit, cNumericalPanel* apPanel, cVec
 	mpPanel = apPanel;
 	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
 
-    mvPositon = cVector3f(avPos.x, avPos.y, 40);
+	mvPositon = cVector3f(avPos.x, avPos.y, 40);
 
 	mRect.x = avPos.x;
 	mRect.y = avPos.y;

@@ -372,11 +372,11 @@ bool cGameItemType_WeaponMelee::OnAction(cInventoryItem *apItem, int alActionNum
 				return true;
 			}
 
-            if(mpInit->mbHasHaptics==false) mpInit->mpPlayerHands->SetCurrentModel(1, apItem->GetHudModelName());
+			if(mpInit->mbHasHaptics==false) mpInit->mpPlayerHands->SetCurrentModel(1, apItem->GetHudModelName());
 
 			//////////////////////////
 			//Set up the melee state
-            iPlayerState *pState = mpInit->mpPlayer->GetStateData(ePlayerState_WeaponMelee);
+			iPlayerState *pState = mpInit->mpPlayer->GetStateData(ePlayerState_WeaponMelee);
 
 			cHudModel_WeaponMelee *pMeleeHud =  static_cast<cHudModel_WeaponMelee*>(pHudModel);
 

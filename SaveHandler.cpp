@@ -48,7 +48,7 @@ void cSavedWorld::Reset()
 	{
 		iGameEntity_SaveData *pSaveEntity = it.Next();
 		//Log(" delete %d\n", pSaveEntity);
-        hplDelete( pSaveEntity );
+		hplDelete( pSaveEntity );
 	}
 	mlstEntities.Clear();
 
@@ -199,7 +199,7 @@ cSavedWorld* cSavedGame::GetSavedWorld(const tString &asName)
 	}
 
 	//Create newer world
-    cSavedWorld *pWorld = hplNew( cSavedWorld, () );
+	cSavedWorld *pWorld = hplNew( cSavedWorld, () );
 	pWorld->msName = asName;
 	mlstWorlds.Add(pWorld);
 
@@ -604,7 +604,7 @@ void cSaveHandler::LoadGameFromFile(const tWString& asFile)
 	///////////////////////////////
 	//Load the map
 	//TOOD: Use the correct file!
-    mpInit->mpMapHandler->LoadSimple(mpSavedGame->mMapHandler.msCurrentMap+".dae",false);
+	mpInit->mpMapHandler->LoadSimple(mpSavedGame->mMapHandler.msCurrentMap+".dae",false);
 	//LoadData(mpSavedGame->mMapHandler.msCurrentMap);
 	//mpInit->mpMapHandler->Load(mpSavedGame->mMapHandler.msCurrentMap+".dae","link01");
 

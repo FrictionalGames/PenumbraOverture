@@ -536,7 +536,7 @@ void cPlayerState_UseItem::OnStartExamine()
 	}
 	else
 	{
-        if(	mPrevState == ePlayerState_WeaponMelee ||
+		if(	mPrevState == ePlayerState_WeaponMelee ||
 			mPrevState == ePlayerState_Throw)
 		{
 			mpPlayer->ChangeState(ePlayerState_Normal);
@@ -775,7 +775,7 @@ void cPlayerState_Climb::EnterState(iPlayerState* apPrevState)
 	mvGoalRot.y = mpLadder->GetStartRotation().y;
 
 	//Different time if you are above the ladder.
-    float fTime = 0.5f;
+	float fTime = 0.5f;
 	if(mpPlayer->GetCharacterBody()->GetPosition().y > mpLadder->GetMaxY()) fTime = 1.2f;
 
 	cVector3f vStartRot;

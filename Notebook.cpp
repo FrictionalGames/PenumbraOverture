@@ -897,7 +897,7 @@ cNotebook::cNotebook(cInit *apInit)  : iUpdateable("Notebook")
 
 	mpGfxBackground = mpDrawer->CreateGfxObject("notebook_background.bmp","diffalpha2d");
 
-    mStateMachine.AddState(hplNew( cNotebookState_Front,(mpInit,this) ),"Front",eNotebookState_Front,mpInit->mpGame->GetStepSize());
+	mStateMachine.AddState(hplNew( cNotebookState_Front,(mpInit,this) ),"Front",eNotebookState_Front,mpInit->mpGame->GetStepSize());
 	mStateMachine.AddState(hplNew( cNotebookState_TaskList,(mpInit,this) ),"TaskList",eNotebookState_TaskList,mpInit->mpGame->GetStepSize());
 	mStateMachine.AddState(hplNew( cNotebookState_NoteList,(mpInit,this) ),"NoteList",eNotebookState_NoteList,mpInit->mpGame->GetStepSize());
 	mStateMachine.AddState(hplNew( cNotebookState_Note,(mpInit,this) ),"Note",eNotebookState_Note,mpInit->mpGame->GetStepSize());
@@ -995,7 +995,7 @@ void cNotebook::OnDraw()
 {
 	if(mfAlpha == 0) return;
 
-    mpDrawer->DrawGfxObject(mpGfxBackground,cVector3f(0,0,0),cVector2f(800,600),cColor(1,mfAlpha));
+	mpDrawer->DrawGfxObject(mpGfxBackground,cVector3f(0,0,0),cVector2f(800,600),cColor(1,mfAlpha));
 
 	////////////////////////////////////
 	//Book types

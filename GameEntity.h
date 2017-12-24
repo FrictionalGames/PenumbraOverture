@@ -245,7 +245,7 @@ public:
 
 	void Break(){ mbBreakMe = true;}
 
-    void SetCharBody(iCharacterBody *apCharBody){ mpCharBody = apCharBody;}
+	void SetCharBody(iCharacterBody *apCharBody){ mpCharBody = apCharBody;}
 	iCharacterBody* SetCharBody(){ return mpCharBody;}
 
 	void SetUpTransMaterials();

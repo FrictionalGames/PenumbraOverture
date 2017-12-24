@@ -104,7 +104,7 @@ void cEngineJoint_SaveData::FromJoint(iPhysicsJoint *apJoint)
 	}
 
 	///////////////////////////////
-    //Type specific
+	//Type specific
 	switch(apJoint->GetType())
 	{
 	case ePhysicsJointType_Ball:
@@ -169,7 +169,7 @@ void cEngineJoint_SaveData::ToJoint(iPhysicsJoint *apJoint)
 	{
 		iPhysicsController *pCtrl = apJoint->GetController(mvControllers[i].msName);
 
-        pCtrl->SetDestValue(mvControllers[i].mfDestValue);
+		pCtrl->SetDestValue(mvControllers[i].mfDestValue);
 		pCtrl->SetActive(mvControllers[i].mbActive);
 	}
 

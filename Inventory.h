@@ -58,7 +58,7 @@ public:
 	cGfxObject* GetGfxObject(){ return mpGfxObject;}
 
 protected:
-    cInit *mpInit;
+	cInit *mpInit;
 	cGraphicsDrawer *mpDrawer;
 	cGfxObject* mpGfxObject;
 	cRect2f mRect;
@@ -256,7 +256,7 @@ private:
 	tWStringVec *mpActionVec;
 
 	float mfRowStart;
-    float mfRowSize;
+	float mfRowSize;
 	float mfColLength;
 
 	int mlSelectedRow;
@@ -317,7 +317,7 @@ public:
 	void SetNoteBookActive(bool abX){ mbNoteBookIsActive = abX;}
 	bool GetNoteBookActive(){ return mbNoteBookIsActive;}
 
-    void OnMouseDown(eMButton aButton);
+	void OnMouseDown(eMButton aButton);
 	void OnMouseUp(eMButton aButton);
 	void OnDoubleClick(eMButton aButton);
 

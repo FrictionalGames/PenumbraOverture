@@ -421,7 +421,7 @@ private:
 	tWString msButtonTip;
 	iFontData *mpTipFont;
 
-    std::vector<cMainMenuParticle> mvRainDrops;
+	std::vector<cMainMenuParticle> mvRainDrops;
 	float mfRainDropCount;
 
 	std::vector<cMainMenuParticle> mvRainSplashes;

@@ -108,7 +108,7 @@ void cRadioHandler::Update(float afTimeStep)
 
 	////////////////////////////
 	// Get next message
-    if(mpCurrentMessage==NULL && mlstMessages.empty()==false)
+	if(mpCurrentMessage==NULL && mlstMessages.empty()==false)
 	{
 		//Get newer message
 		mpCurrentMessage = mlstMessages.front();
@@ -118,7 +118,7 @@ void cRadioHandler::Update(float afTimeStep)
 
 		mfAlpha =0;
 
-        //Start newer message
+		//Start newer message
 		mpCurrentMessage->mpChannel = mpSoundHandler->PlayStream(mpCurrentMessage->msSound,false,1);
 	}
 

@@ -169,7 +169,7 @@ public:
 	void StartCrouch();
 	void StopCrouch();
 
-    void StartInteractMode();
+	void StartInteractMode();
 
 	void StartInventory();
 
@@ -375,7 +375,7 @@ public:
 private:
 	cInit *mpInit;
 
-    cScene *mpScene;
+	cScene *mpScene;
 	cGraphics *mpGraphics;
 	cResources *mpResources;
 	cGraphicsDrawer *mpGfxDrawer;
@@ -387,7 +387,7 @@ private:
 
 	bool mbActive;
 
-    cCamera3D *mpCamera;
+	cCamera3D *mpCamera;
 	float mfLookSpeed;
 	float mfCameraHeightAdd;
 
@@ -462,7 +462,7 @@ private:
 	ePlayerState mState;
 	tPlayerStateVec mvStates;
 
-    ePlayerMoveState mMoveState;
+	ePlayerMoveState mMoveState;
 	tPlayerMoveStateVec mvMoveStates;
 
 	eCrossHairState mCrossHairState;

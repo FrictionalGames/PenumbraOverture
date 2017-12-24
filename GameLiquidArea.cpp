@@ -146,7 +146,7 @@ void cGameLiquidArea::Update(float afTimeStep)
 	float fSurfaceY =	mvBodies[0]->GetWorldPosition().y +
 						mvBodies[0]->GetShape()->GetSize().y /2;
 
-    cCollideData collideData;
+	cCollideData collideData;
 	collideData.SetMaxSize(1);
 
 	mfTimeCount += afTimeStep;
@@ -259,7 +259,7 @@ void cGameLiquidArea::Update(float afTimeStep)
 					pBody->SetBuoyancySurface(tempPlane);
 					pBody->SetEnabled(true);
 				}
-    		}
+			}
 		}
 	}
 }
@@ -305,7 +305,7 @@ void cGameLiquidArea::SplashEffect(iPhysicsBody *apBody)
 	vPos.y =	mvBodies[0]->GetWorldPosition().y +
 				mvBodies[0]->GetShape()->GetSize().y/2;
 
-    cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
+	cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
 
 	if(pImpact->GetPSName() != "")
 	{

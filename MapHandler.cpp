@@ -456,7 +456,7 @@ bool cMapHandler::Load(const tString &asFile,const tString& asStartPos)
 		///////////////////////////
 		//Add to cache
 		mpWorldCache->DecResources();
-        mpWorldCache->AddResources();
+		mpWorldCache->AddResources();
 
 		///////////////////////////
 		//Destroy old map
@@ -556,11 +556,11 @@ bool cMapHandler::LoadSimple(const tString &asFile, bool abLoadEntities)
 	tString sMapName = cString::ToLowerCase(cString::SetFileExt(asFile,""));
 	cWorld3D *pWorld=NULL;
 
-    DestroyAll();
+	DestroyAll();
 	mpInit->mpGame->GetSound()->GetSoundHandler()->StopAll(eSoundDest_World);
 	mpInit->mpGame->GetSound()->Update(1.0f/60.0f);
 
-    mpInit->mpGame->GetGraphics()->GetRenderer3D()->SetAmbientColor(cColor(0,1));
+	mpInit->mpGame->GetGraphics()->GetRenderer3D()->SetAmbientColor(cColor(0,1));
 
 	cWorld3D *pOldWorld = mpScene->GetWorld3D();
 
@@ -640,7 +640,7 @@ void cMapHandler::ChangeMap(const tString &asMap, const tString &asPos, const tS
 							tString asLoadTextCat, tString asLoadTextEntry)
 {
 	mMapChanger.msNewMap = asMap;
-    mMapChanger.msPosName = asPos;
+	mMapChanger.msPosName = asPos;
 	mMapChanger.msDoneSound = asStopSound;
 	mMapChanger.mfFadeInTime = afFadeInTime;
 	mMapChanger.mbActive = true;
@@ -832,7 +832,7 @@ void cMapHandler::LoadSaveData(cSavedWorld* apSavedWorld)
 	{
 		cGameTimer& savedTimer = timerIt.Next();
 
-        cGameTimer *pTimer = hplNew( cGameTimer, () );
+		cGameTimer *pTimer = hplNew( cGameTimer, () );
 		*pTimer = savedTimer;
 
 		mlstTimers.push_back(pTimer);
@@ -1754,10 +1754,10 @@ void cMapHandler::PrintSoundsPlaying()
 	{
 		iSoundChannel *pSound = it->mpSound;
 
-        Log("'%s', ",pSound->GetData()->GetName().c_str());
+		Log("'%s', ",pSound->GetData()->GetName().c_str());
 	}
 
-    Log("\n");
+	Log("\n");
 }
 //-----------------------------------------------------------------------
 
@@ -1767,7 +1767,7 @@ void cMapHandler::UpdateTimers(float afTimeStep)
 	{
 		cGameTimer *pTimer = *it;
 
-        if(pTimer->mbDeleteMe)
+		if(pTimer->mbDeleteMe)
 		{
 			it = mlstTimers.erase(it);
 			hplDelete( pTimer );

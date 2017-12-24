@@ -290,7 +290,7 @@ void cHapticGameCamera::SetRenderActive(bool abX)
 
 	mbRenderActive = abX;
 
-    if(mbActive) mpLowLevelHaptic->SetRenderingActive(mbRenderActive);
+	if(mbActive) mpLowLevelHaptic->SetRenderingActive(mbRenderActive);
 }
 
 //-----------------------------------------------------------------------
@@ -329,7 +329,7 @@ void cHapticGameCamera::UpdateCameraOrientation(float afTimeStep)
 
 	mbAtEdge = false;
 
-    ///////////////////////////
+	///////////////////////////
 	// Frame Type
 	cVector3f vForce(0);
 	cVector2f vSpeed(0);
@@ -612,7 +612,7 @@ void cHapticGameCamera::UpdateProxyInteraction(float afTimeStep)
 		pBody->AddForceAtPosition(	pContactShape->GetAppliedForce() * 60.0f,//33.0f,
 									vProxyPos);
 
-        //Effects
+		//Effects
 		cSurfaceData *pSurface = pBody->GetMaterial()->GetSurfaceData();
 		if(mlContactCount <=0 && pSurface)
 		{
@@ -626,7 +626,7 @@ void cHapticGameCamera::UpdateProxyInteraction(float afTimeStep)
 			}
 
 			//Particle system (and other effects)
-            pSurface->CreateImpactEffect(fProxySpeed*0.3f,vProxyPos,1,NULL);
+			pSurface->CreateImpactEffect(fProxySpeed*0.3f,vProxyPos,1,NULL);
 		}
 	}
 

@@ -255,7 +255,7 @@ public:
 	tString msDeathSound;
 
 private:
-    iCollideShape *mpAttackShape;
+	iCollideShape *mpAttackShape;
 };
 
 //-----------------------------------------

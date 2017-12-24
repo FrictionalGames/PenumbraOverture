@@ -207,7 +207,7 @@ void cGameStickArea::Update(float afTimeStep)
 
 	////////////////////////////////////////////////////////
 	//Iterate all bodies in world and check for intersection
-    cPhysicsBodyIterator bodyIt = pPhysicsWorld->GetBodyIterator();
+	cPhysicsBodyIterator bodyIt = pPhysicsWorld->GetBodyIterator();
 	while(bodyIt.HasNext())
 	{
 		iPhysicsBody *pBody = bodyIt.Next();
@@ -227,7 +227,7 @@ void cGameStickArea::Update(float afTimeStep)
 			//Bounding volume check
 			//if(cMath::CheckCollisionBV(*pBody->GetBV(), *pAreaBody->GetBV())==false) continue;
 
-            bool bCheck = false;
+			bool bCheck = false;
 			if(mbCheckCenterInArea)
 			{
 				cVector3f vPos =	pBody->GetLocalPosition() +
@@ -356,7 +356,7 @@ void cGameStickArea::DetachBody()
 			pWorld->CreateParticleSystem("DetachPS",msDetachPS,1,pAreaBody->GetWorldMatrix());
 		}
 
-        mpAttachedBody->SetGravity(true);
+		mpAttachedBody->SetGravity(true);
 		mpAttachedBody->SetMass(mfBodyMass);
 		mpAttachedBody->SetEnabled(true);
 

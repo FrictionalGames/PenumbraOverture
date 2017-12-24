@@ -276,7 +276,7 @@ void cInventorySlot::OnMouseOver()
 		{
 			mpInit->mpInventory->SetItemDesc(_W(""));
 
-            tWString sDesc = kTranslate("Inventory", "Combine") +_W(" ")+ pCurrentItem->GetGameName() +_W(" ") +
+			tWString sDesc = kTranslate("Inventory", "Combine") +_W(" ")+ pCurrentItem->GetGameName() +_W(" ") +
 							kTranslate("Inventory", "with") +_W(" ")+mpItem->GetGameName();
 			mpInit->mpInventory->SetItemName(sDesc);
 		}
@@ -323,7 +323,7 @@ void cInventorySlot::OnMouseDown(eMButton aButton)
 
 			cVector2f vOffset = cVector2f(mRect.x + 4,	mRect.y + 4) -
 								mpInit->mpInventory->GetMousePos();
-            mpInit->mpInventory->SetCurrentItemOffset(vOffset);
+			mpInit->mpInventory->SetCurrentItemOffset(vOffset);
 		}
 	}
 	/////////////////////////////////
@@ -408,7 +408,7 @@ void cInventorySlot::OnDoubleClick(eMButton aButton)
 				mpInit->mpInventory->SetActive(false);
 			}
 
-            //Use the action of the item
+			//Use the action of the item
 			else if(pItemType->OnAction(pItem, 0)==false)
 			{
 				mpInit->mpInventory->SetActive(false);
@@ -836,7 +836,7 @@ void cInventoryContext::Update(float afTimeStep)
 		if(mfAlpha>1) mfAlpha = 1;
 	}
 
-    mpInit->mpInventory->SetItemDesc(mpItem->GetDescription());
+	mpInit->mpInventory->SetItemDesc(mpItem->GetDescription());
 	mpInit->mpInventory->SetItemName(mpItem->GetGameName());
 
 	///////////////////////////////////////
@@ -1106,7 +1106,7 @@ void cInventory::OnDraw()
 
 	//////////////////////////
 	//Draw context
-    mpContext->Draw();
+	mpContext->Draw();
 
 	//////////////////////////
 	//Draw message
@@ -1239,7 +1239,7 @@ void cInventory::AddItem(cGameItem *apGameItem)
 	pItem->Init(apGameItem);
 
 	cGameItemType *pType = GetItemType(pItem->GetItemType());
-    if(pType->OnPickUp(pItem,true)==false)
+	if(pType->OnPickUp(pItem,true)==false)
 	{
 		CheckPickupCallback(pItem->GetName());
 		hplDelete( pItem );
@@ -1576,7 +1576,7 @@ void cInventory::AddUseCallback(const tString &asItem, const tString &asObject, 
 	if(it != m_mapUseCallbacks.end())
 	{
 		int lCount = (int)m_mapUseCallbacks.count(asItem);
-        for(int i=0; i<lCount; ++i)
+		for(int i=0; i<lCount; ++i)
 		{
 			cInventoryUseCallback *pCallback = it->second;
 			if(pCallback->msObject == asObject)
@@ -1653,7 +1653,7 @@ void cInventory::RemoveCombineCallback(const tString &asFunction)
 	{
 		cInventoryCombineCallback *pCallback = *it;
 
-        if(pCallback->msFunction == asFunction)
+		if(pCallback->msFunction == asFunction)
 		{
 			if(mbCheckingCombineItems)
 			{
@@ -1787,7 +1787,7 @@ void cInventory::SaveToGlobal(cInventory_GlobalSave *apSave)
 
 	////////////////////////////
 	//Items
-    tInventoryItemMapIt ItemIt = m_mapItems.begin();
+	tInventoryItemMapIt ItemIt = m_mapItems.begin();
 	for(; ItemIt != m_mapItems.end(); ++ItemIt)
 	{
 		cInventoryItem *pItem = ItemIt->second;

@@ -309,7 +309,7 @@ void cPlayerState_GrabHaptX::OnStartExamine()
 	if(mpPlayer->mbCanBeThrown==false) return;
 
 	//Reset linear and angular speed.
-    mpPushBody->SetLinearVelocity(0);
+	mpPushBody->SetLinearVelocity(0);
 	mpPushBody->SetAngularVelocity(0);
 
 	//Get the forward vector
@@ -328,7 +328,7 @@ void cPlayerState_GrabHaptX::OnStartExamine()
 	else
 		fT = 1 - (fMass - mfMinThrowMass) / ( mfMaxThrowMass - mfMinThrowMass);
 
-    float fImpulse = mfMinThrowImpulse * (1-fT) + mfMaxThrowImpulse * fT;
+	float fImpulse = mfMinThrowImpulse * (1-fT) + mfMaxThrowImpulse * fT;
 
 	//Log("Mass: %f Impulse: %f\n",fMass,fImpulse);
 

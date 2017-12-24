@@ -114,7 +114,7 @@ void cHudModel_WeaponMelee::LoadData(TiXmlElement *apRootElem)
 	{
 		cMeleeWeaponAttack meleeAttack;
 
-        meleeAttack.mStart = GetPoseFromElem("StartPose",pAttackElem);
+		meleeAttack.mStart = GetPoseFromElem("StartPose",pAttackElem);
 		meleeAttack.mEnd = GetPoseFromElem("EndPose",pAttackElem);
 		meleeAttack.mfAttackLength = cString::ToFloat(pAttackElem->Attribute("AttackLength"),0);
 		meleeAttack.mfChargeLength = cString::ToFloat(pAttackElem->Attribute("ChargeLength"),0);

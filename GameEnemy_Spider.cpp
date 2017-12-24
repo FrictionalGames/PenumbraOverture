@@ -214,7 +214,7 @@ void cGameEnemyState_Spider_Hunt::OnEnterState(iGameEnemyState *apPrevState)
 	mfLostPlayerCount =0;
 	mfMaxLostPlayerCount = mpEnemySpider->mfHuntForLostPlayerTime;
 
-    mpInit->mpMusicHandler->AddAttacker(mpEnemy);
+	mpInit->mpMusicHandler->AddAttacker(mpEnemy);
 
 	if(mpEnemySpider->mbPathFind==false) mpMover->Stop();
 }

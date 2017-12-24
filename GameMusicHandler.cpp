@@ -243,7 +243,7 @@ void cGameMusicHandler::Reset()
 
 	mlCurrentMaxPrio = -1;
 
-    mbAttackPlaying = false;
+	mbAttackPlaying = false;
 	m_setAttackers.clear();
 
 	mfAttackPlayCount =0;

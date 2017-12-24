@@ -147,7 +147,7 @@ void cEntityLoader_GameLamp::AfterLoad(TiXmlElement *apRootElem, const cMatrixf 
 cGameLamp::cGameLamp(cInit *apInit,const tString& asName) : iGameEntity(apInit,asName)
 {
 	mType = eGameEntityType_Lamp;
-    mbHasInteraction = true;
+	mbHasInteraction = true;
 
 	mbLit = true;
 	mfMaxInteractDist = 2.1f;
@@ -334,7 +334,7 @@ void cGameLamp::Update(float afTimeStep)
 
 	////////////////////////////////
 	//Update billboards
-    if(bChanged)
+	if(bChanged)
 	{
 		for(size_t i=0; i<mvBillboards.size(); ++i)
 		{
@@ -460,7 +460,7 @@ void cGameLamp::SetLit(bool abX, bool abFade)
 		}
 		if(mpSubMesh && mpOffMaterial) mpSubMesh->SetCustomMaterial(mpOffMaterial,false);
 
-        if(!abFade)mfAlpha = 0;
+		if(!abFade)mfAlpha = 0;
 
 		if(msTurnOffSound!="" && abFade)
 		{

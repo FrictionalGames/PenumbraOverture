@@ -1171,7 +1171,7 @@ public:
 		int lCurrentNum = 0;
 
 		//get current num
-        for(int i=0; i<mlDevices.size(); ++i)
+		for(int i=0; i<mlDevices.size(); ++i)
 		{
 			if(mlDevices[i] == mpInit->msDeviceName)
 			{
@@ -1664,7 +1664,7 @@ public:
 		else if(aButton == eMButton_Right)
 		{
 			if(lX == 2)			lX = 0;
-            else if(lX == 0)	lX = -1;
+			else if(lX == 0)	lX = -1;
 			else				lX /= 2;
 
 			if(lX < 0) lX = mlMax;
@@ -1786,7 +1786,7 @@ public:
 		int lCurrentNum =0;
 
 		//get current num
-        for(int i=0; i<glResolutionNum; ++i)
+		for(int i=0; i<glResolutionNum; ++i)
 		{
 			if(gvResolutions[i] == mpInit->mvScreenSize)
 			{
@@ -1958,7 +1958,7 @@ public:
 			//FatalError("Action for %s button does not exist!\n",msText.c_str());
 		}
 
-        mpKeyWidget->SetExtraWidget(this);
+		mpKeyWidget->SetExtraWidget(this);
 		mpKeyWidget->UpdateSize();
 	}
 
@@ -1981,7 +1981,7 @@ public:
 			if(mpKeyWidget->msText == _W(""))
 				mpKeyWidget->msText = cString::To16Char(sKeyName);
 
-            mpKeyWidget->UpdateSize();
+			mpKeyWidget->UpdateSize();
 		}
 		else
 		{
@@ -2084,7 +2084,7 @@ cMainMenu::~cMainMenu(void)
 {
 	STLDeleteAll(mlstWidgets);
 
-    mpDrawer->DestroyGfxObject(mpGfxBlackQuad);
+	mpDrawer->DestroyGfxObject(mpGfxBlackQuad);
 	mpDrawer->DestroyGfxObject(mpGfxMouse);
 	mpDrawer->DestroyGfxObject(mpGfxRainDrop);
 	mpDrawer->DestroyGfxObject(mpGfxRainSplash);
@@ -3417,7 +3417,7 @@ void cMainMenu::CreateWidgets()
 	cMainMenuWidget *pWidgetSoundOutputDevice = hplNew( cMainMenuWidget_SoundOutputDevice, (mpInit,vPos,kTranslate("MainMenu","Output Device:"),20,eFontAlign_Right) );
 	AddWidgetToState(eMainMenuState_OptionsSound,pWidgetSoundOutputDevice);
 	vPos.y += 35;
-    AddWidgetToState(eMainMenuState_OptionsSound,hplNew( cMainMenuWidget_GfxBack, (mpInit,vPos,kTranslate("MainMenu","Back"),23,eFontAlign_Center)) );
+	AddWidgetToState(eMainMenuState_OptionsSound,hplNew( cMainMenuWidget_GfxBack, (mpInit,vPos,kTranslate("MainMenu","Back"),23,eFontAlign_Center)) );
 
 
 	//Text
@@ -3556,7 +3556,7 @@ void cMainMenu::CreateWidgets()
 	cMainMenuWidget *pDOFButton = hplNew( cMainMenuWidget_DOF,(mpInit,vPos,kTranslate("MainMenu","Depth of Field:"),20,eFontAlign_Right) );
 	AddWidgetToState(eMainMenuState_OptionsGraphicsAdvanced,pDOFButton);
 	vPos.y += 35;
-    AddWidgetToState(eMainMenuState_OptionsGraphicsAdvanced,hplNew( cMainMenuWidget_Button,(mpInit,vPos,kTranslate("MainMenu","Back"),eMainMenuState_OptionsGraphics,23,eFontAlign_Center)) );
+	AddWidgetToState(eMainMenuState_OptionsGraphicsAdvanced,hplNew( cMainMenuWidget_Button,(mpInit,vPos,kTranslate("MainMenu","Back"),eMainMenuState_OptionsGraphics,23,eFontAlign_Center)) );
 
 	//Text
 	vPos = cVector3f(vTextStart.x+12, vTextStart.y+37, vTextStart.z) + cVector3f(40,0,0);

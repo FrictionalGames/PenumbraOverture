@@ -87,7 +87,7 @@ public:
 
 	bool mbActive;
 
-    tString msEntity;
+	tString msEntity;
 	tString msSound;
 	tString msPS;
 	float mfMinImpulse;
@@ -130,7 +130,7 @@ public:
 	float mfDistance;
 	tStringVec mvSubtypes;
 
-    bool mbIsEaten;
+	bool mbIsEaten;
 	float mfEatLength;
 };
 

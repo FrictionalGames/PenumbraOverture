@@ -49,7 +49,7 @@ private:
 	iLowLevelGraphics *mpLowLevelGfx;
 	cTextureManager *mpTexManager;
 
-    cGraphicsDrawer *mpDrawer;
+	cGraphicsDrawer *mpDrawer;
 
 	iFontData *mpFont;
 };

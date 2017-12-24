@@ -148,7 +148,7 @@ bool cEnemyFindGround::GetGround(	const cVector3f &avStartPos,const cVector3f &a
 	mfMinDist = afMaxDistance;
 	mfMaxDistance = afMaxDistance;
 
-    iPhysicsWorld *pPhysicsWorld = gpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
+	iPhysicsWorld *pPhysicsWorld = gpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
 
 	pPhysicsWorld->CastRay(this,avStartPos,avStartPos + avDir * mfMaxDistance,true,true,true);
 
@@ -293,7 +293,7 @@ iGameEnemy::iGameEnemy(cInit *apInit,const tString& asName,TiXmlElement *apGameE
 
 	mfDoorBreakCount =0;
 
-    //Default body settings
+	//Default body settings
 	mfDisappearTime =0;
 	mbDisappearActive = false;
 	mbHasDisappeared = false;
@@ -534,7 +534,7 @@ void iGameEnemy::OnWorldLoad()
 
 	//////////////////////////////////
 	//Stop all animations
-    mpMeshEntity->Stop();
+	mpMeshEntity->Stop();
 	mpMeshEntity->UpdateLogic(0.005f);
 
 	//////////////////////////////////
@@ -546,7 +546,7 @@ void iGameEnemy::OnWorldLoad()
 		mpInit->PreloadSoundEntityData(mvPreloadSounds[i]);
 	}
 
-    //Particle system
+	//Particle system
 	mpInit->PreloadParticleSystem(msHitPS);
 
 	//////////////////////////////////
@@ -577,7 +577,7 @@ void iGameEnemy::OnPostLoadScripts()
 	{
 		int lStartNode = cMath::RandRectl(0,(int)mvPatrolNodes.size()-1);
 		tString sNode = mvPatrolNodes[lStartNode].msNodeName;
-        cAINode *pNode = mpMover->GetNodeContainer()->GetNodeFromName(sNode);
+		cAINode *pNode = mpMover->GetNodeContainer()->GetNodeFromName(sNode);
 
 		mpMover->GetCharBody()->SetFeetPosition(pNode->GetPosition());
 	}
@@ -681,7 +681,7 @@ void iGameEnemy::OnPostSceneDraw()
 
 	cMatrixf mtxFinalOffset = cMath::MatrixMul(mtxPoseRotation,m_mtxModelOffset);
 
-    cVector3f vCenter = mpMover->GetCharBody()->GetPosition();
+	cVector3f vCenter = mpMover->GetCharBody()->GetPosition();
 
 	cVector3f vRot = cMath::MatrixMul(mtxPoseRotation,cVector3f(0,1,0));
 
@@ -918,7 +918,7 @@ bool iGameEnemy::HandleSoundTrigger(cGameTrigger *apTrigger)
 	//If not audible return
 	if(fHearVolume <=0) return false;
 
-    return mvStates[mlCurrentState]->OnHearNoise(pSoundTrigger->GetWorldPosition(),fHearVolume);
+	return mvStates[mlCurrentState]->OnHearNoise(pSoundTrigger->GetWorldPosition(),fHearVolume);
 
 	return true;
 }
@@ -1005,7 +1005,7 @@ void iGameEnemy::PlaySound(const tString &asName)
 
 	cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
 
-    cSoundEntity *pSound = pWorld->CreateSoundEntity("Enemy",asName,true);
+	cSoundEntity *pSound = pWorld->CreateSoundEntity("Enemy",asName,true);
 	if(pSound)
 	{
 		pSound->SetPosition(mpMover->GetCharBody()->GetPosition());
@@ -1182,7 +1182,7 @@ void iGameEnemy::UpdateEnemyPose(float afTimeStep)
 
 		float fDist = vStartPos.y - vPosition.y;
 
-        vNormal.Normalise();
+		vNormal.Normalise();
 		float fAngle = cMath::Vector3Angle(vUp,vNormal);
 
 		cVector3f vRotateAxis = cMath::Vector3Cross(vUp,vNormal);
@@ -1342,7 +1342,7 @@ void iGameEnemy::UpdateCheckForPlayer(float afTimeStep)
 	}
 	else
 	{
-        //Reset LOS counter,
+		//Reset LOS counter,
 		mlPlayerInLOSCount--;
 		if(mlPlayerInLOSCount<0)mlPlayerInLOSCount=0;
 
@@ -1443,7 +1443,7 @@ void iGameEnemy::UpdateAnimations(float afTimeStep)
 
 		//////////////////////////////////////////////
 		//If move state has changed, change animation
-        if(prevMoveState != mMoveState)
+		if(prevMoveState != mMoveState)
 		{
 			//Backward
 			if(mMoveState == eEnemyMoveState_Backward)

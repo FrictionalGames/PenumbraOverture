@@ -333,7 +333,7 @@ void cCharacterMove::Update(float afTimeStep)
 
 	float fCos = cMath::Vector3Dot(vWantedDir,vRealDir);
 
-    if( fRealSpeed/fWantedSpeed < mfStuckLimit ||
+	if( fRealSpeed/fWantedSpeed < mfStuckLimit ||
 		(std::abs(fCos) < 0.3f && fWantedSpeed > 0.001f))
 	{
 		mfStuckCounter += afTimeStep;

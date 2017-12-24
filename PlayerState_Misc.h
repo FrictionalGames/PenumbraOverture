@@ -179,7 +179,7 @@ private:
 
 	float mfLeaveAtTopCount;
 
-    void PlaySound(const tString &asSound);
+	void PlaySound(const tString &asSound);
 public:
 	cPlayerState_Climb(cInit *apInit,cPlayer *apPlayer);
 

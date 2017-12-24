@@ -996,7 +996,7 @@ void cPlayer::OnWorldLoad()
 	mvMoveStates[mMoveState]->EnterState(NULL);
 	mvMoveStates[mMoveState]->Start();
 
-    mpFlashLight->OnWorldLoad();
+	mpFlashLight->OnWorldLoad();
 	//mpGlowStick->OnWorldLoad();
 	mpFlare->OnWorldLoad();
 	mpHidden->OnWorldLoad();
@@ -1686,7 +1686,7 @@ void cPlayer::OnDraw()
 
 		//////////////////////////////
 		//Music
-        cMusicEntry *pMusic = mpInit->mpGame->GetSound()->GetMusicHandler()->GetCurrentSong();
+		cMusicEntry *pMusic = mpInit->mpGame->GetSound()->GetMusicHandler()->GetCurrentSong();
 		if(pMusic){
 				iSoundChannel *pChannel = pMusic->mpStream;
 				mpFont->Draw(cVector3f(5,18+70,0),10,cColor(1,1,1,1),eFontAlign_Left,
@@ -1706,7 +1706,7 @@ void cPlayer::OnDraw()
 	//DEBUG: Portals
 	/*tString sPortals = "Portals: ";
 	cPortalContainer *pContainer = mpInit->mpGame->GetScene()->GetWorld3D()->GetPortalContainer();
-    tStringList* pStringList = pContainer->GetVisibleSectorsList();
+	tStringList* pStringList = pContainer->GetVisibleSectorsList();
 	for(tStringListIt it=pStringList->begin(); it != pStringList->end(); ++it)
 	{
 		sPortals += *it + ", ";

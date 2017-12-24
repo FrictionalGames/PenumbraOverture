@@ -217,7 +217,7 @@ void cButtonHandler::Update(float afTimeStep)
 		while(FileExists(cString::To16Char(sFileName)))
 		{
 			sFileName = "screenshot";
-            if(lCount < 10)sFileName+= "00";
+			if(lCount < 10)sFileName+= "00";
 			else if(lCount < 100)sFileName+= "0";
 			sFileName += cString::ToString(lCount);
 			sFileName += ".bmp";
@@ -587,7 +587,7 @@ void cButtonHandler::Update(float afTimeStep)
 																		false,0.01f);
 				/*cVector3f vPos = mpInit->mpPlayer->GetCharacterBody()->GetPosition();
 				cSoundEntity *pSound = mpInit->mpGame->GetScene()->GetWorld3D()->CreateSoundEntity("Taunt","interact_homer",true);
-                if(pSound)
+				if(pSound)
 				{
 					pSound->SetPosition(vPos);
 				}*/

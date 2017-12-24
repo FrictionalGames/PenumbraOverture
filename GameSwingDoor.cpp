@@ -116,7 +116,7 @@ void cEntityLoader_GameSwingDoor::AfterLoad(TiXmlElement *apRootElem, const cMat
 cGameSwingDoor::cGameSwingDoor(cInit *apInit,const tString& asName) : iGameEntity(apInit,asName)
 {
 	mType = eGameEntityType_SwingDoor;
-    mbHasInteraction = true;
+	mbHasInteraction = true;
 
 	mbPauseControllers = true;
 	mbPauseGravity = true;

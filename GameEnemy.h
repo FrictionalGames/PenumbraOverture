@@ -178,7 +178,7 @@ public:
 
 protected:
 	int mlId;
-    cInit *mpInit;
+	cInit *mpInit;
 	cPlayer *mpPlayer;
 	iGameEnemy *mpEnemy;
 	cCharacterMove *mpMover;

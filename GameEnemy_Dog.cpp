@@ -799,7 +799,7 @@ void cGameEnemyState_Dog_Hunt::OnEnterState(iGameEnemyState *apPrevState)
 
 	mlStuckAtMaxCount =0;
 
-    mpInit->mpMusicHandler->AddAttacker(mpEnemy);
+	mpInit->mpMusicHandler->AddAttacker(mpEnemy);
 }
 
 //-----------------------------------------------------------------------
@@ -908,7 +908,7 @@ void cGameEnemyState_Dog_Hunt::OnUpdate(float afTimeStep)
 		//Go towards player
 		mpMover->MoveDirectToPos(mpPlayer->GetCharacterBody()->GetFeetPosition(),afTimeStep);
 
-        //Check if he should attack.
+		//Check if he should attack.
 		if(mpMover->DistanceToChar2D(mpPlayer->GetCharacterBody()) < mpEnemyDog->mfAttackDistance)
 		{
 			float fHeight = mpMover->GetCharBody()->GetPosition().y -
@@ -1296,7 +1296,7 @@ void cGameEnemyState_Dog_Flee::OnUpdate(float afTimeStep)
 												NULL, NULL, 1.9f);
 			if(bHit)
 			{
-                if(mbBackingFromBreakDoor)
+				if(mbBackingFromBreakDoor)
 				{
 					if(mlPreviousState == STATE_FLEE)
 						mpEnemy->ChangeState(STATE_HUNT);
@@ -1577,7 +1577,7 @@ void cGameEnemyState_Dog_BreakDoor::OnAnimationOver(const tString &asName)
 	}
 	else
 	{
-        //mpEnemy->ChangeState(mlPreviousState);
+		//mpEnemy->ChangeState(mlPreviousState);
 		mpEnemy->ChangeState(STATE_FLEE);
 		mpEnemy->GetState(STATE_FLEE)->SetPreviousState(mlPreviousState);
 	}

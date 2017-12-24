@@ -68,7 +68,7 @@ public:
 	void SetHandVisible(bool abX);
 	bool GetHandVisible();
 
-    float GetHandReachRadius();
+	float GetHandReachRadius();
 
 	void SetRenderActive(bool abX);
 
