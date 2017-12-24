@@ -51,7 +51,7 @@ bool cAttackRayCallback::OnIntersect(iPhysicsBody *pBody,cPhysicsRayParams *apPa
 	if(pBody->GetCollide()==false) return true;
 	if(pBody == mpSkipBody) return true;
 	if(mbSkipCharacter && pBody->IsCharacter()) return true;
-	
+
 	if(apParams->mfDist < mfShortestDist || mpClosestBody == NULL)
 	{
 		mpClosestBody = pBody;
@@ -59,7 +59,7 @@ bool cAttackRayCallback::OnIntersect(iPhysicsBody *pBody,cPhysicsRayParams *apPa
 		mvPosition = apParams->mvPoint;
 	}
 
-	
+
 	return true;
 }
 
@@ -122,7 +122,7 @@ cAttackHandler::cAttackHandler(cInit *apInit) : iUpdateable("AttackHandler")
 {
 	mpInit = apInit;
 
-	mpSplashBlockCheck = hplNew( cSplashDamageBlockCheck,(apInit) ); 
+	mpSplashBlockCheck = hplNew( cSplashDamageBlockCheck,(apInit) );
 }
 
 //-----------------------------------------------------------------------
@@ -140,24 +140,24 @@ cAttackHandler::~cAttackHandler(void)
 
 //-----------------------------------------------------------------------
 
-bool cAttackHandler::CreateLineAttack(const cVector3f& avStart, const cVector3f& avEnd, float afDamage, 
+bool cAttackHandler::CreateLineAttack(const cVector3f& avStart, const cVector3f& avEnd, float afDamage,
 										eAttackTargetFlag aTarget, iPhysicsBody *apSkipBody,
 										iPhysicsBody **apPickedBody)
 {
 	iPhysicsWorld *pPhysicsWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
-	
+
 	mRayCallback.mTarget = aTarget;
 	mRayCallback.mpSkipBody = apSkipBody;
-	
+
 	if(apPickedBody)*apPickedBody = NULL;
-	
+
 	mRayCallback.Reset();
     pPhysicsWorld->CastRay(&mRayCallback,avStart,avEnd,true,false,true);
-	
+
 	if(mRayCallback.mpClosestBody == NULL) return false;
 
 	if(apPickedBody) *apPickedBody = mRayCallback.mpClosestBody;
-	
+
 	if(aTarget & eAttackTargetFlag_Player)
 	{
 		if(mpInit->mpPlayer->GetCharacterBody()->GetBody() == mRayCallback.mpClosestBody)
@@ -171,7 +171,7 @@ bool cAttackHandler::CreateLineAttack(const cVector3f& avStart, const cVector3f&
 	{
 
 	}
-	
+
 	return false;
 }
 
@@ -193,7 +193,7 @@ bool cAttackHandler::CreateShapeAttack(	iCollideShape *apShape, const cMatrixf& 
 	//Set up boudning box
     cBoundingVolume tempBV = apShape->GetBoundingVolume();
 	tempBV.SetTransform(a_mtxOffset);
-		
+
 	///////////////////////////////
 	//Iterate bodies
 	cCollideData collideData;
@@ -201,7 +201,7 @@ bool cAttackHandler::CreateShapeAttack(	iCollideShape *apShape, const cMatrixf& 
 
 	cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
 	iPhysicsWorld *pPhysicsWorld = pWorld->GetPhysicsWorld();
-	
+
 	//Get bodies and add to list, this incase the portal contaniner gets changed.
 	std::list<iPhysicsBody*> lstTempBodies;
 	cPhysicsBodyIterator bodyIt = pPhysicsWorld->GetBodyIterator();
@@ -223,7 +223,7 @@ bool cAttackHandler::CreateShapeAttack(	iCollideShape *apShape, const cMatrixf& 
 		if(cMath::CheckCollisionBV(tempBV, *pBody->GetBV()))
 		{
 			iGameEntity *pEntity = (iGameEntity*)pBody->GetUserData();
-			
+
 			///////////////////////////////
 			//Check for collision
 			if(pPhysicsWorld->CheckShapeCollision(pBody->GetShape(),pBody->GetLocalMatrix(),
@@ -231,7 +231,7 @@ bool cAttackHandler::CreateShapeAttack(	iCollideShape *apShape, const cMatrixf& 
 			{
 				continue;
 			}
-			
+
 			///////////////////////////
 			//Player
 			if(aTarget & eAttackTargetFlag_Player)
@@ -240,12 +240,12 @@ bool cAttackHandler::CreateShapeAttack(	iCollideShape *apShape, const cMatrixf& 
 				{
 					//Check with line if there is a free path, if not skip damage.
 					cVector3f vEnd = pBody->GetWorldPosition();
-                    
+
 					mRayCallback.Reset();
 					mRayCallback.mbSkipCharacter = true;
 					pPhysicsWorld->CastRay(&mRayCallback,avOrigin,vEnd,true,false,false);
 					mRayCallback.mbSkipCharacter = false;
-					
+
 					//Damage
 					if(mRayCallback.mpClosestBody==NULL)
 					{
@@ -254,7 +254,7 @@ bool cAttackHandler::CreateShapeAttack(	iCollideShape *apShape, const cMatrixf& 
 							mpInit->mpPlayer->Damage(afDamage,ePlayerDamageType_BloodSplash);
 						}
 					}
-					
+
 					//Impulse
 					float fMass = mpInit->mpPlayer->GetCharacterBody()->GetMass();
 					float fForceSize =0;
@@ -264,25 +264,25 @@ bool cAttackHandler::CreateShapeAttack(	iCollideShape *apShape, const cMatrixf& 
 						float fT = (fMass - afMinMass*10) / (afMaxMass*10 - afMinMass*10);
 						fForceSize = afMinImpulse*10 * fT + afMaxImpulse*10 * (1-fT);
 					}
-					
+
 					cVector3f vForceDir = mpInit->mpPlayer->GetCharacterBody()->GetPosition() - avOrigin;
 					vForceDir.Normalise();
 					vForceDir += cVector3f(0,0.1f,0);
-					
+
 					mpInit->mpPlayer->GetCharacterBody()->AddForce(vForceDir * fForceSize * 300);
-					
+
 					bHit = true;
 					continue;
 				}
 			}
-			
+
 			///////////////////////////
 			//Enemy
 			if(aTarget & eAttackTargetFlag_Enemy)
 			{
 
 			}
-			
+
 			///////////////////////////
 			//Bodies
 			if(aTarget & eAttackTargetFlag_Bodies)
@@ -300,13 +300,13 @@ bool cAttackHandler::CreateShapeAttack(	iCollideShape *apShape, const cMatrixf& 
 							mpLastSwingDoor = static_cast<cGameSwingDoor*>(pEntity);
 						}
 					}
-					
+
 					bHit = true;
 				}
 			}
 		}
 	}
-	
+
 	////////////////////////////////
 	//Iterate bodies hit, this to
 	//spread out the impulse.
@@ -335,14 +335,14 @@ bool cAttackHandler::CreateShapeAttack(	iCollideShape *apShape, const cMatrixf& 
 			pBody->AddImpulse(vDir * fForceSize);
 		}
 	}
-	
+
 	return bHit;
 }
 
 //-----------------------------------------------------------------------
 
-bool cAttackHandler::CreateLineDestroyBody(const cVector3f& avStart, const cVector3f& avEnd, 
-											float afStrength,float afForce,iPhysicsBody *apSkipBody, 
+bool cAttackHandler::CreateLineDestroyBody(const cVector3f& avStart, const cVector3f& avEnd,
+											float afStrength,float afForce,iPhysicsBody *apSkipBody,
 											iPhysicsBody **apPickedBody)
 {
 	iPhysicsWorld *pPhysicsWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
@@ -368,9 +368,9 @@ bool cAttackHandler::CreateLineDestroyBody(const cVector3f& avStart, const cVect
 
         cVector3f vForward = avEnd - avStart;
 		vForward.Normalise();
-		
+
 		pBody->AddForce(vForward * afForce);
-		
+
 		//Destroy object if possible.
 		if(pObject->IsDestroyable() && pObject->GetDestroyStrength() <= afStrength)
 		{
@@ -379,7 +379,7 @@ bool cAttackHandler::CreateLineDestroyBody(const cVector3f& avStart, const cVect
 				iPhysicsJoint *pJoint = pBody->GetJoint(i);
 				pJoint->Break();
 			}
-		
+
 			if(pObject->GetInteractMode() == eObjectInteractMode_Move)
 				pObject->SetInteractMode(eObjectInteractMode_Grab);
 
@@ -392,7 +392,7 @@ bool cAttackHandler::CreateLineDestroyBody(const cVector3f& avStart, const cVect
 			}
 		}
 	}
-	
+
 
 	return false;
 }
@@ -409,7 +409,7 @@ static float CalcSize(float afDist, float afMaxDist, float afMinVal,float afMaxV
 
 //----------------------------------------------------------------------
 
-void cAttackHandler::CreateSplashDamage(const cVector3f& avCenter, float afRadius, float afMinDamage, 
+void cAttackHandler::CreateSplashDamage(const cVector3f& avCenter, float afRadius, float afMinDamage,
 										float afMaxDamge,float afMinForce, float afMaxForce,
 										float afMaxImpulse,
 										unsigned int aTarget, float afMinMass,
@@ -447,7 +447,7 @@ void cAttackHandler::CreateSplashDamage(const cVector3f& avCenter, float afRadiu
 			if(cMath::CheckCollisionBV(tempBV, *pCharBV))
 			{
 				float fDist = cMath::Vector3Dist(pCharBV->GetPosition(),avCenter);
-				
+
 				pEnemy->Damage(CalcSize(fDist,afRadius,afMinDamage,afMaxDamge),-1);
 			}
 		}
@@ -455,14 +455,14 @@ void cAttackHandler::CreateSplashDamage(const cVector3f& avCenter, float afRadiu
 	if(aTarget & eAttackTargetFlag_Bodies)
 	{
 		iPhysicsWorld *pWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
-		
+
 		std::list<iPhysicsBody*> lstBodies;
 		cPhysicsBodyIterator bodyIt = pWorld->GetBodyIterator();
 		while(bodyIt.HasNext())
 		{
 			lstBodies.push_back(bodyIt.Next());
 		}
-		
+
 		//////////////////////////
 		//Damage Iteration
 		std::list<iPhysicsBody*>::iterator it = lstBodies.begin();
@@ -476,7 +476,7 @@ void cAttackHandler::CreateSplashDamage(const cVector3f& avCenter, float afRadiu
 			//if(pBody->GetMass() <= afMinMass) continue;
 
 			iGameEntity *pEntity = (iGameEntity*)pBody->GetUserData();
-			
+
 			if(pEntity && pEntity->IsActive() && cMath::CheckCollisionBV(tempBV, *pBody->GetBV())
 				&& mpSplashBlockCheck->CheckBlock(pBody->GetWorldPosition(), avCenter)==false)
 			{
@@ -485,8 +485,8 @@ void cAttackHandler::CreateSplashDamage(const cVector3f& avCenter, float afRadiu
 				{
 					continue;
 				}
-				
-				
+
+
 				float fDist = cMath::Vector3Dist(avCenter,pBody->GetLocalPosition());
 				/*float fForceSize = CalcSize(fDist,afRadius,afMinForce,afMaxForce);
 				cVector3f vForceDir = pBody->GetLocalPosition() - avCenter;
@@ -496,7 +496,7 @@ void cAttackHandler::CreateSplashDamage(const cVector3f& avCenter, float afRadiu
 				{
 					fForceSize = afMaxImpulse * pBody->GetMass();
 				}
-				
+
 				pBody->AddForce(vForceDir * fForceSize);*/
 
 				if(pEntity)
@@ -506,7 +506,7 @@ void cAttackHandler::CreateSplashDamage(const cVector3f& avCenter, float afRadiu
 				}
 			}
 		}
-		
+
 		//Update map handler so all stuff that should be broken is.
 		//mpInit->mpMapHandler->Update(1.0f/60.0f);
 
@@ -516,7 +516,7 @@ void cAttackHandler::CreateSplashDamage(const cVector3f& avCenter, float afRadiu
 		for(; it != lstBodies.end(); ++it)
 		{
 			iPhysicsBody *pBody = *it;
-			
+
 			if(pBody->IsCharacter() || pBody->GetMass()==0) continue;
 			if(pBody->IsActive()==false) continue;
 			if(pBody->GetMass() <= afMinMass) continue;

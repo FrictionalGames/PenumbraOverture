@@ -32,7 +32,7 @@ public:
 	cVector2f	vDir;
 	float		fLength;
 	float		fColor;
-	
+
 	cGfxObject *mpGfx;
 };
 
@@ -49,11 +49,11 @@ public:
 	void Reset();
 
 	void OnPostSceneDraw();
-	
+
 	void OnDraw();
-    
+
 	void Update(float afTimeStep);
-	
+
 	void OnMouseDown(eMButton aButton);
 	void OnButtonDown();
 
@@ -94,7 +94,7 @@ private:
 	float mfStateTimer;
 
 	cVector3f mvecLastTextPos;
-	
+
 	float mfLastTextSize;
 	float mfLastTextColor;
 	float mfLastTextSpeed1;
@@ -108,11 +108,11 @@ private:
 	bool mbPlayingMusic;
 
 	float mfFontColor;
-	
+
 	bool mbFlash;
 
 	float mfLogoSizeFactor;
-	
+
 	float mfRaindropFade;
 
 	cVector3f mvecLogoSize;

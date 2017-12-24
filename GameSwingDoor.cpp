@@ -155,16 +155,16 @@ void cGameSwingDoor::SetupPhysics(cWorld3D *apWorld)
 	for(size_t i=0; i<mvJoints.size(); ++i)
 	{
 		iPhysicsJoint *pJoint = mvJoints[i];
-		
+
 		///////////////////////////////////
 		//Create Stop controller
 		iPhysicsController *pController = pPhysicsWorld->CreateController("Stop");
-		
+
 		//pController->SetBody(pJoint->GetChildBody());
 		//pController->SetJoint(pJoint);
-		
+
 		pController->SetActive(true);
-		pController->SetType(ePhysicsControllerType_Pid); 
+		pController->SetType(ePhysicsControllerType_Pid);
 		pController->SetA(1.5f);
 		pController->SetB(1.0f);
 		pController->SetC(0.0f);
@@ -234,7 +234,7 @@ void cGameSwingDoor::OnPlayerInteract()
 		mpInit->mpPlayer->SetPushBody(mpInit->mpPlayer->GetPickedBody());
 		mpInit->mpPlayer->ChangeState(ePlayerState_Grab);
 	}
-		
+
 }
 
 //-----------------------------------------------------------------------
@@ -255,7 +255,7 @@ void cGameSwingDoor::SetLocked(bool abX)
 	{
 		iPhysicsJoint *pJoint = mvJoints[i];
 		iPhysicsJointHinge *pHingeJoint = static_cast<iPhysicsJointHinge*>(pJoint);
-		
+
 		if(mbLocked)
 		{
 			if(std::abs(pHingeJoint->GetMinAngle()) > std::abs(pHingeJoint->GetMaxAngle()))
@@ -293,7 +293,7 @@ void cGameSwingDoor::OnDeath(float afDamage)
 		if(pSound)
 			pSound->SetPosition(mvBodies[0]->GetWorldPosition());
 	}
-	
+
 	if(msBreakEntity == "")
 	{
 		///////////////////////////
@@ -358,7 +358,7 @@ void cGameSwingDoor::BreakAction()
 		cParticleSystem3D *pPS = pWorld->CreateParticleSystem("Break",msBreakPS,cVector3f(1,1,1),
 													pDynBody->GetWorldMatrix());
 	}
-	
+
 	//////////////////
 	//Entity
 	if(msBreakEntity != "")
@@ -376,7 +376,7 @@ void cGameSwingDoor::BreakAction()
 			{
 				//Add the object velocity
 				iPhysicsBody *pNewBody = pGameEntity->GetBody(i);
-				
+
 				if(pNewBody->GetMass()==0 && pStaticBody)
 				{
 					pNewBody->SetMatrix(pStaticBody->GetWorldMatrix());
@@ -394,9 +394,9 @@ void cGameSwingDoor::BreakAction()
 //-----------------------------------------------------------------------
 
 void cGameSwingDoor::SetupBreakObject()
-{	
+{
 	if(msBreakEntity!="") PreloadModel(msBreakEntity);
-	if(msBreakPS!="") 
+	if(msBreakPS!="")
 	{
 		cParticleSystem3D *pPS  = mpInit->mpGame->GetResources()->GetParticleManager()->CreatePS3D(
 			"",msBreakPS,1,cMatrixf::Identity);
@@ -431,7 +431,7 @@ kEndSerialize()
 
 iGameEntity* cGameSwingDoor_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------

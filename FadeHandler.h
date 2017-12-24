@@ -41,7 +41,7 @@ public:
 	void Update(float afTimeStep);
 	void Reset();
 	void OnDraw();
-	
+
 private:
 	cInit *mpInit;
 	cGraphicsDrawer *mpDrawer;

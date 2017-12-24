@@ -88,7 +88,7 @@ void cGameMusicHandler::Update(float afTimeStep)
 {
 	///////////////////////////////////
 	//Check if close by music should be played.
-	
+
 	//Music not playing
 	if(mbAttackPlaying==false)
 	{
@@ -102,10 +102,10 @@ void cGameMusicHandler::Update(float afTimeStep)
 				iGameEnemy *pEnemy = enemyIt.Next();
 
 				if(pEnemy->GetHealth() <= 0 || pEnemy->IsActive()==false) continue;
-			
+
 				float fDist = cMath::Vector3Dist(pEnemy->GetMover()->GetCharBody()->GetFeetPosition(),
 											mpInit->mpPlayer->GetCharacterBody()->GetFeetPosition());
-			
+
 				if(fDist < pEnemy->GetCloseMusicStartDist())
 				{
 					if(pEnemy->GetCloseMusic()!= "" && (sMusic=="" || lHighestPrio < pEnemy->GetCloseMusicPrio()))
@@ -115,7 +115,7 @@ void cGameMusicHandler::Update(float afTimeStep)
 					}
 				}
 			}
-			
+
 			if(sMusic != "")
 			{
 				mfEnemyGoneCount =0;
@@ -159,16 +159,16 @@ void cGameMusicHandler::Update(float afTimeStep)
 			}
 		}
 	}
-	
-	
-	
+
+
+
 	///////////////////////////////////
 	//Check if attack music should be played.
 	if(mbAttackPlaying==false && m_setAttackers.empty()==false)
 	{
 		mfAttackStopCount =0;
 		mfAttackPlayCount += afTimeStep;
-        
+
 		if(mfAttackPlayCount > 1.5f)
 		{
 			//////////////////////
@@ -218,7 +218,7 @@ void cGameMusicHandler::Update(float afTimeStep)
 		}
 	}
 
-	
+
 	///////////////////////////////////
 	//Check if current song is over
 	if(mlCurrentMaxPrio >=0)
@@ -261,14 +261,14 @@ void cGameMusicHandler::Play(const tString &asFile, bool abLoop,float afVolume, 
 	if(alPrio> mlMaxPrio) alPrio = mlMaxPrio;
 
 	if(mvGameMusic[alPrio].msFile == asFile) return;
-	
+
 	//If higher or equal to song playing, start playing
 	if(mlCurrentMaxPrio <= alPrio)
 	{
 		mpMusicHandler->Play(asFile,afVolume,afFade,abLoop);
 		mlCurrentMaxPrio = alPrio;
 	}
-	
+
 	//Set game music properites
 	mvGameMusic[alPrio].mbLoop = abLoop;
 	mvGameMusic[alPrio].mfVolume = afVolume;
@@ -280,12 +280,12 @@ void cGameMusicHandler::Play(const tString &asFile, bool abLoop,float afVolume, 
 void cGameMusicHandler::Stop(float afFade, int alPrio)
 {
 	if(alPrio> mlMaxPrio) alPrio = mlMaxPrio;
-	
+
 	//Check if there is any song playing at this prio
 	if(mvGameMusic[alPrio].msFile != "")
 	{
 		mvGameMusic[alPrio].msFile = "";
-		
+
 		//Check the current song playing is this
 		if(alPrio == mlCurrentMaxPrio)
 		{
@@ -332,7 +332,7 @@ void cGameMusicHandler::OnWorldLoad()
 void cGameMusicHandler::OnWorldExit()
 {
 	m_setAttackers.clear();
-	
+
 	for(int i=0; i<60; ++i)Update(0.1f);
 }
 
@@ -365,7 +365,7 @@ void cGameMusicHandler::SaveToGlobal(cGameMusicHandler_GlobalSave *apSave)
 	{
 		apSave->mvGameMusic[i].msFile = mvGameMusic[i].msFile;
 		apSave->mvGameMusic[i].mfVolume = mvGameMusic[i].mfVolume;
-		apSave->mvGameMusic[i].mbLoop = mvGameMusic[i].mbLoop; 
+		apSave->mvGameMusic[i].mbLoop = mvGameMusic[i].mbLoop;
 	}
 }
 

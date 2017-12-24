@@ -38,9 +38,9 @@ public:
 
 	void OnPostSceneDraw();
 	void OnDraw();
-    
+
 	void Update(float afTimeStep);
-	
+
 	void OnMouseDown(eMButton aButton);
 	void OnButtonDown();
 

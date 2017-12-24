@@ -43,9 +43,9 @@ public:
 		if(mpGfxObject)
 			mpDrawer->DestroyGfxObject(mpGfxObject);
 	}
-	
+
 	virtual void Draw();
-	
+
 	virtual void OnDraw(){}
 	virtual void OnMouseOver(){}
 	virtual void OnMouseDown(eMButton aButton){}
@@ -77,7 +77,7 @@ class cInventorySlot : public iInventoryWidget
 friend class cInventory;
 public:
 	cInventorySlot(cInit *apInit, const cVector2f &avPos, bool abEquip, int alIndex);
-	
+
 	void OnDraw();
 	void OnMouseOver();
 	void OnMouseDown(eMButton aButton);
@@ -91,7 +91,7 @@ public:
 
 	void SetIndex(int alX){ mlIndex = alX;}
 	void SetEquip(bool abX){ mbEquip = abX;}
-	
+
 	void SetEquipIndex(int alX){ mlEquipIndex = alX;}
 	int GetEquipIndex(){ return mlEquipIndex;}
 
@@ -143,7 +143,7 @@ public:
 	cGfxObject* GetGfxObjectAdditive(){ return mpGfxObjectAdditive;}
 
 	eGameItemType GetItemType(){ return mItemType;}
-	
+
 	bool CanBeDropped(){ return mbCanBeDropped;}
 
 	bool HasCount(){ return mbHasCount;}
@@ -186,7 +186,7 @@ class cInventoryBattery : public iInventoryWidget
 public:
 	cInventoryBattery(cInit *apInit, const cRect2f &aRect, cGfxObject* apGfxObject, float afZ);
 	~cInventoryBattery();
-	
+
 	void OnDraw();
 	void OnMouseOver();
 	void OnUpdate(float afTimeStep);
@@ -238,7 +238,7 @@ private:
 	cInit *mpInit;
 	cGraphicsDrawer *mpDrawer;
 	iFontData *mpFont;
-    	
+
 	cGfxObject* mpGfxBack;
 	cGfxObject* mpGfxCorner11;
 	cGfxObject* mpGfxCorner12;
@@ -254,13 +254,13 @@ private:
 	float mfAlpha;
 
 	tWStringVec *mpActionVec;
-	
+
 	float mfRowStart;
     float mfRowSize;
 	float mfColLength;
 
 	int mlSelectedRow;
-	
+
 	cInventoryItem *mpItem;
 	cVector3f mvPos;
 	cVector2f mvSize;
@@ -316,7 +316,7 @@ public:
 
 	void SetNoteBookActive(bool abX){ mbNoteBookIsActive = abX;}
 	bool GetNoteBookActive(){ return mbNoteBookIsActive;}
-	
+
     void OnMouseDown(eMButton aButton);
 	void OnMouseUp(eMButton aButton);
 	void OnDoubleClick(eMButton aButton);
@@ -336,7 +336,7 @@ public:
 
 	cInventorySlot *GetCurrentSlot(){ return mpCurrentSlot;}
 	void SetCurrentSlot(cInventorySlot *apSlot){ mpCurrentSlot = apSlot;}
-	
+
 	void SetCurrentItemOffset(const cVector2f& avOffset){ mvCurrentItemOffset = avOffset;}
 
 	cInventorySlot* GetEquipSlot(int alIdx){ return mvEquipSlots[alIdx];}
@@ -352,7 +352,7 @@ public:
 	void AddPickupCallback(const tString &asItem, const tString &asFunction);
 	void AddUseCallback(const tString &asItem, const tString &asObject, const tString &asFunction);
 	void AddCombineCallback(const tString &asItem1,const tString &asItem2, const tString &asFunction);
-	
+
 	void RemovePickupCallback(const tString &asFunction);
 	void RemoveUseCallback(const tString &asFunction);
 	void RemoveCombineCallback(const tString &asFunction);
@@ -366,7 +366,7 @@ public:
 	//Global save
 	void SaveToGlobal(cInventory_GlobalSave *apSave);
 	void LoadFromGlobal(cInventory_GlobalSave *apSave);
-	
+
 
 	//Save
 	iSaveData* CreateSaveData();
@@ -413,7 +413,7 @@ private:
 	tWString msMessage;
 	float mfMessageAlpha;
 	cGfxObject *mpMessageBackground;
-	
+
 	cInventoryItem *mpCurrentItem;
 	cVector2f mvCurrentItemOffset;
 	cInventorySlot *mpCurrentSlot;

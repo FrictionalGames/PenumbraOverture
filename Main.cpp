@@ -31,7 +31,7 @@ int hplMain(const tString& asCommandLine)
 	cInit *pInit = hplNew( cInit, () );
 
 	bool bRet = pInit->Init(asCommandLine);
-	
+
 	if(bRet==false){
 		hplDelete( pInit->mpGame );
 		CreateMessageBoxW(_W("Error!"),pInit->msErrorMessage.c_str());
@@ -44,7 +44,7 @@ int hplMain(const tString& asCommandLine)
 	pInit->Exit();
 
 	hplDelete( pInit );
-	
+
 	cMemoryManager::LogResults();
 
 	return 0;

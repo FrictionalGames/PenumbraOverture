@@ -37,12 +37,12 @@ class cGameMusic
 friend class cGameMusicHandler;
 public:
 	cGameMusic();
-	
+
 	void Reset();
 
 private:
 	tString msFile;
-	
+
 	bool mbLoop;
 	float mfVolume;
 };
@@ -57,7 +57,7 @@ class cGameMusicHandler : public iUpdateable
 public:
 	cGameMusicHandler(cInit *apInit);
 	~cGameMusicHandler();
-	
+
 	void OnStart();
 	void Update(float afTimeStep);
 	void Reset();

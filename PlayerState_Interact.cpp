@@ -38,7 +38,7 @@ cPlayerState_Grab::cPlayerState_Grab(cInit *apInit,cPlayer *apPlayer) : iPlayerS
 	mGrabPid.SetErrorNum(10);
 	mRotatePid.SetErrorNum(10);
 
-	
+
 	//Get variables
 	mfMaxPidForce =  mpInit->mpGameConfig->GetFloat("Interaction_Grab","MaxPidForce",0);
 
@@ -47,7 +47,7 @@ cPlayerState_Grab::cPlayerState_Grab(cInit *apInit,cPlayer *apPlayer) : iPlayerS
 
 	mfMinThrowImpulse =  mpInit->mpGameConfig->GetFloat("Interaction_Grab","MinThrowImpulse",0);
 	mfMaxThrowImpulse =  mpInit->mpGameConfig->GetFloat("Interaction_Grab","MaxThrowImpulse",0);
-	
+
 
 	//Get font
 	mpFont = mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("verdana.fnt");
@@ -57,14 +57,14 @@ cPlayerState_Grab::cPlayerState_Grab(cInit *apInit,cPlayer *apPlayer) : iPlayerS
 
 
 void cPlayerState_Grab::OnUpdate(float afTimeStep)
-{	
+{
 	cCamera3D *pCamera = mpPlayer->GetCamera();
 	iPhysicsWorld *pPhysicsWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
 
 	cInput *pInput = mpInit->mpGame->GetInput();
-	
+
 	//cVector3f vToCharDir =
-	
+
 	if(pInput->IsTriggerd("WheelUp"))
 	{
 		if(mfGrabDist < mpPlayer->mfCurrentMaxInteractDist*0.8f)
@@ -74,8 +74,8 @@ void cPlayerState_Grab::OnUpdate(float afTimeStep)
 	{
 		if(mfGrabDist > mpPlayer->GetSize().x/2.0f + 0.25f)
 		{
-			//TODO: Collison check? (might be a bit complex)			
-			mfGrabDist -= 0.1f;	
+			//TODO: Collison check? (might be a bit complex)
+			mfGrabDist -= 0.1f;
 		}
 	}
 
@@ -90,7 +90,7 @@ void cPlayerState_Grab::OnUpdate(float afTimeStep)
 	{
 		vCurrentPoint = cMath::MatrixMul(mpPushBody->GetLocalMatrix(), mvRelPickPoint);
 	}
-	else 
+	else
 	{
 		vCurrentPoint = cMath::MatrixMul(cMath::MatrixRotateY(fAngleDist), mvRelPickPoint);
 		vCurrentPoint = cMath::MatrixMul(mpPushBody->GetWorldMatrix(),mpPushBody->GetMassCentre())
@@ -157,7 +157,7 @@ void cPlayerState_Grab::OnUpdate(float afTimeStep)
 		cVector3f vMassCentre = mpPushBody->GetMassCentre();
 		vMassCentre = cMath::MatrixMul(mpPushBody->GetLocalMatrix().GetRotation(),vMassCentre);
 		vLocalPos -= vMassCentre;
-		
+
 		mpPushBody->AddForce(vForce * mpPushBody->GetMass()*mpPlayer->mfGrabMassMul);
 
 		cVector3f vTorque = cMath::Vector3Cross(vLocalPos, vForce);
@@ -172,7 +172,7 @@ void cPlayerState_Grab::OnUpdate(float afTimeStep)
 	////////////////////////////
 	//The rotation
 	cVector3f vOmega = mpPushBody->GetAngularVelocity();
-	
+
 	//Set speed to 0
 	if(std::abs(mfYRotation) < 0.001f || mbRotateWithPlayer==false)
 	{
@@ -182,7 +182,7 @@ void cPlayerState_Grab::OnUpdate(float afTimeStep)
 
 		cVector3f vTorque = mRotatePid.Output(cVector3f(0,0,0) - vOmega, afTimeStep);
 		vTorque = vTorque - vOmega * 0.1f;
-		
+
 		mpPushBody->AddTorque(vTorque * mpPushBody->GetMass());
 		//vTorque = cMath::MatrixMul(mpPushBody->GetInertiaMatrix(),vTorque);
 		//mpPushBody->AddTorque(vTorque);
@@ -228,7 +228,7 @@ void cPlayerState_Grab::OnPostSceneDraw()
 //-----------------------------------------------------------------------
 
 bool cPlayerState_Grab::OnJump()
-{ 
+{
 	return true;
 }
 
@@ -270,7 +270,7 @@ void cPlayerState_Grab::OnStartExamine()
 	//Reset linear and angular speed.
     mpPushBody->SetLinearVelocity(0);
 	mpPushBody->SetAngularVelocity(0);
-	
+
 	//Get the forward vector
 	cVector3f vForward = mpPlayer->GetCamera()->UnProject(mpPlayer->GetCrossHairPos(),
 															mpInit->mpGame->GetGraphics()->GetLowLevel());
@@ -305,7 +305,7 @@ void cPlayerState_Grab::OnStartExamine()
 //-----------------------------------------------------------------------
 
 bool cPlayerState_Grab::OnAddYaw(float afVal)
-{ 
+{
 	afVal *= mfSpeedMul*0.75f;
 	if(mbMoveHand)
 	{
@@ -381,7 +381,7 @@ void cPlayerState_Grab::EnterState(iPlayerState* apPrevState)
 			return;
 		}
 	}
-	
+
 	cCamera3D *pCamera = mpPlayer->GetCamera();
 
 	//Make sure the player is not running
@@ -394,9 +394,9 @@ void cPlayerState_Grab::EnterState(iPlayerState* apPrevState)
 	mbPickAtPoint = mpPlayer->mbPickAtPoint;
 	mbRotateWithPlayer = mpPlayer->mbRotateWithPlayer;
 
-	if(mPrevState == ePlayerState_InteractMode) 
+	if(mPrevState == ePlayerState_InteractMode)
 		mbMoveHand = true;
-	else 
+	else
 		mbMoveHand = false;
 
 	//Get the body to push
@@ -447,14 +447,14 @@ void cPlayerState_Grab::EnterState(iPlayerState* apPrevState)
 	if(mbPickAtPoint)
 		mvRelPickPoint = cMath::MatrixMul(mtxInvModel, mpPlayer->GetPickedPos());
 	else
-		mvRelPickPoint =	mpPlayer->GetPickedPos() - 
+		mvRelPickPoint =	mpPlayer->GetPickedPos() -
 							cMath::MatrixMul(	mpPushBody->GetWorldMatrix(),
 												mpPushBody->GetMassCentre());
 
 	//Set cross hair image.
 	mpPlayer->SetCrossHairState(eCrossHairState_Grab);
 
-	//The amount of rotation we wanna apply to the object, increases/decrease 
+	//The amount of rotation we wanna apply to the object, increases/decrease
 	//when the player turn left/right
 	mfYRotation =0;
 
@@ -523,7 +523,7 @@ bool cPlayerState_Grab::OnStartInventory()
 //-----------------------------------------------------------------------
 
 bool cPlayerState_Grab::OnStartInventoryShortCut(int alNum)
-{ 
+{
 	return false;
 }
 
@@ -600,7 +600,7 @@ void cPlayerState_Move::OnUpdate(float afTimeStep)
 		return;
 	}
 
-	/////////////////////////////////////////	
+	/////////////////////////////////////////
 	//Check if the body should be stopped
 	if(mlMoveCount <= 0)
 	{
@@ -647,7 +647,7 @@ void cPlayerState_Move::OnStopInteract()
 //-----------------------------------------------------------------------
 
 bool cPlayerState_Move::OnJump()
-{ 
+{
 	return false;
 }
 
@@ -693,7 +693,7 @@ bool cPlayerState_Move::OnMoveSideways(float afMul, float afTimeStep)
 //-----------------------------------------------------------------------
 
 bool cPlayerState_Move::OnAddYaw(float afVal)
-{ 
+{
 	if(std::abs(afVal) > kEpsilonf)
 	{
 		cVector3f vForce = (mvRight * (afVal * 100.0f * mpPlayer->mfRightMul));
@@ -714,7 +714,7 @@ bool cPlayerState_Move::OnAddPitch(float afVal)
 {
 	if(std::abs(afVal) > kEpsilonf)
 	{
-		cVector3f vForce = (mvUp * (-afVal * 100.0f  * mpPlayer->mfUpMul)) + 
+		cVector3f vForce = (mvUp * (-afVal * 100.0f  * mpPlayer->mfUpMul)) +
 			(mvForward * (afVal * -80.0f *mpPlayer->mfForwardUpMul));
 		mpPushBody->AddForceAtPosition(vForce,mvPickPoint);
 		mlMoveCount = 20;
@@ -871,7 +871,7 @@ bool cPlayerState_Move::OnStartInventory()
 //-----------------------------------------------------------------------
 
 bool cPlayerState_Move::OnStartInventoryShortCut(int alNum)
-{ 
+{
 	return false;
 }
 //-----------------------------------------------------------------------
@@ -891,7 +891,7 @@ cPlayerState_Push::cPlayerState_Push(cInit *apInit,cPlayer *apPlayer) : iPlayerS
 
 
 void cPlayerState_Push::OnUpdate(float afTimeStep)
-{	
+{
 	//////////////////////////////////////
 	// Check if player is close enough
 	cVector3f vEnd = mpPushBody->GetLocalPosition() + mvRelPickPoint;
@@ -917,10 +917,10 @@ void cPlayerState_Push::OnUpdate(float afTimeStep)
 	//Not really needed. character body should fix.
 	cVector3f vNewPos = vPlayerPos;
 	iPhysicsBody *pBody = mpPlayer->GetCharacterBody()->GetBody();
-	pPhysicsWorld->CheckShapeWorldCollision(&vNewPos,pBody->GetShape(), 
+	pPhysicsWorld->CheckShapeWorldCollision(&vNewPos,pBody->GetShape(),
 										cMath::MatrixTranslate(vPlayerPos),
 										pBody,false, true, NULL,true);
-	
+
 	mpPlayer->GetCharacterBody()->SetPosition(vNewPos,true);
 
 
@@ -931,7 +931,7 @@ void cPlayerState_Push::OnUpdate(float afTimeStep)
 //-----------------------------------------------------------------------
 
 bool cPlayerState_Push::OnJump()
-{ 
+{
 	return false;
 }
 
@@ -966,14 +966,14 @@ void cPlayerState_Push::OnStartExamine()
 bool cPlayerState_Push::OnMoveForwards(float afMul, float afTimeStep)
 {
 	if(afMul<0){
-		if(mpPlayer->mbCanBePulled==false) return false;		
+		if(mpPlayer->mbCanBePulled==false) return false;
 		afMul *=0.7f;
 	}
 
 	float fSpeed = mpPushBody->GetLinearVelocity().Length();
 
 	///////////////////////////////////
-	// Set the direction and if it is newer add extra force	
+	// Set the direction and if it is newer add extra force
 	if(afMul>0)
 	{
 		if(mlForward!=1 && fSpeed<0.01f) afMul *=0.6f * mpPushBody->GetMass();
@@ -1009,7 +1009,7 @@ bool cPlayerState_Push::OnMoveForwards(float afMul, float afTimeStep)
 				/*pPhysicsWorld->CheckShapeWorldCollision(&vNewPos, pPlayerBody->GetShape(),
 											cMath::MatrixTranslate(pPlayerBody->GetPosition()),
 											mpPushBody,false,true,NULL,false);
-				
+
 				if(vNewPos.x != vPos.x || vNewPos.y != vPos.y)
 				{
 					mpPlayer->GetCharacterBody()->SetPosition(vOldPos);
@@ -1029,17 +1029,17 @@ bool cPlayerState_Push::OnMoveForwards(float afMul, float afTimeStep)
 	//Log("Mul: %f\n",afMul);
 
 	/////////////////////////////////////
-	//If the velocity is not to high add force.		
+	//If the velocity is not to high add force.
 
 	if(fSpeed < mfMaxSpeed)
 	{
-		
+
 		if(mpPlayer->mbPickAtPoint)
 		{
 			//NON WORKING ATM:
 			/*cVector3f vForce = mvForward * afMul*100.0f*0.5f;
 
-			cVector3f vPos = cMath::MatrixMul(	mpPushBody->GetLocalMatrix(), 
+			cVector3f vPos = cMath::MatrixMul(	mpPushBody->GetLocalMatrix(),
 												mvLocalPickPoint);
 			vPos.y = mpPushBody->GetLocalPosition().y;
 
@@ -1124,7 +1124,7 @@ void cPlayerState_Push::EnterState(iPlayerState* apPrevState)
 	//All pushed bodies shall be affected by player gravity.
 	mbHasPlayerGravityPush = mpPushBody->GetPushedByCharacterGravity();
 	mpPushBody->SetPushedByCharacterGravity(true);
-	
+
 	//The pick point relative to the body
 	mvRelPickPoint = mpPlayer->GetPickedPos() - mpPushBody->GetLocalPosition();
 
@@ -1185,7 +1185,7 @@ void cPlayerState_Push::LeaveState(iPlayerState* apNextState)
 void cPlayerState_Push::OnPostSceneDraw()
 {
 	return;
-	cVector3f vPos = cMath::MatrixMul(	mpPushBody->GetLocalMatrix(), 
+	cVector3f vPos = cMath::MatrixMul(	mpPushBody->GetLocalMatrix(),
 										mvLocalPickPoint);
 
 	mpInit->mpGame->GetGraphics()->GetLowLevel()->DrawSphere(vPos,0.3f,cColor(1,0,1));
@@ -1201,6 +1201,6 @@ bool cPlayerState_Push::OnStartInventory()
 //-----------------------------------------------------------------------
 
 bool cPlayerState_Push::OnStartInventoryShortCut(int alNum)
-{ 
+{
 	return false;
 }

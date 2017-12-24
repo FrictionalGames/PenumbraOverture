@@ -109,7 +109,7 @@ public:
 	tString msName;
 	tWString msGameName;
 	tWString msDescription;
-	
+
 	tString msSubType;
 
 	eGameItemType mItemType;
@@ -130,7 +130,7 @@ class cInventory_GlobalSave : public iSerializable
 	kSerializableClassInit(cInventory_GlobalSave)
 public:
 	bool mbNoteBookActive;
-    
+
 	cContainerList<cInventorySlot_GlobalSave> mlstSlots;
 	cContainerVec<cInventorySlot_GlobalSave> mvEquipSlots;
 
@@ -294,7 +294,7 @@ public:
 
 	//Script variables
 	cContainerList<cScriptVar> mlstVars;
-	
+
 	//Inventory variables
 	cContainerList<cInventoryUseCallback> mlstUseCallbacks;
 	cContainerList<cInventoryPickupCallback> mlstPickupCallbacks;
@@ -302,13 +302,13 @@ public:
 
 	//Player collider callbacks
 	cContainerList<cSaveGame_cGameCollideScript> mlstCollideCallbacks;
-	
+
 	//Local Timers
 	cContainerList<cGameTimer> mlstTimers;
-	
+
 	//Entities
 	cContainerList<iGameEntity_SaveData*> mlstEntities;
-	
+
 	//Engine types
 	cContainerList<cEngineLight_SaveData> mlstLights;
 	cContainerList<cEnginePS_SaveData> mlstPS;
@@ -335,7 +335,7 @@ public:
 	void ResetWorlds();
 	void ResetGlobalData();
 	cSavedWorld* GetSavedWorld(const tString &asName);
-	
+
 //Variables:
 	eGameDifficulty mDifficulty;
 
@@ -380,12 +380,12 @@ public:
 	void OnExit();
 
 	const tWString& GetSaveDir(){return msSaveDir;}
-	
+
 	void DeleteOldestIfMax(const tWString &asDir,const tWString &asMask, int alMaxFiles);
 	tWString GetLatest(const tWString &asDir,const tWString &asMask);
 private:
 	cInit *mpInit;
-	
+
 	cSavedGame* mpSavedGame;
 	tWString msSaveDir;
 };

@@ -48,7 +48,7 @@ public:
 
 	void Reset();
 	bool OnIntersect(iPhysicsBody *pBody,cPhysicsRayParams *apParams);
-	
+
 	eAttackTargetFlag mTarget;
 	iPhysicsBody *mpSkipBody;
 	iPhysicsBody *mpClosestBody;
@@ -65,7 +65,7 @@ public:
 	cSplashDamageBlockCheck(cInit *apInit);
 
 	bool CheckBlock(const cVector3f& avStart, const cVector3f&avEnd);
-	
+
 	bool BeforeIntersect(iPhysicsBody *pBody);
 	bool OnIntersect(iPhysicsBody *pBody,cPhysicsRayParams *apParams);
 
@@ -82,23 +82,23 @@ public:
 	cAttackHandler(cInit *apInit);
 	~cAttackHandler();
 
-	bool CreateLineAttack(const cVector3f& avStart, const cVector3f& avEnd, float afDamage, 
+	bool CreateLineAttack(const cVector3f& avStart, const cVector3f& avEnd, float afDamage,
 						eAttackTargetFlag aTarget, iPhysicsBody *apSkipBody,
 						iPhysicsBody **apPickedBody=NULL);
 
 	bool CreateShapeAttack(	iCollideShape *apShape, const cMatrixf& a_mtxOffset,
-							const cVector3f &avOrigin,float afDamage, 
+							const cVector3f &avOrigin,float afDamage,
 							float afMinMass, float afMaxMass, float afMinImpulse, float afMaxImpulse,
 							int alStrength,
 							eAttackTargetFlag aTarget, iPhysicsBody *apSkipBody);
-							
 
-	bool CreateLineDestroyBody(const cVector3f& avStart, const cVector3f& avEnd, float afStrength, 
+
+	bool CreateLineDestroyBody(const cVector3f& avStart, const cVector3f& avEnd, float afStrength,
 								float afForce,iPhysicsBody *apSkipBody, iPhysicsBody **apPickedBody=NULL);
 
-	void CreateSplashDamage(const cVector3f& avCenter, float afRadius, float afMinDamage, 
+	void CreateSplashDamage(const cVector3f& avCenter, float afRadius, float afMinDamage,
 											float afMaxDamge,float afMinForce, float afMaxForce,
-											float afMaxImpulse, 
+											float afMaxImpulse,
 											unsigned int aTarget, float afMinMass,
 											int alStrength);
 
@@ -111,8 +111,8 @@ private:
 	cInit *mpInit;
 	cMapHandler *mpMapHandler;
 
-	
-    cGameSwingDoor *mpLastSwingDoor;	
+
+    cGameSwingDoor *mpLastSwingDoor;
 
 	cAttackRayCallback mRayCallback;
 	cSplashDamageBlockCheck *mpSplashBlockCheck;

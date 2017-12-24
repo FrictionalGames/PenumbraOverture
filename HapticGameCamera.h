@@ -78,7 +78,7 @@ public:
 	float GetActionModeCameraSpeed(){ return mfActionModeCameraSpeed;}
 
 	void SetUseFrame(bool abX){mbUseFrame = abX;}
-	
+
 
 private:
 	void UpdateCameraOrientation(float afTimeStep);
@@ -86,7 +86,7 @@ private:
 	void UpdateProxyCovered(float afTimeStep);
 	void UpdateProxyInteraction(float afTimeStep);
 
-    	
+
 	bool mbActive;
 
 	bool mbRenderActive;

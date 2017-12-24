@@ -55,7 +55,7 @@ public:
 	void OnPlayerInteract();
 
 	void OnPostSceneDraw();
-	
+
 	void Setup();
 
 	float GetDist2D();

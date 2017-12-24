@@ -70,9 +70,9 @@ public:
 
 	void OnDraw(cInit *apInit);
 	void OnPostSceneDraw(iLowLevelGraphics *apLowLevelGfx);
-	
+
 	///////////////////////////////////
-	// Actions 
+	// Actions
 	/**
 	 * returns false if no path could be found.
 	 */
@@ -86,7 +86,7 @@ public:
 
 	///////////////////////////////////
 	// Helpers
-	
+
 	bool FreeDirectPathToChar(iCharacterBody *apBody);
 
 	float DistanceToChar(iCharacterBody *apBody);
@@ -96,7 +96,7 @@ public:
 	cAINode* GetAINodeAtPosInRange(const cVector3f &avPos,float afMinDistance,float afMaxDistance,
 									bool abRayCheck, float afEndOffset);
 
-	
+
 	//////////////////////////////////////////
 	// Properties
 	bool IsMoving(){ return mbMoving;}
@@ -138,7 +138,7 @@ private:
 	cAINodeContainer *mpContainer;
 	cAStarHandler *mpAStar;
 	cBoundingVolume mBoundingVolume;
-	
+
 	tAINodeList mlstNodes;
 
 	bool mbMoving;
@@ -169,12 +169,12 @@ private:
 	cMoverRayCallback mRayCallback;
 
 	int mlMaxDoorToughness;
-	
+
 	//Debug:
-	float mfCurrentBreak;	
+	float mfCurrentBreak;
 	cVector3f mvTempStart;
 	cVector3f mvTempEnd;
-	
+
 	bool mbMoveToNewNode;
 
 	cCharacterAStarCallback *mpAStarCallback;

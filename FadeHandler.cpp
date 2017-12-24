@@ -34,9 +34,9 @@
 cFadeHandler::cFadeHandler(cInit *apInit)  : iUpdateable("FadeHandler")
 {
 	mpInit = apInit;
-	
+
 	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
-	
+
 	mpBlackGfx = mpDrawer->CreateGfxObject("effect_black.bmp","diffalpha2d");
 
 	Reset();
@@ -77,7 +77,7 @@ void cFadeHandler::FadeIn(float afTime)
 		mfAlphaAdd = -100000.0f;
 	else
 		mfAlphaAdd = -(1.0f / afTime);
-	
+
 	mbActive = true;
 
 	Update(1.0f/60.0f);

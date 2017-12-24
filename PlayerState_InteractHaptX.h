@@ -36,30 +36,30 @@ class cPlayerState_GrabHaptX : public iPlayerState
 {
 public:
 	cPlayerState_GrabHaptX(cInit *apInit,cPlayer *apPlayer);
-	
+
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnDraw();
-	
+
 	void OnPostSceneDraw();
-	
+
 	bool OnJump();
-		
+
 	void OnStartInteractMode();
-	
+
 	void OnStartInteract();
 	void OnStopInteract();
 	void OnStartExamine();
-	
+
 	bool OnAddYaw(float afVal);
 	bool OnAddPitch(float afVal);
-	
+
 	bool OnMoveForwards(float afMul, float afTimeStep);
 	bool OnMoveSideways(float afMul, float afTimeStep);
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 	void OnStartCrouch();
 	void OnStopCrouch();
 	bool OnStartInventory();
@@ -115,10 +115,10 @@ private:
 	float mfMinThrowImpulse;
 	float mfMaxThrowImpulse;
 
-	iHapticForce *mpHGravityForce; 
+	iHapticForce *mpHGravityForce;
 	cVector3f mvGravityForce;
 
-	iHapticForce *mpHAlignForce; 
+	iHapticForce *mpHAlignForce;
 	cPidControllerVec3 mAlignPid;
 
 	float mfHapticTorqueMul;
@@ -138,10 +138,10 @@ class cPlayerState_MoveHaptX_BodyCallback : public iPhysicsBodyCallback
 {
 public:
 	cPlayerState_MoveHaptX_BodyCallback(cPlayer *apPlayer, float afTimeStep);
-	
+
 	bool OnBeginCollision(iPhysicsBody *apBody, iPhysicsBody *apCollideBody);
 	void OnCollide(iPhysicsBody *apBody, iPhysicsBody *apCollideBody,cPhysicsContactData* apContactData);
-	
+
 	float mfTimeStep;
 	int mlBackCount;
 	cPlayer *mpPlayer;
@@ -155,27 +155,27 @@ class cPlayerState_MoveHaptX : public iPlayerState
 public:
 	cPlayerState_MoveHaptX(cInit *apInit,cPlayer *apPlayer);
 	~cPlayerState_MoveHaptX();
-	
+
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnStartInteract();
 	void OnStopInteract();
-	
+
 	bool OnJump();
-	
+
 	void OnStartExamine();
-	
+
 	bool OnMoveForwards(float afMul, float afTimeStep);
 	bool OnMoveSideways(float afMul, float afTimeStep);
-	
+
 	bool OnAddYaw(float afVal);
 	bool OnAddPitch(float afVal);
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 	void OnPostSceneDraw();
-	
+
 	bool OnStartInventory();
 	bool OnStartInventoryShortCut(int alNum);
 
@@ -207,23 +207,23 @@ class cPlayerState_PushHaptX : public iPlayerState
 {
 public:
 	cPlayerState_PushHaptX(cInit *apInit,cPlayer *apPlayer);
-	
+
 	void OnUpdate(float afTimeStep);
 	bool OnJump();
-	
+
 	void OnStartInteract();
 	void OnStopInteract();
-	
+
 	void OnStartExamine();
-	
+
 	bool OnMoveForwards(float afMul, float afTimeStep);
 	bool OnMoveSideways(float afMul, float afTimeStep);
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
 
 	void OnPostSceneDraw();
-	
+
 	bool OnStartInventory();
 	bool OnStartInventoryShortCut(int alNum);
 
@@ -232,7 +232,7 @@ private:
 	cVector3f mvRight;
 
 	cVector3f mvRelPickPoint;
-	
+
 	cVector3f mvLocalPickPoint;
 
 	iPhysicsBody *mpPushBody;
@@ -250,7 +250,7 @@ private:
 	ePlayerMoveState mPrevMoveState;
 	ePlayerState mPrevState;
 
-	iHapticForce *mpHAlignForce; 
+	iHapticForce *mpHAlignForce;
 	cPidControllerVec3 mAlignPid;
 };
 

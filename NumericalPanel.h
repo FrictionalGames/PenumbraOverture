@@ -44,7 +44,7 @@ public:
 	void OnMouseDown();
 	void OnMouseUp();
 	void OnMouseOver(bool abOver);
-	
+
 	const cRect2f& GetRect(){return mRect;}
 
 private:
@@ -53,7 +53,7 @@ private:
 
 	float mfAlpha;
 	bool mbOver;
-	
+
 	cInit *mpInit;
 	cGraphicsDrawer *mpDrawer;
 	cNumericalPanel *mpPanel;
@@ -75,9 +75,9 @@ friend class cNumericalButton;
 public:
 	cNumericalPanel(cInit *apInit);
 	~cNumericalPanel();
-	
+
 	void Reset();
-	
+
 	void OnDraw();
 
 	void Update(float afTimeStep);

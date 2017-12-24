@@ -360,7 +360,7 @@ public:
 	 void OnLeaveState(iGameEnemyState *apNextState);
 
 	 void OnUpdate(float afTimeStep);
-	
+
 	 bool OnHearNoise(const cVector3f &avPosition, float afVolume);
 	 void OnSeePlayer(const cVector3f &avPosition, float afChance);
 
@@ -374,7 +374,7 @@ class cGameEnemy_Dog : public iGameEnemy
 public:
 	cGameEnemy_Dog(cInit *apInit,const tString& asName,TiXmlElement *apGameElem);
 	~cGameEnemy_Dog();
-	
+
 	void OnLoad();
 
 	void OnUpdate(float afTimeStep);
@@ -384,10 +384,10 @@ public:
 	bool MoveToPos(const cVector3f& avFeetPos);
 
 	bool IsFighting();
-	
+
 	iCollideShape *GetAttackShape(){ return mpAttackShape;}
 	iCollideShape *GetBreakDoorShape(){ return mpBreakDoorShape;}
-	
+
 	float mfMinKnockDamage;
 	float mfCertainKnockDamage;
 
@@ -408,7 +408,7 @@ public:
 	tString msAttentionSound;
 	float mfAttentionTime;
 	float mfAttentionMinDist;
-	
+
 	float mfHuntFOV;
 	float mfHuntSpeed;
 	float mfHuntForLostPlayerTime;

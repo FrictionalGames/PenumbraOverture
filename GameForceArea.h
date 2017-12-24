@@ -31,7 +31,7 @@ class cGameForceArea_SaveData : public iGameEntity_SaveData
 	kSerializableClassInit(cGameForceArea_SaveData);
 public:
 	cVector3f mvSize;
-	
+
 	float mfMaxForce;
 	float mfConstant;
 	float mfDestSpeed;
@@ -41,7 +41,7 @@ public:
 	bool mbAffectCharacters;
 	bool mbAffectBodies;
 	bool mbForceAtPoint;
-		
+
 	iGameEntity* CreateEntity();
 };
 
@@ -71,7 +71,7 @@ public:
 	void SetAffectCharacters(bool abX){mbAffectCharacters = abX;}
 	void SetAffectBodies(bool abX){mbAffectBodies = abX;}
 	void SetForceAtPoint(bool abX){ mbForceAtPoint = abX;}
-	
+
 	//SaveObject implementation
 	iGameEntity_SaveData* CreateSaveData();
 	void SaveToSaveData(iGameEntity_SaveData *apSaveData);

@@ -37,7 +37,7 @@ cDemoEndText::cDemoEndText(cInit *apInit)  : iUpdateable("PreMenu")
 
 	//Load fonts
 	//mpFont = mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("verdana.fnt");
-	
+
 	Reset();
 }
 
@@ -76,7 +76,7 @@ void cDemoEndText::OnPostSceneDraw()
 
 	mpInit->mpGraphicsHelper->DrawTexture(mvTextures[mlCurrentImage],0,
 											cVector2f(800,600),cColor(mfAlpha,1));
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -155,7 +155,7 @@ void cDemoEndText::SetActive(bool abX)
 											"demo_end0"+cString::ToString(i)+".jpg",false);
 			if(pTex) mvTextures.push_back(pTex);
 		}
-		
+
 
 		mfAlpha =0;
 	}

@@ -147,7 +147,7 @@ void cIntroImage::FadeAlphaTo(float afAlpha,float afTime)
 void cIntroImage::Reset()
 {
 	mbActive = false;
-	
+
 	mfBrightness = 1;
 	mfBrightnessStep = 0;
 	mfFinalBrightness =1;
@@ -182,11 +182,11 @@ void cIntroImage::Update(float afTimeStep)
 		if(mvPosDistMul.z > 0) vStep.z = cMath::Min(vStep.z, vDist.z * mvPosDistMul.z);
 
 		mvCameraPosition += vStep * afTimeStep;
-		
+
 		//X
 		if(mvPosStep.x > 0 && mvCameraPosition.x > mvFinalPos.x) mvCameraPosition.x = mvFinalPos.x;
 		if(mvPosStep.x < 0 && mvCameraPosition.x < mvFinalPos.x) mvCameraPosition.x = mvFinalPos.x;
-		
+
 		//Y
 		if(mvPosStep.y > 0 && mvCameraPosition.y > mvFinalPos.y) mvCameraPosition.y = mvFinalPos.y;
 		if(mvPosStep.y < 0 && mvCameraPosition.y < mvFinalPos.y) mvCameraPosition.y = mvFinalPos.y;
@@ -202,7 +202,7 @@ void cIntroImage::Update(float afTimeStep)
 		}
 	}
 
-	
+
 	/////////////////////////////////
 	//Brightness
 	if(mfBrightness != mfFinalBrightness)
@@ -217,8 +217,8 @@ void cIntroImage::Update(float afTimeStep)
 			mfBrightness = mfFinalBrightness;
 		}
 	}
-	
-	
+
+
 	/////////////////////////////////
 	//Alpha
 	if(mfAlpha != mfFinalAlpha)
@@ -233,7 +233,7 @@ void cIntroImage::Update(float afTimeStep)
 			mfAlpha = mfFinalAlpha;
 		}
 	}
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -241,7 +241,7 @@ void cIntroImage::Update(float afTimeStep)
 void cIntroImage::OnDraw()
 {
 	cVector3f vCamDrawPos;
-	
+
 	if(mlstPrevPos.empty())
 	{
 		vCamDrawPos = mvCameraPosition;
@@ -260,25 +260,25 @@ void cIntroImage::OnDraw()
 
 	/////////////////////////////////
 	// Set up position variables
-	cVector3f vPos =	cVector3f(-vCamDrawPos.x, -vCamDrawPos.y,0); 
-						
+	cVector3f vPos =	cVector3f(-vCamDrawPos.x, -vCamDrawPos.y,0);
+
 	float fAlpha = mfAlpha;
 	float fBrightness = cMath::Min(1.0f,mfBrightness);
 	cVector2f vSize(1024, 784);
 	vSize  = vSize * (1/vCamDrawPos.z);
 	vPos = vPos * (1/vCamDrawPos.z) + cVector3f(400, 300,0);;
-	
+
 	///////////////////////////
 	//Set up vertexes
 	mvVtxVec[0] = cVertex(vPos + cVector3f(0,0,0),
 								cVector2f(0,0),cColor(fBrightness,fAlpha) );
-	
+
 	mvVtxVec[1] = cVertex(vPos + cVector3f(vSize.x,0,40),
 								cVector2f(1,0),cColor(fBrightness,fAlpha));
-	
+
 	mvVtxVec[2] = cVertex(vPos + cVector3f(vSize.x,vSize.y,40),
 								cVector2f(1,1),cColor(fBrightness,fAlpha));
-	
+
 	mvVtxVec[3] = cVertex(vPos +  cVector3f(0,vSize.y,40),
 									cVector2f(0,1),cColor(fBrightness,fAlpha));
 
@@ -298,7 +298,7 @@ void cIntroImage::OnDraw()
 		mvVtxVec[1] = cVertex(cVector3f(800,0,40),cVector2f(1,0),cColor(fWhite,1));
 		mvVtxVec[2] = cVertex(cVector3f(800,600,40),	cVector2f(1,1),cColor(fWhite,1));
 		mvVtxVec[3] = cVertex(cVector3f(0,600,40),cVector2f(0,1),cColor(fWhite,1));
-		
+
 		mpLowGfx->SetTexture(0, NULL);
 
 		mpLowGfx->SetBlendFunc(eBlendFunc_One,eBlendFunc_One);
@@ -325,7 +325,7 @@ cIntroStory::cIntroStory(cInit *apInit)  : iUpdateable("StoryIntro")
 	mpLowGfx = mpInit->mpGame->GetGraphics()->GetLowLevel();
 	mpTexManager = mpInit->mpGame->GetResources()->GetTextureManager();
 	mpSoundHandler = mpInit->mpGame->GetSound()->GetSoundHandler();
-	
+
 	for(int i=0; i<INTRO_IMAGE_NUM; ++i)
 	{
 		mvImages[i].mpLowGfx = mpLowGfx;
@@ -348,7 +348,7 @@ cIntroStory::cIntroStory(cInit *apInit)  : iUpdateable("StoryIntro")
 
 cIntroStory::~cIntroStory(void)
 {
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -375,7 +375,7 @@ void cIntroStory::SetActive(bool abX)
 		mpInit->mpGame->GetScene()->SetDrawScene(false);
 		mLastButtonState = mpInit->mpButtonHandler->GetState();
 		mpInit->mpButtonHandler->ChangeState(eButtonHandlerState_Intro);
-		
+
 		//////////////////////////////
 		//LoadImages
 		for(int i=0; i<INTRO_IMAGE_NUM; ++i)
@@ -401,8 +401,8 @@ void cIntroStory::SetActive(bool abX)
 		//mpInit->mpGame->GetUpdater()->SetContainer("Default");
 		//mpInit->mpGame->GetScene()->SetDrawScene(true);
 		//mpInit->mpButtonHandler->ChangeState(mLastButtonState);
-	
-		
+
+
 		//Destroy images
 		for(int i=0; i<INTRO_IMAGE_NUM; ++i)
 		{
@@ -479,7 +479,7 @@ void cIntroStory::OnDraw()
 		mpFont->Draw(	cVector3f(400+1,300-1,1),18,cColor(0,fAlpha),
 			eFontAlign_Center,msCentreText.c_str());
 	}
-	
+
 	//mpFont->DrawWordWrap(vPos + cVector3f(3,3,-1),760,21,vSize,cColor(1,0),eFontAlign_Left,msMessage);
 	//mpFont->DrawWordWrap(vPos + cVector3f(-2,-2,-1),760,21,vSize,cColor(1,0),eFontAlign_Left,msMessage);
 
@@ -500,7 +500,7 @@ void cIntroStory::OnPostSceneDraw()
 	mpLowGfx->PushMatrix(eMatrix_ModelView);
 	mpLowGfx->SetIdentityMatrix(eMatrix_ModelView);
 	mpLowGfx->SetOrthoProjection(mpLowGfx->GetVirtualSize(),-1000,1000);
-	
+
 	for(int i=0; i< INTRO_IMAGE_NUM; ++i)
 	{
 		if(mvImages[i].mbActive) mvImages[i].OnDraw();
@@ -525,12 +525,12 @@ void cIntroStory::Exit()
 {
 	mpInit->mpGame->GetSound()->GetMusicHandler()->Stop(0.3f);
 	mpSoundHandler->StopAll(eSoundDest_Gui);
-	
+
 	SetActive(false);
 
 	//mpInit->mpGame->Exit();
 	//return;
-	
+
 	mpInit->mpGraphicsHelper->DrawLoadingScreen("");
 
 	mpInit->mpGame->GetUpdater()->SetContainer("Default");
@@ -597,13 +597,13 @@ void cIntroStory::Image01()
 		{
 			msCentreText = _W("");
 			mvImages[5].mbActive = false;
-			
+
 			mvImages[0].mbActive = true;
 			mvImages[0].FadeBrightnessTo(0,0);
 			mvImages[0].FadeBrightnessTo(1,13);
 			mvImages[0].mvCameraPosition = cVector3f(500, 597,0.5f);
 			mvImages[0].mvPosDistMul = 0.1f;
-			
+
 			mvImages[0].MoveTo(cVector3f(540,392,0.8f),28);
 
 			mfTimerCount = 5.99f;
@@ -623,7 +623,7 @@ void cIntroStory::Image01()
 			mlNextStop = kIntro_Image01_Mess3;
 
 			//mpInit->mpGame->GetSound()->GetMusicHandler()->Play("music_story.ogg",0.55f,0.05f,false);
-			
+
 			mpSoundHandler->PlayStream("intro_01_02.ogg",false,mfVoiceVol);
 
 			SetMessage(kTranslate("Intro","01_02"));
@@ -635,14 +635,14 @@ void cIntroStory::Image01()
 			mlNextStop = kIntro_Image01_Mess4;
 
 			mvImages[0].MoveTo(cVector3f(540,342,1.2f),22);
-			
+
 			mpSoundHandler->PlayStream("intro_01_03.ogg",false,mfVoiceVol);
 
 			SetMessage(kTranslate("Intro","01_03"));
 
 			break;
 		}
-	
+
 	case kIntro_Image01_Mess4:
 		{
 			mfTimerCount = 12.0f;
@@ -679,7 +679,7 @@ void cIntroStory::Image02()
 			mvImages[1].mvPosDistMul = 0.11f;
 
 			mvImages[1].MoveTo(cVector3f(680,492,0.6f),28);
-			
+
 			mfTimerCount = 11.7f;
 			mlNextStop = kIntro_Image02_Mess2;
 
@@ -697,16 +697,16 @@ void cIntroStory::Image02()
 			mvImages[1].MoveTo(cVector3f(540,420,1.3f),31);
 
 			mpSoundHandler->PlayStream("intro_02_02.ogg",false,mfVoiceVol);
-			
+
 			SetMessage(kTranslate("Intro","02_02"));
 
 			break;
 		}
-	
+
 	case kIntro_Image02_Mess3:
 		{
 			mvImages[0].mbActive = false;
-			
+
 			mfTimerCount = 12.0f;
 			mlNextStop = kIntro_Image03_Start;
 
@@ -719,7 +719,7 @@ void cIntroStory::Image02()
 
 			break;
 		}
-	
+
 	default:
 		mbSearchNext = true;
 		break;
@@ -776,11 +776,11 @@ void cIntroStory::Image03()
 		{
 			mfTimerCount = 9.5f;
 			mlNextStop = kIntro_Image04_Start;
-			
+
 			mvImages[2].FadeBrightnessTo(0, 7.5f);
 
 			mpSoundHandler->PlayStream("intro_03_02.ogg",false,mfVoiceVol);
-						
+
 			SetMessage(kTranslate("Intro","03_02"));
 			break;
 		}
@@ -821,7 +821,7 @@ void cIntroStory::Image04()
 
 			mfTimerCount = 4.5f;
 			mlNextStop = kIntro_Image04_Mess2;
-			
+
 			mpSoundHandler->PlayStream("intro_04_01.ogg",false,mfVoiceVol);
 			SetMessage(kTranslate("Intro","04_01"));
 			break;

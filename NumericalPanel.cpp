@@ -28,7 +28,7 @@
 
 //-----------------------------------------------------------------------
 
-cNumericalButton::cNumericalButton(cInit *apInit, cNumericalPanel* apPanel, cVector2f avPos, 
+cNumericalButton::cNumericalButton(cInit *apInit, cNumericalPanel* apPanel, cVector2f avPos,
 								cVector2f avSize, int alNum)
 {
 	mpInit = apInit;
@@ -47,8 +47,8 @@ cNumericalButton::cNumericalButton(cInit *apInit, cNumericalPanel* apPanel, cVec
 
 	mlNum = alNum;
 
-	mfAlpha = 0; 
-	mbOver = false;  
+	mfAlpha = 0;
+	mbOver = false;
 }
 
 cNumericalButton::~cNumericalButton()
@@ -65,7 +65,7 @@ void cNumericalButton::OnUpdate(float afTimeStep)
 		mfAlpha += 0.8f * afTimeStep;
 		if(mfAlpha > 1)mfAlpha = 1;
 	}
-	else 
+	else
 	{
 		mfAlpha -= 1.6f * afTimeStep;
 		if(mfAlpha < 0)mfAlpha = 0;
@@ -87,15 +87,15 @@ void cNumericalButton::OnDraw()
 	if(mlNum==-1) sChar =_W("*");
 	else if(mlNum==-2) sChar =_W("#");
 	else sChar = cString::To16Char(cString::ToString(mlNum));
-	
+
 	if(mbOver && mpPanel->mbMouseIsDown)
 	{
-		mpInit->mpDefaultFont->Draw(vFontPos + cVector3f(1,1,0), 17, cColor(0,0,0,0.9f * mpPanel->mfAlpha),eFontAlign_Center,				
+		mpInit->mpDefaultFont->Draw(vFontPos + cVector3f(1,1,0), 17, cColor(0,0,0,0.9f * mpPanel->mfAlpha),eFontAlign_Center,
 									sChar.c_str());
 	}
 	else
 	{
-		mpInit->mpDefaultFont->Draw(vFontPos, 17, cColor(0,0,0,0.9f * mpPanel->mfAlpha),eFontAlign_Center,				
+		mpInit->mpDefaultFont->Draw(vFontPos, 17, cColor(0,0,0,0.9f * mpPanel->mfAlpha),eFontAlign_Center,
 									sChar.c_str());
 	}
 
@@ -140,7 +140,7 @@ cNumericalPanel::cNumericalPanel(cInit *apInit)  : iUpdateable("NumericalPanel")
 	mpGfxBackground = mpDrawer->CreateGfxObject("notebook_background.bmp","diffalpha2d");
 
 	mpGfxPanel = mpDrawer->CreateGfxObject("numpanel_panel.bmp","diffalpha2d");
-	
+
 	cVector2f vPos(307, 205);
 
 	for(int i=1; i<=12; ++i)
@@ -151,7 +151,7 @@ cNumericalPanel::cNumericalPanel(cInit *apInit)  : iUpdateable("NumericalPanel")
 		else if(i==12) lNum=-2;
 
 		mlstButtons.push_back(hplNew( cNumericalButton, (mpInit,this,vPos,cVector2f(62,30),lNum)) );
-        
+
 		if(i%3 ==0)
 		{
 			vPos.y += (30 + 16);
@@ -194,10 +194,10 @@ void cNumericalPanel::Reset()
 void cNumericalPanel::OnDraw()
 {
 	if(mfAlpha == 0) return;
-	
+
 	mpDrawer->DrawGfxObject(mpGfxBackground,cVector3f(0,0,0),cVector2f(800,600),cColor(1,mfAlpha));
 
-	
+
 	mpDrawer->DrawGfxObject(mpGfxPanel,cVector3f(280,170,10),cVector2f(270,300),cColor(1,mfAlpha));
 
 	////////////////////////////////
@@ -231,7 +231,7 @@ void cNumericalPanel::Update(float afTimeStep)
 		mfAlpha += 2.3f * afTimeStep;
 		if(mfAlpha >1)mfAlpha =1;
 	}
-	
+
 	////////////////////////////////
 	// Update buttons
 	tNumericalButtonListIt it = mlstButtons.begin();
@@ -325,7 +325,7 @@ void cNumericalPanel::SetActive(bool abX)
 
 		mpInit->mpGame->GetInput()->BecameTriggerd("RightClick");
 		mpInit->mpGame->GetInput()->BecameTriggerd("LeftClick");
-		
+
 
 		mLastCrossHairState = mpInit->mpPlayer->GetCrossHairState();
 

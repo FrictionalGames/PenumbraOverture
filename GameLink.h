@@ -40,7 +40,7 @@ public:
 	float mfFadeInTime;
 	tString msLoadTextCat;
 	tString msLoadTextEntry;
-	
+
 	iGameEntity* CreateEntity();
 };
 
@@ -58,7 +58,7 @@ public:
 
 	void OnPlayerPick();
 	void OnPlayerInteract();
-	
+
 	tString msMapFile;
 	tString msMapPos;
 	tString msStartSound;

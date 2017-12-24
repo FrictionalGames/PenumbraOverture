@@ -38,7 +38,7 @@ enum eMainMenuState
 	eMainMenuState_LoadGameSpot,
 	eMainMenuState_LoadGameAuto,
 	eMainMenuState_LoadGameFavorite,
-	
+
 	eMainMenuState_Options,
 	eMainMenuState_OptionsGraphics,
 	eMainMenuState_OptionsGraphicsAdvanced,
@@ -80,12 +80,12 @@ public:
 	virtual void Reset(){}
 
 	virtual void OnActivate(){}
-	
+
 	bool IsActive(){ return mbActive;}
 	void  SetActive(bool abX)
-	{ 
+	{
 		if(mbActive == abX) return;
-		
+
 		mbActive = abX;
 		if(mbActive) OnActivate();
 	}
@@ -94,7 +94,7 @@ public:
 protected:
 	cInit *mpInit;
 	cGraphicsDrawer *mpDrawer;
-	
+
 	cVector3f mvPositon;
 	cRect2f mRect;
 
@@ -112,7 +112,7 @@ public:
 	~cMainMenuWidget_MainButton();
 
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnMouseOver(bool abOver);
 
 	void OnDraw();
@@ -162,7 +162,7 @@ public:
 	tWString msText;
 protected:
 	iFontData *mpFont;
-	
+
 	cVector2f mvFontSize;
 	eMainMenuState mNextState;
 	tWString msTip;
@@ -193,7 +193,7 @@ public:
 
 	tWString msText;
 protected:
-	
+
 	iFontData *mpFont;
 
 	eFontAlign mAlignment;
@@ -232,9 +232,9 @@ class cMainMenuWidget_List : public cMainMenuWidget
 public:
 	cMainMenuWidget_List(cInit *apInit, const cVector3f &avPos,const cVector2f &avSize,
 						cVector2f avFontSize);
-						
+
 	~cMainMenuWidget_List();
-	
+
 	void OnUpdate(float afTimeStep);
 	void OnMouseOver(bool abOver);
 	void OnDraw();
@@ -249,7 +249,7 @@ public:
 	const tWString& GetSelectedEntry();
 	int GetSelectedIndex(){ return mlSelected;}
 	void SetSelectedIndex(int alIdx){ mlSelected = alIdx;}
-	
+
 protected:
 	cGraphicsDrawer *mpDrawer;
 	iFontData *mpFont;
@@ -272,7 +272,7 @@ protected:
 	cVector2f mvFontSize;
 	cVector3f mvPosition;
 	cVector2f mvSize;
-	
+
 	eFontAlign mAlignment;
 
 	float mfOverTimer;
@@ -280,7 +280,7 @@ protected:
 	int mlMaxRows;
 
 	int mlFirstRow;
-	
+
 	int mlSelected;
 	tWStringVec mvEntries;
 
@@ -361,9 +361,9 @@ public:
 	void Reset();
 
 	void OnPostSceneDraw();
-	
+
 	void OnDraw();
-    
+
 	void Update(float afTimeStep);
 
 	void SetButtonTip(const tWString &asString){ msButtonTip = asString;}
@@ -401,7 +401,7 @@ private:
 
 	void AddWidgetToState(eMainMenuState aState, cMainMenuWidget *apWidget);
 
-	
+
 	cInit *mpInit;
 	cGraphicsDrawer *mpDrawer;
 
@@ -414,7 +414,7 @@ private:
 
 	iTexture *mpLogo;
 	iTexture *mpBackground;
-	
+
 	tString msCurrentActionName;
 	cMainMenuWidget_Text *mpCurrentActionText;
 
@@ -427,7 +427,7 @@ private:
 	std::vector<cMainMenuParticle> mvRainSplashes;
 
 	std::vector<cMainMenuParticle> mvSnowFlakes;
-	
+
 	bool mbMouseIsDown;
 
 	bool mbFadeIn;
@@ -441,11 +441,11 @@ private:
 	eMainMenuState mLastState;
 
 	iFontData *mpFont;
-	
+
 	cVector2f mvMousePos;
 
 	tMainMenuWidgetList mlstWidgets;
-	
+
 	eMainMenuState mState;
 	std::vector<tMainMenuWidgetList> mvState;
 

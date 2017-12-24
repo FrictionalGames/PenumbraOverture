@@ -94,12 +94,12 @@ private:
 class cEnemyFindGround : public iPhysicsRayCallback
 {
 public:
-	bool GetGround(	const cVector3f &avStartPos,const cVector3f &avDir, 
+	bool GetGround(	const cVector3f &avStartPos,const cVector3f &avDir,
 					cVector3f *apDestPosition, cVector3f *apDestNormal,
 					float afMaxDistance=10);
-	
+
 	bool OnIntersect(iPhysicsBody *pBody,cPhysicsRayParams *apParams);
-	
+
 private:
 	bool mbIntersected;
 	float mfMinDist;
@@ -114,7 +114,7 @@ class cEnemyCheckForDoor : public iPhysicsRayCallback
 {
 public:
 	bool CheckDoor(const cVector3f &avStart, const cVector3f &avEnd);
-	
+
 	bool BeforeIntersect(iPhysicsBody *pBody);
 	bool OnIntersect(iPhysicsBody *pBody,cPhysicsRayParams *apParams);
 
@@ -145,7 +145,7 @@ public:
 	tString msOnDeathCallback;
 	tString msOnAttackCallback;
 	cContainerVec<cEnemyPatrolNode> mvPatrolNodes;
-	
+
 	iGameEntity* CreateEntity();
 };
 
@@ -163,7 +163,7 @@ public:
 
 	virtual void OnDraw()=0;
 	virtual void OnPostSceneDraw()=0;
-	
+
 	virtual void OnSeePlayer(const cVector3f &avPosition, float afChance)=0;
 	virtual bool OnHearNoise(const cVector3f &avPosition, float afVolume)=0;
 	virtual void OnTakeHit(float afDamage)=0;
@@ -234,11 +234,11 @@ public:
 
 	//Physics
 	void SetupBody();
-	
+
 	//Properties
 	cVector3f GetPosition();
 	void SetFOV(float afAngle){ mfFOV = afAngle;}
-	
+
 	const tString& GetHitPS(){ return msHitPS;}
 	const tString& GetEnemyType(){ return msEnemyType;}
 
@@ -268,7 +268,7 @@ public:
 	void SetSkipSoundTriggerCount(float afX){ mfSkipSoundTriggerCount = afX;}
 
 	//Content control
-	void PlayAnim(	const tString &asName, bool abLoop, float afFadeTime, 
+	void PlayAnim(	const tString &asName, bool abLoop, float afFadeTime,
 					bool abDependsOnSpeed=false, float afSpeedMul=1.0f,
 					bool abSyncWithPrevFrame=false,
 					bool abOverideMoveState=true);
@@ -282,7 +282,7 @@ public:
 	void SetOnDeathCallback(const tString &asFunc){ msOnDeathCallback = asFunc;}
 	void SetOnAttackCallback(const tString &asFunc){ msOnAttackCallback = asFunc;}
 	tString GetOnAttackCallback(){ return msOnAttackCallback;}
-	
+
 	//AI
 	bool CanSeePlayer();
 	cCharacterMove* GetMover(){ return mpMover;}
@@ -307,23 +307,23 @@ public:
 
 	bool GetUsesTriggers(){ return mbUsesTriggers;}
 	void SetUsesTriggers(bool abX){ mbUsesTriggers = abX;}
-	
+
 	//Patrolling
 	void AddPatrolNode(const tString& asNode, float afTime, const tString& asAnimation);
 	cEnemyPatrolNode* GetPatrolNode(int alIdx){return &mvPatrolNodes[alIdx];}
 	int GetPatrolNodeNum(){ return (int)mvPatrolNodes.size();}
 	cEnemyPatrolNode* CurrentPatrolNode(){return &mvPatrolNodes[mlCurrentPatrolNode];}
-	
+
 	void ClearPatrolNodes();
 
-	
+
 	int GetCurrentPatrolNode(){ return mlCurrentPatrolNode;}
 	float GetWaitTime(){ return mfWaitTime;}
 	float GetWaitTimeCount(){ return mfWaitTimeCount;}
 
 	void SetCurrentPatrolNode(int alX){ mlCurrentPatrolNode = alX;}
 	void IncCurrentPatrolNode()
-	{ 
+	{
 		mlCurrentPatrolNode++;
 		if(mlCurrentPatrolNode >= (int)mvPatrolNodes.size())
 			mlCurrentPatrolNode =0;
@@ -337,7 +337,7 @@ public:
 	void AddDoorBreakCount(float afX){ mfDoorBreakCount +=afX;}
 
 	const cVector3f& GetModelOffsetAngles(){ return mvModelOffsetAngles;}
-		
+
 	//Virtual
 	virtual void OnUpdate(float afTimeStep)=0;
 	virtual void OnLoad()=0;
@@ -349,12 +349,12 @@ public:
 protected:
 
 	void UpdateEnemyPose(float afTimeStep);
-		
+
 	void UpdateAnimations(float afTimeStep);
 	void UpdateCheckForPlayer(float afTimeStep);
-	
+
 	bool HandleSoundTrigger(cGameTrigger *apTrigger);
-	
+
 	bool LineOfSight(const cVector3f &avPos, const cVector3f &avSize);
 
 	bool mbSetFeetAtGroundOnStart;
@@ -365,7 +365,7 @@ protected:
 	tVector3fVec mvRayEndPoses;
 
 	cEnemyFindGround mFindGround;
-	
+
 	eGameTriggerType mTriggerTypes;
 
 	cCharacterMove *mpMover;
@@ -436,9 +436,9 @@ protected:
 	float mfWaitTimeCount;
 
 	float mfDoorBreakCount;
-	
+
 	bool mbIsAttracted;
-		
+
 	/////////////////////////////////
 	//Properties to be implemented
 	bool mbDisappear;
@@ -448,7 +448,7 @@ protected:
 	tString msDisappearPS;
 	tString msDisappearSound;
 	bool mbDisappearFreezesRagdoll;
-	
+
 	float mfDisappearTime;
 	bool mbDisappearActive;
 	bool mbHasDisappeared;
@@ -485,7 +485,7 @@ protected:
 
 	cMatrixf m_mtxModelOffset;
 	cVector3f mvModelOffsetAngles;
-	
+
 	float mfIdleToMoveLimit;
 	float mfMoveToLideLimit;
 
@@ -510,7 +510,7 @@ protected:
 	tString msStoppedAnim;
 	tString msWalkAnim;
 	tString msRunAnim;
-	
+
 	float mfMinStunSpeed;
 	float mfMinStunImpulse;
 	float mfObjectCollideStun;

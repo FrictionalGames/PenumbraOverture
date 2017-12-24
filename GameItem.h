@@ -34,7 +34,7 @@ public:
 	bool mbHasBeenFlashed;
 	float mfEnterFlashDist;
 	float mfExitFlashDist;
-	
+
 	iGameEntity* CreateEntity();
 };
 
@@ -63,11 +63,11 @@ public:
 	~cGameItem(void);
 
 	void OnWorldLoad();
-	
+
 	void OnPlayerPick();
 
 	void OnPlayerInteract();
-	
+
 	void Update(float afTimeStep);
 
 	void OnPostSceneDraw();
@@ -78,13 +78,13 @@ public:
 	eGameItemType GetItemType(){ return mItemType;}
 
 	bool CanBeDropped(){ return mbCanBeDropped;}
-	
+
 	bool HasCount(){ return mbHasCount;}
 	int GetCount(){ return mlCount;}
 
 	tString GetHudModelFile(){ return msHudModelFile;}
 	tString GetHudModelName(){ return msHudModelName;}
-	
+
 	//SaveObject implementation
 	iGameEntity_SaveData* CreateSaveData();
 	void SaveToSaveData(iGameEntity_SaveData *apSaveData);
@@ -98,7 +98,7 @@ private:
 	bool mbCanBeDropped;
 	bool mbHasCount;
 	int mlCount;
-	
+
 	float mfCheckFlashCount;
 	float mfCheckFlashMax;
 	float mfStartFlashCount;

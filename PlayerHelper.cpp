@@ -46,7 +46,7 @@ cPlayerBodyCallback::cPlayerBodyCallback(cPlayer *apPlayer)
 	mfFallSpeed_Min = pInit->mpGameConfig->GetFloat("Player","FallSpeed_Min",0);
 	mfFallDamage_Min = pInit->mpGameConfig->GetFloat("Player","FallDamage_Min",0);
 	msFallSound_Min = pInit->mpGameConfig->GetString("Player","FallSound_Min","");
-	
+
 	mfFallSpeed_Med = pInit->mpGameConfig->GetFloat("Player","FallSpeed_Med",0);
 	mfFallDamage_Med = pInit->mpGameConfig->GetFloat("Player","FallDamage_Med",0);
 	msFallSound_Med = pInit->mpGameConfig->GetString("Player","FallSound_Med","");
@@ -79,7 +79,7 @@ void cPlayerBodyCallback::OnHitGround(iCharacterBody *apCharBody,const cVector3f
 	{
 		mpPlayer->FootStep(1.0f,"run",true);
 	}
-	
+
 	tString sSound = "";
 	float fVol = 1.0f;
 	cSoundHandler *pSoundHandler = mpPlayer->GetInit()->mpGame->GetSound()->GetSoundHandler();
@@ -113,9 +113,9 @@ void cPlayerBodyCallback::OnHitGround(iCharacterBody *apCharBody,const cVector3f
 		pSoundHandler->PlayGui("player_fall_damage",false,0.5f);
 		//Log("Light\n");
 	}
-	
-	
-	
+
+
+
 	if(sSound != "")
 	{
 		cWorld3D *pWorld = mpPlayer->GetInit()->mpGame->GetScene()->GetWorld3D();
@@ -169,13 +169,13 @@ bool cPlayerGroundRayCallback::OnIntersect(iPhysicsBody *pBody,cPhysicsRayParams
 {
 	mbOnGround = true;
 
-	if(apParams->mfDist<mfMinDist && pBody->GetMaterial()->GetSurfaceData() && 
+	if(apParams->mfDist<mfMinDist && pBody->GetMaterial()->GetSurfaceData() &&
 		pBody->GetMaterial()->GetSurfaceData()->GetStepType()!="")
 	{
 		mpMaterial = pBody->GetMaterial();
 		mfMinDist = apParams->mfDist;
 	}
-	
+
 	return true;
 }
 
@@ -199,10 +199,10 @@ void cPlayerPickRayCallback::Clear()
 {
 	mfPickedDist = mfMaxDistance+10.0f;
 	mfPickedAreaDist = mfMaxDistance+10.0f;
-	
+
 	mpPickedBody = NULL;
 	mpPickedAreaBody = NULL;
-	
+
 	mfMinStaticDist = mfMaxDistance+10.0f;
 }
 
@@ -218,7 +218,7 @@ void cPlayerPickRayCallback::OnWorldExit()
 bool cPlayerPickRayCallback::OnIntersect(iPhysicsBody *apBody,cPhysicsRayParams *apParams)
 {
 	float &fDist = apParams->mfDist;
-	
+
 	//Must be positive
 	if(fDist < 0) return true;
 
@@ -231,7 +231,7 @@ bool cPlayerPickRayCallback::OnIntersect(iPhysicsBody *apBody,cPhysicsRayParams 
 	//Check if is below current picked dist
 	iGameEntity *pEntity = NULL;
 	if(apBody->GetUserData()) pEntity = (iGameEntity*)apBody->GetUserData();
-	
+
 	//////////////////////////////
 	// Entity
 	if(pEntity)
@@ -240,7 +240,7 @@ bool cPlayerPickRayCallback::OnIntersect(iPhysicsBody *apBody,cPhysicsRayParams 
 		if(pEntity->GetType() == eGameEntityType_StickArea) return true;
 
 		//Area
-		if(	pEntity->GetType() == eGameEntityType_Area || 
+		if(	pEntity->GetType() == eGameEntityType_Area ||
 			pEntity->GetType()== eGameEntityType_StickArea ||
 			pEntity->GetType()== eGameEntityType_DamageArea ||
 			pEntity->GetType()== eGameEntityType_ForceArea)
@@ -269,7 +269,7 @@ bool cPlayerPickRayCallback::OnIntersect(iPhysicsBody *apBody,cPhysicsRayParams 
 	}
 	///////////////////////////////
 	// Non Entity
-	else 
+	else
 	{
 		if(mfPickedDist > fDist)
 		{
@@ -279,9 +279,9 @@ bool cPlayerPickRayCallback::OnIntersect(iPhysicsBody *apBody,cPhysicsRayParams 
 	}
 
 	return true;
-	
+
 	/*float &fDist = apParams->mfDist;
-	
+
 	iGameEntity *pEntity = NULL;
 	if(apBody->GetUserData()) pEntity = (iGameEntity*)apBody->GetUserData();
 
@@ -289,10 +289,10 @@ bool cPlayerPickRayCallback::OnIntersect(iPhysicsBody *apBody,cPhysicsRayParams 
 	if(apBody->IsCharacter() && apBody->GetUserData()==NULL) return true;
 
 	if(pEntity && pEntity->IsActive()==false) return true;
-	
+
 	//If it is outside of the examine distance skip
 	if(pEntity && pEntity->GetMaxExamineDist() < fDist) return true;
-    
+
 	////////////////////////////
 	//Not picked
 	bool bStatic = false;
@@ -332,7 +332,7 @@ bool cPlayerPickRayCallback::OnIntersect(iPhysicsBody *apBody,cPhysicsRayParams 
 		}
 		else
 		{
-			if	(fDist < mfPickedDist || 
+			if	(fDist < mfPickedDist ||
 				(mLastEntityType == eGameEntityType_Area))
 			{
 				mpPickedBody = apBody;
@@ -358,18 +358,18 @@ void cPlayerPickRayCallback::CalculateResults()
 		{
 			iGameEntity *pEntity = (iGameEntity*)mpPickedBody->GetUserData();
 			cGameArea *pArea = (cGameArea*)mpPickedAreaBody->GetUserData();
-			
-			
+
+
 			if(pEntity)
 			{
 				//Too for from object
 				if(pEntity->GetMaxExamineDist() < mfPickedDist) bUseArea = true;
-				
+
 				//No description for object and it is not possible to interact with it
 				else if(pEntity->GetDescription()==_W(""))
 				{
 					if(	mpPickedBody->GetMass()==0) bUseArea = true;
-					
+
 					else if(pEntity->GetType() == eGameEntityType_Object)
 					{
 						cGameObject *pObject = static_cast<cGameObject*>(pEntity);
@@ -442,7 +442,7 @@ void cPlayerHeadMove::Update(float afTimeStep)
 			mfAdd = mfHeadMoveSpeed;
 		}
 	}
-	
+
 	///////////////////////////////
 	//Head movement
 	if(mbActive)
@@ -528,7 +528,7 @@ void cPlayerHeadMove::Stop()
 float cPlayerHeadMove::GetPos()
 {
 	if(mfClimbCount > 0) return mfClimbPos;
-	
+
 	return mfPos;
 }
 
@@ -547,7 +547,7 @@ cPlayerHealth::cPlayerHealth(cInit *apInit)
 	mfTimeCount = 0;
 
 	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
-	
+
 	mpDamageGfx = mpDrawer->CreateGfxObject("player_hurt.bmp","diffalpha2d");
 
 	mfGfxAlpha =0;
@@ -585,7 +585,7 @@ void cPlayerHealth::Update(float afTimeStep)
 		mfGfxAlpha -= afTimeStep *2.0f;
 		return;
 	}
-	
+
 	////////////////////////////
 	//ALpha
 	mfGfxAlpha += mfGfxAlphaAdd * afTimeStep;
@@ -595,7 +595,7 @@ void cPlayerHealth::Update(float afTimeStep)
 		mfGfxAlpha = 1.0f;
 		mfGfxAlphaAdd = -1.5;
 	}
-	
+
 	////////////////////////////
 	//Heart timer
 	if(mfTimeCount<=0)
@@ -605,7 +605,7 @@ void cPlayerHealth::Update(float afTimeStep)
 			pPlayer->SetHealthSpeedMul(1.0f);
 			mfGfxGlobalAlpha =0;
 		}
-		else 
+		else
 		{
 			float fVolume = 0.5;
 			if(pPlayer->GetHealth() >25)
@@ -637,7 +637,7 @@ void cPlayerHealth::Update(float afTimeStep)
 	{
 		mfTimeCount -= afTimeStep;
 	}
-	
+
 	////////////////////////////
 	//Increase health over time:
 	switch(mpInit->mDifficulty)
@@ -649,7 +649,7 @@ void cPlayerHealth::Update(float afTimeStep)
 	case eGameDifficulty_Hard:
 		pPlayer->AddHealth(afTimeStep * 0.14f); break;
 	}
-	
+
 
 	////////////////////////////
 	//Check for enemies.
@@ -661,14 +661,14 @@ void cPlayerHealth::Update(float afTimeStep)
 		while(it.HasNext())
 		{
 			iGameEnemy *pEnemy = it.Next();
-			
+
 			if(pEnemy->IsActive()==false || pEnemy->GetHealth() <=0) continue;
 
 			int lState = pEnemy->GetStateMachine()->CurrentState()->GetId();
 
 			if(lState == eGameEnemyState_Hunt || lState == eGameEnemyState_Attack)
 			{
-				lTerrorLevel = 3;	
+				lTerrorLevel = 3;
 			}
 			else if(lTerrorLevel < 2 && lState == eGameEnemyState_Investigate)
 			{
@@ -679,13 +679,13 @@ void cPlayerHealth::Update(float afTimeStep)
 				lTerrorLevel = 1;
 			}
 		}
-		
+
         if(mlTerrorLevel != lTerrorLevel)
 		{
 			mlTerrorLevel = lTerrorLevel;
 
 			cSoundHandler *pSoundHandler = mpInit->mpGame->GetSound()->GetSoundHandler();
-			
+
 			//Fade out the current sound if there is any.
 			if(mpSoundEntry)
 			{
@@ -697,7 +697,7 @@ void cPlayerHealth::Update(float afTimeStep)
 
 			tString sSound="";
 			float fVolume;
-			
+
 			if(mlTerrorLevel==0)
 			{
 			}
@@ -716,7 +716,7 @@ void cPlayerHealth::Update(float afTimeStep)
 				sSound = "horror_roach_attack";
 				fVolume = 0.6f;
 			}
-		
+
 			if(sSound != "")
 			{
 				iSoundChannel *pChannel = pSoundHandler->PlayGui(sSound, true, fVolume);
@@ -769,7 +769,7 @@ cPlayerEarRing::cPlayerEarRing(cInit *apInit,cPlayer *apPlayer)
 void cPlayerEarRing::Reset()
 {
 	cSoundHandler *pSoundHandler = mpInit->mpGame->GetSound()->GetSoundHandler();
-	
+
 	if(mpSoundEntry) mpSoundEntry->mpSound->Stop();
 	pSoundHandler->SetVolume(1.0f,0.1f,eSoundDest_World);
 
@@ -800,7 +800,7 @@ void cPlayerEarRing::Update(float afTimeStep)
 		{
 			mfTimeCount =0;
 			pSoundHandler->SetVolume(1.0f,3.5f,eSoundDest_World);
-			
+
 			if(mpSoundEntry)
 			{
 				mpSoundEntry->mfNormalVolumeFadeDest = 0;
@@ -823,7 +823,7 @@ void cPlayerEarRing::Start(float afTime)
 	else
 	{
 		cSoundHandler *pSoundHandler = mpInit->mpGame->GetSound()->GetSoundHandler();
-		
+
 		iSoundChannel *pChannel = pSoundHandler->PlayGui("player_ear_ring", true, 0.5f);
 		pChannel->SetPriority(200);
 		mpSoundEntry = pSoundHandler->GetEntryFromSound(pChannel);
@@ -834,7 +834,7 @@ void cPlayerEarRing::Start(float afTime)
 
 		pSoundHandler->SetVolume(0.0f,1.2f,eSoundDest_World);
 	}
-	
+
 	mfTimeCount = afTime;
 
 	mbDeaf = true;
@@ -851,7 +851,7 @@ void cPlayerEarRing::Stop(bool abStopDirectly)
 	{
 		if(mpSoundEntry) mpSoundEntry->mpSound->Stop();
 		mpSoundEntry = NULL;
-		
+
 		pSoundHandler->SetVolume(1,5,eSoundDest_World);
 	}
 	else
@@ -896,7 +896,7 @@ void cPlayerLean::Reset()
 	mfRotation =0;
 
 	mfMoveSpeed = 0;
-	
+
 	mbPressed = false;
 }
 
@@ -925,7 +925,7 @@ void cPlayerLean::Update(float afTimeStep)
 
 		float fGoalPos = mfMaxMovement * mfDir;
 		float fGoalRot = mfMaxRotation * -mfDir;
-        
+
 		//////////////
 		//Position
 		float fPrevMovement = mfMovement;
@@ -941,7 +941,7 @@ void cPlayerLean::Update(float afTimeStep)
 		float fPrevRotation = mfRotation;
 		float fRotSpeed = fGoalRot - mfRotation;
 		if(fabsf(fRotSpeed) <0.13f) fRotSpeed = 0.13f*-mfDir;
-		
+
 		mfRotation += fRotSpeed * afTimeStep * 2;
 
 		if(fGoalRot < 0 && mfRotation < fGoalRot) mfRotation = fGoalRot;
@@ -951,7 +951,7 @@ void cPlayerLean::Update(float afTimeStep)
 		//Check collision
 		cCamera3D *pCam = mpInit->mpPlayer->GetCamera();
 		iPhysicsWorld *pPhysicsWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
-		
+
 		float fReverseMov = fPrevMovement - mfMovement;
 		float fReverseRot = fPrevRotation - mfRotation;
 
@@ -960,7 +960,7 @@ void cPlayerLean::Update(float afTimeStep)
 		cVector3f vStartPos = pCharBody->GetFeetPosition() + cVector3f(0,fHeightAdd,0);
 
 		cVector3f vPos = vStartPos + pCam->GetRight() * mfMovement;
-		
+
 		int lCount = 0;
 		while(pPhysicsWorld->CheckShapeWorldCollision(NULL,mpHeadShape,
 			cMath::MatrixTranslate(vPos),NULL,false,true,NULL,false))
@@ -998,7 +998,7 @@ void cPlayerLean::Update(float afTimeStep)
 		float fRotSpeed = 0 - mfRotation;
 		mfRotation += fRotSpeed * afTimeStep * 3;
 	}
-	
+
 	mpPlayer->GetCamera()->AddRoll(mfRotation);
 }
 
@@ -1060,12 +1060,12 @@ void cPlayerDamage::Start(float afSize, ePlayerDamageType aType)
 	mfSize = afSize;
 
 	mType = aType;
-	
+
 	mfAlpha = 0;
 	mfAlphaAdd = 4.3f;
 
 	mbActive = true;
-	
+
 	if(!mpInit->mpPlayer->GetFearFilter()->IsActive())
 	{
 		mpPostEffects->SetImageTrailActive(true);
@@ -1107,7 +1107,7 @@ void cPlayerDamage::Update(float afTimeStep)
 	//Update swing
 	mpInit->mpPlayer->GetCamera()->AddYaw(mvHeadSwingSpeed.x*afTimeStep);
 	mpInit->mpPlayer->GetCamera()->AddPitch(mvHeadSwingSpeed.y*afTimeStep);
-	
+
 	if(mvHeadSwingSpeed.x >0){
 		mvHeadSwingSpeed.x -= (mvHeadSwingAcc.x/mfSize) * afTimeStep * 2.2f;
 		if(mvHeadSwingSpeed.x <0) mvHeadSwingSpeed.x =0;
@@ -1124,7 +1124,7 @@ void cPlayerDamage::Update(float afTimeStep)
 		mvHeadSwingSpeed.y += (mvHeadSwingAcc.x/mfSize) * afTimeStep * 2.2f;
 		if(mvHeadSwingSpeed.y >0) mvHeadSwingSpeed.y =0;
 	}
-	
+
 	//Blur update
 	if(mpInit->mpPlayer->IsDead()==false)
 	{
@@ -1291,7 +1291,7 @@ void cPlayerDeath::Draw()
 cPlayerFlashLight::cPlayerFlashLight(cInit *apInit)
 {
 	mpInit = apInit;
-	
+
 	mpInit->mpPlayerHands->AddModelFromFile("hud_object_flashlight.hud");
 
 	Reset();
@@ -1354,10 +1354,10 @@ void cPlayerFlashLight::Update(float afTimeStep)
 		if(mfRayCastTime >= 1)//1.0f/20.0f)
 		{
 			mfRayCastTime =0;
-			
+
 			cCamera3D *pCam = mpInit->mpPlayer->GetCamera();
 			iPhysicsWorld *pPhysicsWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
-			
+
 			iHudModel *pHudModel = mpInit->mpPlayerHands->GetModel("Flashlight");
 
 			cVector3f vForward = pCam->GetForward();
@@ -1367,7 +1367,7 @@ void cPlayerFlashLight::Update(float afTimeStep)
 										pHudModel->GetEntity()->GetWorldMatrix().GetRotation(),
 										cVector3f(0,-1,0));
 			}
-			
+
 			if(pHudModel == mpInit->mpPlayerHands->GetCurrentModel(0))
 			{
 				tGameEnemyIterator it = mpInit->mpMapHandler->GetGameEnemyIterator();
@@ -1376,12 +1376,12 @@ void cPlayerFlashLight::Update(float afTimeStep)
 					iGameEnemy *pEnemy = it.Next();
 
 					if(pEnemy->GetHealth() <=0 || pEnemy->IsActive()==false) continue;
-					
+
 					cVector3f vToEnemy =	pEnemy->GetMover()->GetCharBody()->GetPosition() -
 											mpInit->mpPlayer->GetCharacterBody()->GetPosition();
 					float fSqrDist = vToEnemy.SqrLength();
 					vToEnemy.Normalise();
-					
+
                     if(fSqrDist < 100.0f)
 					{
 						float fAngle = cMath::Vector3Angle(vToEnemy,vForward);
@@ -1407,17 +1407,17 @@ void cPlayerFlashLight::Update(float afTimeStep)
 						}
 					}
 				}
-				
+
 				//////////////////////////////
 				//Get forward
 				//cVector3f vForward = pCam->GetForward();
-				
+
 				/*float fAngleX = cMath::RandRectf(cMath::ToRad(-3),cMath::ToRad(3));
 				float fAngleY = cMath::RandRectf(0,k2Pif);
 				cVector3f vForward = cMath::MatrixMul(
 									cMath::MatrixRotate(cVector3f(fAngleX,fAngleY,0),eEulerRotationOrder_XYZ),
 									cVector3f(0,1,0));
-				
+
 				vForward =	cMath::MatrixMul(
 							pHudModel->GetEntity()->GetWorldMatrix().GetRotation(),
 							//cMath::MatrixInverse(pCam->GetViewMatrix().GetRotation()),
@@ -1432,7 +1432,7 @@ void cPlayerFlashLight::Update(float afTimeStep)
 
 				mvStart =vStart;
 				mvEnd = vEnd;
-				
+
 				mpClosestBody = NULL; mfClosestDist = 10000.0f;
 				pPhysicsWorld->CastRay(this,vStart,vEnd,true,false,false,false);
 
@@ -1458,14 +1458,14 @@ void cPlayerFlashLight::Update(float afTimeStep)
 			mfRayCastTime += afTimeStep;
 		}
 	}
-	
-	
+
+
 	iHudModel *pHudModel = mpInit->mpPlayerHands->GetCurrentModel(0);
-	
+
 	//////////////////////////
 	//Player power
-	if(	mbActive &&	
-		mpInit->mpInventory->IsActive()==false && 
+	if(	mbActive &&
+		mpInit->mpInventory->IsActive()==false &&
 		mpInit->mpNotebook->IsActive() == false &&
 		mpInit->mpNumericalPanel->IsActive() == false)
 	{
@@ -1475,7 +1475,7 @@ void cPlayerFlashLight::Update(float afTimeStep)
 			SetActive(false);
 		}
 	}
-	
+
 	//////////////////////////
 	//Flicker at low energy
 	if(mbActive && mpInit->mpInventory->IsActive()==false &&
@@ -1489,9 +1489,9 @@ void cPlayerFlashLight::Update(float afTimeStep)
 				{
 					pHudModel->mvLights[0]->SetVisible(false);
 					pHudModel->mvBillboards[0]->SetVisible(false);
-					
+
 					mfFlickerTime = cMath::RandRectf(0.04f,0.15f);
-					
+
 					cSoundHandler *pSoundHanlder = mpInit->mpGame->GetSound()->GetSoundHandler();
 
 					pSoundHanlder->PlayGui("item_flashlight_flicker",false,1);
@@ -1522,16 +1522,16 @@ void cPlayerFlashLight::SetActive(bool abX)
 		pSoundHanlder->PlayGui("item_flashlight_nopower",false,1);
 		return;
 	}
-	
+
 	if(mbActive == abX) return;
 	mbActive = abX;
-	
+
 	/////////////////////////////
 	//Active
 	if(mbActive)
 	{
 		mpInit->mpPlayerHands->SetCurrentModel(0,"Flashlight");
-		
+
 		//pSoundHanlder->PlayGui("item_flashlight_on",false,1);
 	}
 	/////////////////////////////
@@ -1541,7 +1541,7 @@ void cPlayerFlashLight::SetActive(bool abX)
 			mpInit->mpPlayerHands->GetCurrentModel(0)->GetState() != eHudModelState_Unequip)
 	{
 		mpInit->mpPlayerHands->SetCurrentModel(0,"");
-		
+
 		if(mpInit->mpPlayer->GetPower()==0)
 			pSoundHanlder->PlayGui("item_flashlight_nopower",false,1);
 		//else
@@ -1554,7 +1554,7 @@ void cPlayerFlashLight::SetActive(bool abX)
 void cPlayerFlashLight::SetDisabled(bool abX)
 {
 	if(abX==true) SetActive(false);
-	
+
 	mbDisabled = abX;
 }
 
@@ -1660,7 +1660,7 @@ cPlayerFlare::cPlayerFlare(cInit *apInit)
 	mpInit = apInit;
 
 	mpInit->mpPlayerHands->AddModelFromFile("hud_object_flare.hud");
-	
+
 	mfTime =  mpInit->mpGameConfig->GetFloat("Items","FlareGlowTime",1);
 
 	mfLightPulse = 1.0f;
@@ -1732,8 +1732,8 @@ void cPlayerFlare::Update(float afTimeStep)
 			if(mpLight) mpLight->SetFarAttenuation(fRadius);
 
 			//////////////////////
-			// Time 
-			if(	mpInit->mpInventory->IsActive()==false && 
+			// Time
+			if(	mpInit->mpInventory->IsActive()==false &&
 				mpInit->mpNotebook->IsActive() == false &&
 				mpInit->mpNumericalPanel->IsActive() == false)
 			{
@@ -1783,9 +1783,9 @@ void cPlayerFlare::SetActive(bool abX)
 			mpInit->mpPlayer->GetFlashLight()->SetActive(false);
 		if(mpInit->mpPlayer->GetGlowStick()->IsActive())
 			mpInit->mpPlayer->GetGlowStick()->SetActive(false);
-		
+
 		mfTime =  mpInit->mpGameConfig->GetFloat("Items","FlareGlowTime",1);
-		
+
 		mpModel = mpInit->mpPlayerHands->GetModel("Flare");
 		mpLight = NULL;
 	}
@@ -1854,7 +1854,7 @@ cPlayerNoiseFilter::cPlayerNoiseFilter(cInit *apInit)
 	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
 
 	mlAmount = 6;
-    
+
     for(int i=0; i<mlAmount; ++i)
 	{
 		tString sFileName = "effect_noise0"+cString::ToString(i);
@@ -1880,7 +1880,7 @@ cPlayerNoiseFilter::cPlayerNoiseFilter(cInit *apInit)
 
 cPlayerNoiseFilter::~cPlayerNoiseFilter()
 {
-	mpInit->mpConfig->SetBool("Graphics", "NoiseFilter",mbActive);	
+	mpInit->mpConfig->SetBool("Graphics", "NoiseFilter",mbActive);
 
 	for(size_t i=0; i< mvGfxNoise.size(); ++i)
 	{
@@ -1898,9 +1898,9 @@ void cPlayerNoiseFilter::Draw()
 	for(int y=0; y< 15; ++y)
 	{
 		cVector3f vPos((float)x*40, (float)y*40,0);
-		
-        mpDrawer->DrawGfxObject(mvGfxNoise[mvCurrentGfx[x*y]],vPos,40,cColor(mfAlpha,0));        
-		//mpDrawer->DrawGfxObject(mvGfxNoise[0],vPos,40,cColor(mfAlpha,mfAlpha));        
+
+        mpDrawer->DrawGfxObject(mvGfxNoise[mvCurrentGfx[x*y]],vPos,40,cColor(mfAlpha,0));
+		//mpDrawer->DrawGfxObject(mvGfxNoise[0],vPos,40,cColor(mfAlpha,mfAlpha));
 	}
 }
 
@@ -2031,7 +2031,7 @@ cPlayerLookAt::cPlayerLookAt(cPlayer *apPlayer)
 {
 	mpPlayer = apPlayer;
 
-	Reset();	
+	Reset();
 }
 
 //-----------------------------------------------------------------------
@@ -2046,12 +2046,12 @@ cPlayerLookAt::~cPlayerLookAt()
 void cPlayerLookAt::Update(float afTimeStep)
 {
 	if(mbActive==false) return;
-	
+
 	cCamera3D *pCam = mpPlayer->GetCamera();
 	cVector3f vGoalAngle = cMath::GetAngleFromPoints3D(pCam->GetPosition(),mvTargetPos);
-	
+
 	//Get distance to goal
-	cVector3f vDist; 
+	cVector3f vDist;
 	vDist.x = cMath::GetAngleDistanceRad(pCam->GetPitch(),vGoalAngle.x);
 	vDist.y = cMath::GetAngleDistanceRad(pCam->GetYaw(),vGoalAngle.y);
 
@@ -2059,13 +2059,13 @@ void cPlayerLookAt::Update(float afTimeStep)
 	cVector3f vSpeed;
 	vSpeed.x = cMath::Min(vDist.x * mfSpeedMul, mfMaxSpeed);
 	vSpeed.y = cMath::Min(vDist.y * mfSpeedMul, mfMaxSpeed);
-	
+
 	//Add Pitch
 	pCam->AddPitch(vSpeed.x * afTimeStep);
-		
+
 	//Add yaw
 	pCam->AddYaw(vSpeed.y * afTimeStep);
-	mpPlayer->GetCharacterBody()->SetYaw(pCam->GetYaw());    
+	mpPlayer->GetCharacterBody()->SetYaw(pCam->GetYaw());
 }
 
 void cPlayerLookAt::Reset()
@@ -2101,13 +2101,13 @@ cPlayerHidden::cPlayerHidden(cInit *apInit)
 	mpInit = apInit;
 	mpRenderer = mpInit->mpGame->GetGraphics()->GetRenderer3D();
 	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
-	
+
 	mpSoundHandler = mpInit->mpGame->GetSound()->GetSoundHandler();
 
 	mfUpdateCount = 1.0f / 3.0f;
 
 	cVector2f vScreenSize = mpInit->mpGame->GetGraphics()->GetLowLevel()->GetScreenSize();
-	
+
 	mfStartEffectOffset = 40;
 	mfHiddenEffectOffset = 0;
 	mfEffectOffsetAdd = mfStartEffectOffset - mfHiddenEffectOffset;
@@ -2126,7 +2126,7 @@ cPlayerHidden::cPlayerHidden(cInit *apInit)
 	mfCloseEffectFovMin = cMath::ToRad(-11);
 
 	Reset();
-	
+
 	//Get images
 	mpInShadowGfx =  mpDrawer->CreateGfxObject("player_in_shadow.jpg","diffadditive2d");
 
@@ -2174,7 +2174,7 @@ void cPlayerHidden::Draw()
 	{
 		mpFont->Draw(5,12,cColor(1,0.3f,0.3f),eFontAlign_Left,_W("Light: %f\n"),mfLight);
 	}
-	
+
 	if(mbHidden)
 		mpFont->Draw(cVector3f(5,19,5),12,cColor(1,1,1),eFontAlign_Left,_W("Hidden\n"));
 	*/
@@ -2197,7 +2197,7 @@ void cPlayerHidden::Draw()
 	mpFont->Draw(cVector3f(5,19,5),12,cColor(1,1,1),eFontAlign_Left,"Fov: %f Add: %f\n",
 													mfCloseEffectFov,fAdd);*/
 
-	
+
 	//Draw in shadow effect
 	if(mfInShadowAlpha>0)
 	{
@@ -2214,7 +2214,7 @@ void cPlayerHidden::UnHide()
 {
 	if(mbHidden){
 		mpLight->FadeTo(cColor(0,0,0,0),mpLight->GetFarAttenuation(),mfHiddenOffTime);
-		
+
 		if(mfHiddenOnCount >2)
 			mpSoundHandler->PlayGui("player_hidden_off",false,1);
 	}
@@ -2247,7 +2247,7 @@ static float GetMaxRGB(const cColor &aCol)
 	float fAmount = aCol.r;
 	if(fAmount < aCol.g) fAmount = aCol.g;
 	if(fAmount < aCol.b) fAmount = aCol.b;
-	
+
 	return fAmount;
 }
 
@@ -2306,7 +2306,7 @@ void cPlayerHidden::Update(float afTimeStep)
 
 			mpInit->mpPlayer->GetCamera()->SetFOV(mfFov);
 		}
-		
+
 		//Effect offset
 		if(mfEffectOffset < mfStartEffectOffset)
 		{
@@ -2362,8 +2362,8 @@ void cPlayerHidden::Update(float afTimeStep)
 					mpLight->SetVisible(true);
 					mpLight->SetPosition(mpInit->mpPlayer->GetCamera()->GetPosition());
 					mpLight->FadeTo(cColor(0.1f,0.1f,0.6f,0),12,mfHiddenOnTime);
-					
-					mpSoundHandler->PlayGui("player_hidden_on",false,1);				
+
+					mpSoundHandler->PlayGui("player_hidden_on",false,1);
 				}
 				else
 				{
@@ -2400,13 +2400,13 @@ void cPlayerHidden::Update(float afTimeStep)
 		UnHide();
 	}
 
-	
+
 	//////////////////////////////////////////7
 	// Update the current light level
 	if(mfUpdateCount <= 0)
 	{
 		mfUpdateCount = 1.0f / 2.0f;
-		
+
 		mfLight =  GetMaxRGB(mpInit->mpGame->GetGraphics()->GetRenderer3D()->GetAmbientColor());
 		cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
 		if(pWorld==NULL) return;
@@ -2431,7 +2431,7 @@ void cPlayerHidden::Update(float afTimeStep)
 
 				//Get highest value of rg b
 				float fAmount = GetMaxRGB(pLight->GetDiffuseColor());
-				
+
 				//Get distance to the light
 				float fDist = cMath::Vector3Dist(	pLight->GetWorldPosition(),
 													pPlayerBV->GetWorldCenter());
@@ -2440,11 +2440,11 @@ void cPlayerHidden::Update(float afTimeStep)
 				float fT = 1 - fDist / pLight->GetFarAttenuation();
 				if(fT<0)fT =0;
 				fAmount *= fT;
-				
+
 				mfLight += fAmount;
 			}
 		}
-		
+
 	}
 	else
 	{
@@ -2473,12 +2473,12 @@ bool cPlayerHidden::OnIntersect(iPhysicsBody *pBody,cPhysicsRayParams *apParams)
 	{
 		cMeshEntity *pMeshEntity = pEntity->GetMeshEntity();
 		if(pMeshEntity->IsShadowCaster()==false) return true;
-		
+
 		bool bFoundSolid = false;
 		for(int i=0; i< pMeshEntity->GetSubMeshEntityNum(); ++i)
 		{
-			iMaterial *pMaterial = pMeshEntity->GetSubMeshEntity(i)->GetMaterial(); 
-			if(pMaterial && 
+			iMaterial *pMaterial = pMeshEntity->GetSubMeshEntity(i)->GetMaterial();
+			if(pMaterial &&
 				(pMaterial->IsTransperant()==false && pMaterial->HasAlpha()==false))
 			{
 				bFoundSolid = true;
@@ -2511,27 +2511,27 @@ bool cPlayerHidden::HasLineOfSight(iLight3D *pLight,iPhysicsWorld *pPhysicsWorld
 	if(pLight->GetLightType() == eLight3DType_Spot)
 	{
 		cLight3DSpot *pSpotLight = static_cast<cLight3DSpot*>(pLight);
-		
-		if(pSpotLight->GetFrustum()->CollideBoundingVolume(pLight->GetBoundingVolume()) == 
+
+		if(pSpotLight->GetFrustum()->CollideBoundingVolume(pLight->GetBoundingVolume()) ==
 			eFrustumCollision_Outside)
 		{
 			return false;
 		}
 	}
-	
+
 
 	int lCount =0;
 
-	
+
 	cVector3f vPosAdd[5];
 	int lPosAddNum = 5;
 
 	//Centre
-	vPosAdd[0] = cVector3f(0,0,0); 
+	vPosAdd[0] = cVector3f(0,0,0);
 	//Head
-	vPosAdd[1] = cVector3f(0,pCharBody->GetSize().y/2 -0.1f,0); 
+	vPosAdd[1] = cVector3f(0,pCharBody->GetSize().y/2 -0.1f,0);
 	//Feet
-	vPosAdd[2] = cVector3f(0,-(pCharBody->GetSize().y/2 + 0.1f),0); 
+	vPosAdd[2] = cVector3f(0,-(pCharBody->GetSize().y/2 + 0.1f),0);
 
 	cVector3f vRight = cMath::Vector3Cross(	cMath::Vector3Normalize(pLight->GetWorldPosition()-vPlayerPos),
 											cVector3f(0,1,0));
@@ -2539,14 +2539,14 @@ bool cPlayerHidden::HasLineOfSight(iLight3D *pLight,iPhysicsWorld *pPhysicsWorld
 	vPosAdd[3] = vRight * (pCharBody->GetSize().x *0.4f);
 	//Left
 	vPosAdd[4] = vRight * (pCharBody->GetSize().x *-0.4f);
-	
+
 	for(int i=0; i<lPosAddNum; ++i)
 	{
 		mbIntersected = false;
 		pPhysicsWorld->CastRay(	this,vPlayerPos + vPosAdd[i],	pLight->GetWorldPosition(),
 								false,false,false,false);
 
-		if(mbIntersected) 
+		if(mbIntersected)
 			++lCount;
 		else {
 			break;
@@ -2576,7 +2576,7 @@ void cPlayerHidden::UpdateEnemyTooClose(float afTimeStep)
 			{
 				mfCloseEffectFovAdd = -mfCloseEffectFovAdd;
 				mfCloseEffectFov = mfCloseEffectFovMax;
-				
+
 				if(mfEnemyTooCloseCount > mfEnemyTooCloseMax*0.4f)
 					mpSoundHandler->PlayGui("player_scare_mid",false,1);
 				else
@@ -2590,14 +2590,14 @@ void cPlayerHidden::UpdateEnemyTooClose(float afTimeStep)
 			{
 				mfCloseEffectFovAdd = -mfCloseEffectFovAdd;
 				mfCloseEffectFov = mfCloseEffectFovMin;
-				
+
 				//if(mfEnemyTooCloseCount > mfEnemyTooCloseMax*0.6f)
 				//	mpSoundHandler->PlayGui("player_scare_mid",false,1);
 				//else
 				//	mpSoundHandler->PlayGui("player_scare_low",false,1);
 			}
 		}
-		
+
 		float fAdd =0;
 		if(mfCloseEffectFov >= 0)
 		{
@@ -2657,10 +2657,10 @@ void cPlayerHidden::UpdateEnemyTooClose(float afTimeStep)
 			//Reset variables
 			mbEnemyTooClose = false;
 			mfCheckEnemyCloseCount = 0.3f;
-			
+
 			///Get needed data
 			iPhysicsWorld *pPhysicsWorld = pWorld->GetPhysicsWorld();
-			
+
 			//Iterate enemies
 			tGameEnemyIterator enemyIt = mpInit->mpMapHandler->GetGameEnemyIterator();
 			while(enemyIt.HasNext())
@@ -2704,9 +2704,9 @@ void cPlayerHidden::UpdateEnemyTooClose(float afTimeStep)
 		if(mbEnemyTooClose)
 		{
 			mfEnemyTooCloseCount+= afTimeStep;
-			
+
 			//Do some effect
-					
+
 			//Check if limit is reached
 			if(mfEnemyTooCloseCount> mfEnemyTooCloseMax)
 			{
@@ -2719,7 +2719,7 @@ void cPlayerHidden::UpdateEnemyTooClose(float afTimeStep)
 				{
 					pSound->SetPosition(pCam->GetPosition());
 				}
-				
+
 				//Show player to nearby enemies.
 				tGameEnemyIterator enemyIt = mpInit->mpMapHandler->GetGameEnemyIterator();
 				while(enemyIt.HasNext())
@@ -2759,7 +2759,7 @@ void cPlayerHidden::Reset()
 	mfHiddenOffTime = 0.5f;
 
 	mfHiddenOnCount = 0;
-	
+
 	mfEffectOffset = mfStartEffectOffset;
 	mfAspect = mfStartAspect;
 	mfFov = mfStartFov;

@@ -79,7 +79,7 @@ bool cSavedWorld::PSExists(cParticleSystem3D *apPS)
 	while(it.HasNext())
 	{
 		cEnginePS_SaveData &savePS = it.Next();
-	
+
 		if(savePS.msName == apPS->GetName()) return true;
 	}
 
@@ -131,7 +131,7 @@ bool cSavedWorld::JointExists(iPhysicsJoint *apJoint)
 }
 
 //-----------------------------------------------------------------------
- 
+
 
 //////////////////////////////////////////////////////////////////////////
 // SAVED GAME
@@ -158,7 +158,7 @@ void cSavedGame::ResetWorlds()
 	while(it.HasNext())
 	{
 		cSavedWorld* pWorld =it.Next();
-		
+
 		//Log("delete world %d, '%s'\n", pWorld, pWorld->msName.c_str());
 		hplDelete( pWorld );
 	}
@@ -186,7 +186,7 @@ void cSavedGame::ResetGlobalData()
 cSavedWorld* cSavedGame::GetSavedWorld(const tString &asName)
 {
 	tString sLowName = cString::ToLowerCase(asName);
-	
+
 	//See if world allready exists
 	cContainerListIterator<cSavedWorld*> it = mlstWorlds.GetIterator();
 	while(it.HasNext())
@@ -197,7 +197,7 @@ cSavedWorld* cSavedGame::GetSavedWorld(const tString &asName)
 			return pWorld;
 		}
 	}
-	
+
 	//Create newer world
     cSavedWorld *pWorld = hplNew( cSavedWorld, () );
 	pWorld->msName = asName;
@@ -232,7 +232,7 @@ cSaveHandler::cSaveHandler(cInit *apInit)  : iUpdateable("SaveHandler")
 	iLowLevelSystem *pLowLevelSystem = mpInit->mpGame->GetSystem()->GetLowLevel();
 
 	tWString sPeronalDir = GetSystemSpecialPath(eSystemPath_Personal);
-	
+
 	if(sPeronalDir == _W(""))
 	{
 		Warning("Couldn't find a personal folder! Using the local folder instead!\n");
@@ -241,7 +241,7 @@ cSaveHandler::cSaveHandler(cInit *apInit)  : iUpdateable("SaveHandler")
 
 
 	//Put an "/" at end of needed
-	if(	cString::GetLastCharW(sPeronalDir) != _W("/") && 
+	if(	cString::GetLastCharW(sPeronalDir) != _W("/") &&
 		cString::GetLastCharW(sPeronalDir) != _W("\\"))
 	{
 		sPeronalDir += _W("/");
@@ -259,7 +259,7 @@ cSaveHandler::cSaveHandler(cInit *apInit)  : iUpdateable("SaveHandler")
 						PERSONAL_RELATIVEROOT PERSONAL_RELATIVEGAME _W("save/spot"),
 						PERSONAL_RELATIVEROOT PERSONAL_RELATIVEGAME _W("save/favorite")};
 	int lDirNum = PERSONAL_RELATIVEPIECES_COUNT + 6;
-        
+
 	//Check if directories exist and if not create
 	for(int i=0; i<lDirNum; ++i)
 	{
@@ -295,9 +295,9 @@ cSaveHandler::~cSaveHandler(void)
 void cSaveHandler::SaveData(const tString &asName)
 {
 	cSavedWorld *pSavedWorld = mpSavedGame->GetSavedWorld(asName);
-	
+
 	pSavedWorld->Reset();
-	
+
 	///////////////////////
 	//Map properties
 	cRenderer3D *pRenderer = mpInit->mpGame->GetGraphics()->GetRenderer3D();
@@ -312,7 +312,7 @@ void cSaveHandler::SaveData(const tString &asName)
 
 	pSavedWorld->mbSkyboxActive = pRenderer->GetSkyBoxActive();
 	pSavedWorld->mSkyboxColor = pRenderer->GetSkyBoxColor();
-	
+
 	if(pRenderer->GetSkyBox())
 		pSavedWorld->msSkyboxFile = pRenderer->GetSkyBox()->GetName();
 	else
@@ -402,7 +402,7 @@ void cSaveHandler::LoadData(const tString &asName)
 	///////////////////////
 	//Inventory callbacks
 	cInventory *pInventory = mpInit->mpInventory;
-	
+
 	///////////////////////
 	//Use callbacks
 	{
@@ -452,7 +452,7 @@ void cSaveHandler::SaveGameToFile(const tWString& asFile)
 {
 	//Reset all global data
 	mpSavedGame->ResetGlobalData();
-	
+
 	//////////////////////////////
 	//Save the current map:
 	SaveData(mpInit->mpMapHandler->GetCurrentMapName());
@@ -466,7 +466,7 @@ void cSaveHandler::SaveGameToFile(const tWString& asFile)
 	{
 		mpSavedGame->mlstScriptVars.Add(VarIt->second);
 	}
-	
+
 	//////////////////////////////
 	//Save global properties
 	mpSavedGame->mDifficulty = mpInit->mDifficulty;
@@ -479,7 +479,7 @@ void cSaveHandler::SaveGameToFile(const tWString& asFile)
 	//////////////////////////////
 	//Save map handler
 	mpInit->mpMapHandler->SaveToGlobal(&mpSavedGame->mMapHandler);
-	
+
 	//////////////////////////////
 	//Save loaded maps in Scene
 	mpSavedGame->mvSceneLoadedMap.Clear();
@@ -491,7 +491,7 @@ void cSaveHandler::SaveGameToFile(const tWString& asFile)
 		loadedMap.msName = *it;
 		mpSavedGame->mvSceneLoadedMap.Add(loadedMap);
 	}
-	
+
 	//////////////////////////////
 	//Save inventory
 	mpInit->mpInventory->SaveToGlobal(&mpSavedGame->mInventory);
@@ -504,7 +504,7 @@ void cSaveHandler::SaveGameToFile(const tWString& asFile)
 	//Load game music
 	mpInit->mpMusicHandler->SaveToGlobal(&mpSavedGame->mGameMusicHandler);
 
-	
+
 	//////////////////////////////
 	//Save current music
 	cMusicEntry *pMusic = mpInit->mpGame->GetSound()->GetMusicHandler()->GetCurrentSong();
@@ -521,9 +521,9 @@ void cSaveHandler::SaveGameToFile(const tWString& asFile)
 
 	//////////////////////////////
 	//Write to file:
-	
+
 	//tWString sSavePath = mpInit->mpGame->GetSystem()->GetLowLevel()->GetSystemSpecialPath(eSystemPath_Personal);
-	
+
 	//if(cString::GetLastCharW(sSavePath) != _W("/") && cString::GetLastCharW(sSavePath) != _W("\\"))
 	//sSavePath += _W("/");
 
@@ -554,15 +554,15 @@ void cSaveHandler::LoadGameFromFile(const tWString& asFile)
 	mpInit->mbResetCache = false;
 	mpInit->ResetGame(false);
 	mpInit->mbResetCache = true;
-	
+
 	mpInit->mpGame->GetSound()->GetMusicHandler()->Stop(0);
 	mpInit->mpGame->GetSound()->Update(1/60.0f);
-	
+
 	cSerializeClass::SetLog(false);
 	tWString sSavePath = msSaveDir + asFile;
 	//tString sSaveFile = cString::To8Char(sSavePath);
 	cSerializeClass::LoadFromFile(mpSavedGame,sSavePath);
-	
+
 	//////////////////////////////
 	//Load global properties
 	mpInit->mDifficulty = mpSavedGame->mDifficulty;
@@ -604,10 +604,10 @@ void cSaveHandler::LoadGameFromFile(const tWString& asFile)
 	///////////////////////////////
 	//Load the map
 	//TOOD: Use the correct file!
-    mpInit->mpMapHandler->LoadSimple(mpSavedGame->mMapHandler.msCurrentMap+".dae",false);    
+    mpInit->mpMapHandler->LoadSimple(mpSavedGame->mMapHandler.msCurrentMap+".dae",false);
 	//LoadData(mpSavedGame->mMapHandler.msCurrentMap);
 	//mpInit->mpMapHandler->Load(mpSavedGame->mMapHandler.msCurrentMap+".dae","link01");
-	
+
 	//////////////////////////////
 	//Load player properties.
 	mpInit->mpPlayer->LoadFromGlobal(&mpSavedGame->mPlayer);
@@ -628,7 +628,7 @@ void cSaveHandler::LoadGameFromFile(const tWString& asFile)
 	mpInit->mpGame->ResetLogicTimer();
 
 	//Quick fix, make sure player is always active:
-	mpInit->mpPlayer->SetActive(true); 
+	mpInit->mpPlayer->SetActive(true);
 }
 
 //-----------------------------------------------------------------------
@@ -638,8 +638,8 @@ void cSaveHandler::AutoSave(const tWString &asDir, int alMaxSaves)
 	//////////////////////
 	//Check the available autosaves
 	DeleteOldestIfMax(_W("save/")+asDir,_W("*.sav"),alMaxSaves);
-	
-	
+
+
 	//////////////////////
 	//Save the autosave
 	tWString sMapName = mpInit->mpMapHandler->GetMapGameName();
@@ -721,7 +721,7 @@ void cSaveHandler::DeleteOldestIfMax(const tWString &asDir,const tWString &asMas
 	iLowLevelResources *pLowLevelResources = mpInit->mpGame->GetResources()->GetLowLevel();
 	iLowLevelSystem *pLowLevelSystem = mpInit->mpGame->GetSystem()->GetLowLevel();
 
-	
+
 	tWString sPath = msSaveDir + asDir;
 
 	tWStringList lstFiles;
@@ -743,7 +743,7 @@ void cSaveHandler::DeleteOldestIfMax(const tWString &asDir,const tWString &asMas
 				oldestDate = date;
 			}
 		}
-		
+
 		RemoveFile(sPath + _W("/") +sOldest);
 	}
 }
@@ -774,7 +774,7 @@ tWString cSaveHandler::GetLatest(const tWString &asDir,const tWString &asMask)
 			newestDate = date;
 		}
 	}
-	
+
 	return sNewest;
 }
 

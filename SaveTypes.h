@@ -31,7 +31,7 @@ class cEngineBody_SaveData : public iSerializable
 public:
 	void FromBody(iPhysicsBody *pBody);
 	void ToBody(iPhysicsBody *pBody);
-	
+
 	float mfMass;
 	bool mbActive;
 	bool mbCollideCharacter;
@@ -47,7 +47,7 @@ class cEngineJointController_SaveData : public iSerializable
 	kSerializableClassInit(cEngineJointController_SaveData)
 public:
 	tString msName;
-	
+
 	float mfDestValue;
 	bool mbActive;
 };
@@ -60,7 +60,7 @@ class cEngineJoint_SaveData : public iSerializable
 public:
 	void FromJoint(iPhysicsJoint *apJoint);
 	void ToJoint(iPhysicsJoint *apJoint);
-	
+
 	tString msName;
 	float mfMinLimit;
 	float mfMaxLimit;
@@ -86,12 +86,12 @@ class cEnginePS_SaveData : public iSerializable
 public:
 	void FromPS(cParticleSystem3D *apPS);
 	void ToPS(cParticleSystem3D *apPS);
-	
+
 	tString msName;
 	tString msType;
 	cVector3f mvSize;
 	cMatrixf m_mtxTransform;
-	
+
 	cContainerVec<cEnginePSEmitter_SaveData> mvEmitterActive;
 };
 
@@ -106,7 +106,7 @@ public:
 
 	tString msName;
 	tString msFile;
-	
+
 	cVector3f mvStartPos;
 	cVector3f mvEndPos;
 };
@@ -149,7 +149,7 @@ public:
 	float mfFarAttenuation;
 
 	cContainerVec<cEngineLightAttachBB_SaveData> mvBillboards;
-	
+
 	bool mbFlickering;
 	tString msFlickerOffSound;
 	tString msFlickerOnSound;

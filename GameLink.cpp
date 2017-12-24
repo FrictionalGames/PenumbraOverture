@@ -45,7 +45,7 @@ cAreaLoader_GameLink::~cAreaLoader_GameLink()
 
 //-----------------------------------------------------------------------
 
-iEntity3D* cAreaLoader_GameLink::Load(const tString &asName, const cVector3f &avSize, 
+iEntity3D* cAreaLoader_GameLink::Load(const tString &asName, const cVector3f &avSize,
 									  const cMatrixf &a_mtxTransform,cWorld3D *apWorld)
 {
 	cGameLink *pLink = hplNew( cGameLink, (mpInit,asName) );
@@ -151,7 +151,7 @@ kEndSerialize()
 
 iGameEntity* cGameLink_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------

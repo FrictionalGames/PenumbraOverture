@@ -52,7 +52,7 @@ void cHudModel_Throw::LoadData(TiXmlElement *apRootElem)
 		Error("Couldn't load THROW element from XML document\n");
 		return;
 	}
-	
+
 	//mbDrawDebug = cString::ToBool(pMeleeElem->Attribute("DrawDebug"),false);
 	mChargePose = GetPoseFromElem("ChargePose",pMeleeElem);
 
@@ -92,7 +92,7 @@ bool cHudModel_Throw::UpdatePoseMatrix(cMatrixf& aPoseMtx, float afTimeStep)
 {
 	if(mbButtonDown)
 	{
-		mfChargeCount += afTimeStep / mfChargeTime; 
+		mfChargeCount += afTimeStep / mfChargeTime;
 		if(mfChargeCount > 1) mfChargeCount = 1;
 	}
 	else
@@ -100,7 +100,7 @@ bool cHudModel_Throw::UpdatePoseMatrix(cMatrixf& aPoseMtx, float afTimeStep)
 		mfChargeCount -= afTimeStep*4;
 		if(mfChargeCount < 0) mfChargeCount = 0;
 	}
-	
+
 	cMatrixf mtxA = mEquipPose.ToMatrix();
 	cMatrixf mtxB = mChargePose.ToMatrix();
 	aPoseMtx = cMath::MatrixSlerp(mfChargeCount,mtxA,mtxB,true);
@@ -115,7 +115,7 @@ void cHudModel_Throw::OnAttackDown()
 	if(mState == eHudModelState_Idle)
 	{
 		mbButtonDown = true;
-		
+
 		if(msChargeSound != "")
 		{
 			cSoundHandler *pSoundHandler = mpInit->mpGame->GetSound()->GetSoundHandler();
@@ -129,9 +129,9 @@ void cHudModel_Throw::OnAttackDown()
 void cHudModel_Throw::OnAttackUp()
 {
 	if(mbButtonDown == false) return;
-	
+
 	mbButtonDown = false;
-	
+
 	//Play sound
 	if(msThrowSound != "")
 	{
@@ -142,19 +142,19 @@ void cHudModel_Throw::OnAttackUp()
 	///////////////////////////////
 	//Create entity
 	cCamera3D *pCam = mpInit->mpPlayer->GetCamera();
-	
+
 	cVector3f vRot = cVector3f(pCam->GetPitch(),pCam->GetYaw(), pCam->GetRoll());
 	cMatrixf mtxStart = cMath::MatrixRotate(vRot, eEulerRotationOrder_XYZ);
 	mtxStart.SetTranslation(pCam->GetPosition());
-	
+
 	iEntity3D *pEntity = mpInit->mpGame->GetScene()->GetWorld3D()->CreateEntity("Throw",mtxStart,
 																				msThrowEntity, true);
 	if(pEntity)
 	{
 		iGameEntity *pEntity = mpInit->mpMapHandler->GetLatestEntity();
-		
+
 		float fImpulse = mfMinImpulse * (1 - mfChargeCount) + mfMaxImpulse * mfChargeCount;
-		
+
 		cVector3f vRot =cMath::MatrixMul(mtxStart.GetRotation(),mvTorque);
 
         for(int i=0; i< pEntity->GetBodyNum(); ++i)
@@ -170,7 +170,7 @@ void cHudModel_Throw::OnAttackUp()
 	//////////////////////
 	//Reset animations
 
-	mfChargeCount = 0; 
+	mfChargeCount = 0;
 
 	mfTime = -mfReloadTime;
 	mState = eHudModelState_Equip;

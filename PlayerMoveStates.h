@@ -24,7 +24,7 @@ class cPlayer;
 //////////////////////////////////////////////////////////////////////////
 // BASE STATE
 //////////////////////////////////////////////////////////////////////////
-	
+
 iPlayerMoveState::iPlayerMoveState(cPlayer *apPlayer, cInit *apInit)
 {
 	mpPlayer = apPlayer;
@@ -87,7 +87,7 @@ void iPlayerMoveState::InitState(iPlayerMoveState* apPrevState)
 	}
 
 	EnterState(apPrevState);
-	
+
 	//Set up body
 	SetupBody();
 
@@ -118,7 +118,7 @@ void iPlayerMoveState::Start()
 		pCharBody->SetMoveDeacc(eCharDir_Forward,mfForwardDeacc);
 		pCharBody->SetMoveAcc(eCharDir_Right,mfSidewayAcc);
 		pCharBody->SetMoveDeacc(eCharDir_Right,mfSidewayDeacc);
-		
+
 		mpHeadMove->mfMaxHeadMove = mfMaxHeadMove;
 		mpHeadMove->mfMinHeadMove = mfMinHeadMove;
 		mpHeadMove->mfHeadMoveSpeed = mfHeadMoveSpeed;
@@ -150,7 +150,7 @@ void iPlayerMoveState::Update(float afTimeStep)
 		if(fPlayerHeightAdd < mfHeightAdd) fPlayerHeightAdd = mfHeightAdd;
 	}
 	mpPlayer->SetHeightAdd(fPlayerHeightAdd);
-	
+
 	OnUpdate(afTimeStep);
 }
 
@@ -285,7 +285,7 @@ public:
 		mfDefaultFowardSpeed = mfForwardSpeed;
 		mfBackwardSpeed= mpGameConfig->GetFloat("Movement_Jump","BackwardSpeed",0);
 		mfSidewaySpeed = mpGameConfig->GetFloat("Movement_Jump","SidewaySpeed",0);
-        mfDefaultSidewaySpeed = mfSidewaySpeed;		
+        mfDefaultSidewaySpeed = mfSidewaySpeed;
 
 		mfForwardAcc = mpGameConfig->GetFloat("Movement_Jump","ForwardAcc",0);
 		mfForwardDeacc = mpGameConfig->GetFloat("Movement_Jump","ForwardDeacc",0);
@@ -319,7 +319,7 @@ public:
 			mPrevMoveState = apPrevState->mType;
 		else
 			mPrevMoveState = ePlayerMoveState_Walk;
-		
+
 		float fForce = mfStartForce;
 		if(mPrevMoveState==ePlayerMoveState_Crouch)
 		{
@@ -332,7 +332,7 @@ public:
 			mfForwardSpeed = mfDefaultFowardSpeed;
 			mfSidewaySpeed = mfDefaultSidewaySpeed;
 		}
-		
+
 		//Set the current move speed as force speed.
 		cVector3f vVel = 0;
 		cVector3f vForward = pBody->GetMoveMatrix().GetForward() *-1.0f;
@@ -345,10 +345,10 @@ public:
 
 		pBody->SetMoveSpeed(eCharDir_Forward,0);
 		pBody->SetMoveSpeed(eCharDir_Right,0);
-		
+
 		//Add jump force
 		pBody->AddForce(cVector3f(0,fForce * mpPlayer->GetDefaultMass(),0));
-		
+
 		mbFirstUpdate = true;
 
 		//Get the maximum speed allowed.
@@ -399,11 +399,11 @@ public:
 			}*/
 			pBody->SetMoveSpeed(eCharDir_Forward,fForwardSpeed);
 		}
-	
+
 		//Skip sideways here, it is sucha strange way to jump anyway.
-		
+
 		//Check if the jumpbutton is down.
-		if(	mpPlayer->GetJumpButtonDown() && 
+		if(	mpPlayer->GetJumpButtonDown() &&
 			mpPlayer->GetJumpCount() < mpPlayer->GetMaxJumpCount())
 		{
 			float fMul = 0.4f + 0.5f * (1 - mpPlayer->GetJumpCount() / mpPlayer->GetMaxJumpCount());
@@ -415,7 +415,7 @@ public:
 			//Add some extra gravity
 			pBody->AddForce(cVector3f(0,-20.0f * pBody->GetMass(),0));
 		}
-		
+
         //check if the body is on ground, and if so end jump.
 		if(pBody->IsOnGround() && pBody->GetForceVelocity().y==0)
 		{
@@ -479,28 +479,28 @@ public:
 	void LeaveState(iPlayerMoveState* apNextState)
 	{
 		iCharacterBody *pBody = mpPlayer->GetCharacterBody();
-        		
+
 		cVector3f vFeetPos = pBody->GetPosition() - cVector3f(0,pBody->GetShape()->GetSize().y/2,0);
 		pBody->SetActiveSize(0);
 		pBody->SetPosition(vFeetPos + cVector3f(0,pBody->GetShape()->GetSize().y/2,0));
-		
+
 		/////////////////////////////////////////////////
 		//Check if the player will fit with the newer size
 		cInit *pInit = mpPlayer->GetInit();
 		iPhysicsWorld *pWorld = pInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
 
         pBody->SetPosition(pBody->GetPosition() + cVector3f(0,0.005f,0));
-		
+
 		//Check with both bodies. This removes some bugs.
 		for(int i=0; i<2; ++i)
 		{
 			iCollideShape *pShape = pBody->GetExtraBody(i)->GetShape();
-						
+
 			cVector3f vNewPos = pBody->GetPosition();
 			bool bCollide = pWorld->CheckShapeWorldCollision(&vNewPos,pShape,
 												cMath::MatrixTranslate(pBody->GetPosition()),
 												pBody->GetBody(),false,true);
-			
+
 			/*Log("Collide when leaving crouch: %d. NewPos: %s OldPos: %s\n",bCollide,
 														vNewPos.ToString().c_str(),
 														pBody->GetPosition().ToString().c_str());*/
@@ -514,7 +514,7 @@ public:
 				return;
 			}
 		}
-		
+
 		pBody->SetPosition(pBody->GetPosition() - cVector3f(0,0.005f,0));
 	}
 

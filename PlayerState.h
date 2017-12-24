@@ -64,7 +64,7 @@ public:
 	}
 
 	//-------------------------------------
-	
+
 	virtual void OnUpdate(float afTimeStep){}
 	virtual void OnPostSceneDraw(){}
 	virtual void OnDraw(){}

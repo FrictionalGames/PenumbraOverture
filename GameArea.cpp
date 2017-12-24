@@ -44,7 +44,7 @@ cAreaLoader_GameArea::~cAreaLoader_GameArea()
 
 //-----------------------------------------------------------------------
 
-iEntity3D* cAreaLoader_GameArea::Load(const tString &asName, const cVector3f &avSize, 
+iEntity3D* cAreaLoader_GameArea::Load(const tString &asName, const cVector3f &avSize,
 									const cMatrixf &a_mtxTransform,cWorld3D *apWorld)
 {
 	cGameArea *pArea = hplNew( cGameArea, (mpInit,asName) );
@@ -67,7 +67,7 @@ iEntity3D* cAreaLoader_GameArea::Load(const tString &asName, const cVector3f &av
 	mpInit->mpMapHandler->AddGameEntity(pArea);
 
 	//Log("Loaded area %s\n",asName.c_str());
-	
+
 	//Return something else later perhaps.
 	return NULL;
 }
@@ -147,7 +147,7 @@ kEndSerialize()
 
 iGameEntity* cGameArea_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------

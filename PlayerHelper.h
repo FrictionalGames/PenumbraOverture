@@ -77,14 +77,14 @@ public:
 
 	iPhysicsBody *mpPickedBody;
 	iPhysicsBody *mpPickedAreaBody;
-	
+
 	float mfMaxDistance;
-	
+
 	float mfPickedDist;
 	float mfPickedAreaDist;
-	
+
 	eGameEntityType mLastEntityType;
-	
+
 	cVector3f mvPickedPos;
 	cVector3f mvPickedAreaPos;
 
@@ -122,7 +122,7 @@ private:
 	bool mbActive;
 	bool mbFootStepped;
 	bool mbWasActive;
-	
+
 	float mfClimbCount;
 	float mfClimbPos;
 
@@ -215,7 +215,7 @@ private:
 	float mfMaxTime;
 
 	float mfMoveSpeed;
-	
+
 	bool mbIntersect;
 
 	bool mbPressed;
@@ -304,11 +304,11 @@ public:
 	~cPlayerFlashLight();
 
 	void Reset();
-	
+
 	bool OnIntersect(iPhysicsBody *pBody,cPhysicsRayParams *apParams);
 
 	void OnWorldLoad();
-	
+
 	void Update(float afTimeStep);
 
 	void SetActive(bool abX);
@@ -325,7 +325,7 @@ private:
 	bool mbDisabled;
 
 	float mfAlpha;
-	
+
 	float mfFlickerTime;
 
 	float mfRayCastTime;
@@ -397,7 +397,7 @@ private:
 	float mfLightRadius;
 	float mfLightPulse;
 	float mfLightPulseAdd;
-	
+
 	cInit *mpInit;
 };
 
@@ -410,7 +410,7 @@ public:
 	~cPlayerNoiseFilter();
 
 	void Draw();
-	
+
 	void Update(float afTimeStep);
 
 	void SetActive(bool abX);
@@ -456,7 +456,7 @@ private:
 
 	float mfAlpha;
 	float mfMaxAlpha;
-	
+
 	cInit *mpInit;
 };
 
@@ -471,9 +471,9 @@ public:
 	void Update(float afTimeStep);
 
 	void Reset();
-	
+
 	void SetTarget(const cVector3f &avTargetPos, float afSpeedMul, float afMaxSpeed);
-	
+
 	void SetActive(bool abX);
 	bool IsActive(){ return mbActive;}
 
@@ -558,7 +558,7 @@ private:
 	float mfCloseEffectFovMin;
 
 	float mbInShadows;
-	
+
 	float mfUpdateCount;
 
 	float mfLight;
@@ -592,11 +592,11 @@ private:
 	float mfFallSpeed_Min;
 	float mfFallDamage_Min;
 	tString msFallSound_Min;
-	
+
 	float mfFallSpeed_Med;
 	float mfFallDamage_Med;
 	tString msFallSound_Med;
-	
+
 	float mfFallSpeed_Max;
 	float mfFallDamage_Max;
 	tString msFallSound_Max;

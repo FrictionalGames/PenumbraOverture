@@ -78,7 +78,7 @@ cGameTrigger* cTriggerHandler::Add(cGameTrigger *apTrigger,eGameTriggerType aTyp
 	apTrigger->mlPrio = alPrio;
 	apTrigger->mType = aType;
 	apTrigger->SetPosition(avLocalPos);
-	
+
 	m_mapTriggers.insert(tGameTriggerMap::value_type(alPrio, apTrigger));
 
 	return apTrigger;
@@ -102,7 +102,7 @@ void cTriggerHandler::Update(float afTimeStep)
 	{
 		iGameEnemy *pEnemy = EnemyIt.Next();
 		if(pEnemy->IsActive()==false || pEnemy->GetUsesTriggers()==false) continue;
-		
+
 		/////////////////////////////////////////
 		//Check if it is time to update triggers.
 		/*if(pEnemy->GetTriggerUpdateCount() >= pEnemy->GetTriggerUpdateRate())
@@ -114,7 +114,7 @@ void cTriggerHandler::Update(float afTimeStep)
 			pEnemy->SetTriggerUpdateCount(pEnemy->GetTriggerUpdateCount() + afTimeStep);
 			continue;
 		}*/
-		
+
 		/////////////////////////////////////
 		//Go through triggers by priority
 		tGameTriggerMapIt TriggerIt = m_mapTriggers.begin();
@@ -133,7 +133,7 @@ void cTriggerHandler::Update(float afTimeStep)
 			{
 				continue;
 			}
-			
+
 			//Let enemy handle trigger, if false get next trigger else next enemy.
 			if(pEnemy->HandleTrigger(pTrigger))
 			{
@@ -141,14 +141,14 @@ void cTriggerHandler::Update(float afTimeStep)
 			}
 		}
 	}
-	
+
 	//////////////////////////////////
 	//Go through triggers and remove when timer is out.
 	tGameTriggerMapIt TriggerIt = m_mapTriggers.begin();
 	for(; TriggerIt != m_mapTriggers.end(); )
 	{
 		cGameTrigger *pTrigger = TriggerIt->second;
-		
+
 		pTrigger->mfTimeCount -= afTimeStep;
 
 		if(pTrigger->mfTimeCount <= 0)

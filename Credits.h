@@ -38,11 +38,11 @@ public:
 	void Reset();
 
 	void OnPostSceneDraw();
-	
+
 	void OnDraw();
-    
+
 	void Update(float afTimeStep);
-	
+
 	void OnMouseDown(eMButton aButton);
 	void OnButtonDown();
 
@@ -60,7 +60,7 @@ private:
 
 	tWStringVec mvTextRows;
 	float mfYPos;
-		
+
 	bool mbActive;
 };
 

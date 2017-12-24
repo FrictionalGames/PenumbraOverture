@@ -75,7 +75,7 @@ bool cGameItemType_Normal::OnAction(cInventoryItem *apItem, int alActionNum)
 	{
 		if(mpInit->mpInventory->IsActive())
 			mpInit->mpInventory->SetActive(false);
-		
+
 		mpInit->mpPlayer->ChangeState(ePlayerState_UseItem);
 		mpInit->mpPlayer->SetCurrentItem(apItem);
 	}
@@ -95,7 +95,7 @@ bool cGameItemType_Normal::OnAction(cInventoryItem *apItem, int alActionNum)
 void cGameItemType_Normal::OnUse(cInventoryItem *apItem, iGameEntity* apEntity)
 {
 	bool bUsed = apEntity->OnUseItem(apItem);
-	
+
 	if(mpInit->mpInventory->CheckUseCallback(apItem->GetName(), apEntity->GetName())==false)
 	{
 		if(bUsed==false)
@@ -119,7 +119,7 @@ cGameItemType_Notebook::cGameItemType_Notebook(cInit *apInit)
 {
 	mvActions.resize(1);
 	mvActions[0] = kTranslate("Inventory", "Read");
-	
+
 	mvNonDropActions.resize(1);
 	mvNonDropActions[0] = kTranslate("Inventory", "Read");
 }
@@ -164,7 +164,7 @@ cGameItemType_Note::cGameItemType_Note(cInit *apInit)
 bool cGameItemType_Note::OnPickUp(cInventoryItem *apItem, bool abInGame)
 {
 	cNotebook_Note *pNote = mpInit->mpNotebook->AddNote(apItem->GetGameName(),"Notes",apItem->GetName());
-	
+
 	if(abInGame)
 	{
 		mpInit->mpNotebook->SetActive(true);
@@ -361,28 +361,28 @@ bool cGameItemType_WeaponMelee::OnAction(cInventoryItem *apItem, int alActionNum
 			mpInit->mpPlayerHands->GetCurrentModel(1)->msName == apItem->GetHudModelName())
 		{
 			//mpInit->mpPlayerHands->SetCurrentModel(1, "");
-			
+
 			mpInit->mpPlayer->ChangeState(ePlayerState_Normal);
 		}
 		else
-		{	
+		{
 			iHudModel *pHudModel = mpInit->mpPlayerHands->GetModel(apItem->GetHudModelName());
 			if(pHudModel==NULL){
 				Error("Hud model with name '%s' does not exist!\n",apItem->GetHudModelName().c_str());
 				return true;
 			}
-			
+
             if(mpInit->mbHasHaptics==false) mpInit->mpPlayerHands->SetCurrentModel(1, apItem->GetHudModelName());
 
 			//////////////////////////
 			//Set up the melee state
             iPlayerState *pState = mpInit->mpPlayer->GetStateData(ePlayerState_WeaponMelee);
-			
+
 			cHudModel_WeaponMelee *pMeleeHud =  static_cast<cHudModel_WeaponMelee*>(pHudModel);
 
 			cPlayerState_WeaponMelee *pMeleeState = static_cast<cPlayerState_WeaponMelee*>(pState);
 			pMeleeState->SetHudWeapon(pMeleeHud);
-			
+
 			//change state to melee
 			mpInit->mpPlayer->ChangeState(ePlayerState_WeaponMelee);
 		}
@@ -395,7 +395,7 @@ bool cGameItemType_WeaponMelee::OnAction(cInventoryItem *apItem, int alActionNum
 //-----------------------------------------------------------------------
 
 //////////////////////////////////////////////////////////////////////////
-// WEAPON MELEE HAPTX 
+// WEAPON MELEE HAPTX
 //////////////////////////////////////////////////////////////////////////
 
 //-----------------------------------------------------------------------
@@ -429,7 +429,7 @@ bool cGameItemType_WeaponMeleeHaptX::OnAction(cInventoryItem *apItem, int alActi
 		}
 		cHudModel_WeaponMelee *pMeleeHud =  static_cast<cHudModel_WeaponMelee*>(pHudModel);
 
-		
+
 		iPlayerState *pState = mpInit->mpPlayer->GetStateData(ePlayerState_WeaponMelee);
 		cPlayerState_WeaponMeleeHaptX *pMeleeState = static_cast<cPlayerState_WeaponMeleeHaptX*>(pState);
 
@@ -440,7 +440,7 @@ bool cGameItemType_WeaponMeleeHaptX::OnAction(cInventoryItem *apItem, int alActi
 			//pMeleeState->SetHudWeapon(NULL);
 		}
 		else
-		{				
+		{
 			if(mpInit->mbHasHaptics==false) mpInit->mpPlayerHands->SetCurrentModel(1, apItem->GetHudModelName());
 
 			if(mpInit->mpPlayer->GetState() == ePlayerState_WeaponMelee)
@@ -454,7 +454,7 @@ bool cGameItemType_WeaponMeleeHaptX::OnAction(cInventoryItem *apItem, int alActi
 
 			cPlayerState_WeaponMeleeHaptX *pMeleeState = static_cast<cPlayerState_WeaponMeleeHaptX*>(pState);
 			pMeleeState->SetHudWeapon(pMeleeHud);
-			
+
 			//change state to melee
 			mpInit->mpPlayer->ChangeState(ePlayerState_WeaponMelee);
 
@@ -504,7 +504,7 @@ bool cGameItemType_Throw::OnAction(cInventoryItem *apItem, int alActionNum)
 			mpInit->mpPlayer->ChangeState(ePlayerState_Normal);
 		}
 		else
-		{	
+		{
 			iHudModel *pHudModel = mpInit->mpPlayerHands->GetModel(apItem->GetHudModelName());
 			if(pHudModel==NULL){
 				Error("Hud model with name '%s' does not exist!\n",apItem->GetHudModelName().c_str());
@@ -557,9 +557,9 @@ bool cGameItemType_Painkillers::OnAction(cInventoryItem *apItem, int alActionNum
 	if(alActionNum == 0)
 	{
 		mpInit->mpGame->GetSound()->GetSoundHandler()->PlayGui("player_eat_painkillers",false,1);
-		
+
 		mpInit->mpPlayer->SetHealth(100);
-		
+
 		apItem->AddCount(-1);
 		if(apItem->GetCount()<=0)
 		{

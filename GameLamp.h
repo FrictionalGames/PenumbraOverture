@@ -82,7 +82,7 @@ public:
 
 private:
 	void SetUpFlicker(int alIdx);
-	
+
 	bool mbLit;
 
     float mfAlpha;
@@ -121,7 +121,7 @@ private:
 	bool mbFlickerFade;
 	float mfFlickerOnFadeLength;
 	float mfFlickerOffFadeLength;
-	
+
 	//Init data
 	std::vector<cColor> mvLightColors;
 	std::vector<cColor> mvBBColors;
