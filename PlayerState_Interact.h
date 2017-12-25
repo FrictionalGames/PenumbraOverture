@@ -36,30 +36,30 @@ class cPlayerState_Grab : public iPlayerState
 {
 public:
 	cPlayerState_Grab(cInit *apInit,cPlayer *apPlayer);
-	
+
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnDraw();
-	
+
 	void OnPostSceneDraw();
-	
+
 	bool OnJump();
-		
+
 	void OnStartInteractMode();
-	
+
 	void OnStartInteract();
 	void OnStopInteract();
 	void OnStartExamine();
-	
+
 	bool OnAddYaw(float afVal);
 	bool OnAddPitch(float afVal);
-	
+
 	bool OnMoveForwards(float afMul, float afTimeStep);
 	bool OnMoveSideways(float afMul, float afTimeStep);
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 	void OnStartCrouch();
 	void OnStopCrouch();
 	bool OnStartInventory();
@@ -128,10 +128,10 @@ class cPlayerState_Move_BodyCallback : public iPhysicsBodyCallback
 {
 public:
 	cPlayerState_Move_BodyCallback(cPlayer *apPlayer, float afTimeStep);
-	
+
 	bool OnBeginCollision(iPhysicsBody *apBody, iPhysicsBody *apCollideBody);
 	void OnCollide(iPhysicsBody *apBody, iPhysicsBody *apCollideBody,cPhysicsContactData* apContactData);
-	
+
 	float mfTimeStep;
 	int mlBackCount;
 	cPlayer *mpPlayer;
@@ -145,27 +145,27 @@ class cPlayerState_Move : public iPlayerState
 public:
 	cPlayerState_Move(cInit *apInit,cPlayer *apPlayer);
 	~cPlayerState_Move();
-	
+
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnStartInteract();
 	void OnStopInteract();
-	
+
 	bool OnJump();
-	
+
 	void OnStartExamine();
-	
+
 	bool OnMoveForwards(float afMul, float afTimeStep);
 	bool OnMoveSideways(float afMul, float afTimeStep);
-	
+
 	bool OnAddYaw(float afVal);
 	bool OnAddPitch(float afVal);
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 	void OnPostSceneDraw();
-	
+
 	bool OnStartInventory();
 	bool OnStartInventoryShortCut(int alNum);
 
@@ -197,23 +197,23 @@ class cPlayerState_Push : public iPlayerState
 {
 public:
 	cPlayerState_Push(cInit *apInit,cPlayer *apPlayer);
-	
+
 	void OnUpdate(float afTimeStep);
 	bool OnJump();
-	
+
 	void OnStartInteract();
 	void OnStopInteract();
-	
+
 	void OnStartExamine();
-	
+
 	bool OnMoveForwards(float afMul, float afTimeStep);
 	bool OnMoveSideways(float afMul, float afTimeStep);
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
 
 	void OnPostSceneDraw();
-	
+
 	bool OnStartInventory();
 	bool OnStartInventoryShortCut(int alNum);
 
@@ -222,7 +222,7 @@ private:
 	cVector3f mvRight;
 
 	cVector3f mvRelPickPoint;
-	
+
 	cVector3f mvLocalPickPoint;
 
 	iPhysicsBody *mpPushBody;

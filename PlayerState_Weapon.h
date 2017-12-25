@@ -88,38 +88,38 @@ class cHudModel_WeaponMelee;
 class cPlayerState_WeaponMelee : public iPlayerState
 {
 public:
-	
+
 	cPlayerState_WeaponMelee(cInit *apInit,cPlayer *apPlayer);
-	
+
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnDraw();
 	void OnPostSceneDraw();
-	
+
 	bool OnJump();
-	
+
 	void OnStartInteractMode();
-	
+
 	void OnStartInteract();
 	void OnStopInteract();
 	void OnStartExamine();
 	void OnStartHolster();
-	
+
 	bool OnAddYaw(float afVal);
 	bool OnAddPitch(float afVal);
-	
+
 	bool OnMoveForwards(float afMul, float afTimeStep);
 	bool OnMoveSideways(float afMul, float afTimeStep);
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 	void OnStartRun();
 	void OnStopRun();
-	
+
 	void OnStartCrouch();
 	void OnStopCrouch();
-	
+
 	bool OnStartInventory();
 	bool OnStartInventoryShortCut(int alNum);
 

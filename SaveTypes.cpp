@@ -34,7 +34,7 @@ void cEngineBody_SaveData::FromBody(iPhysicsBody *pBody)
 	mvLinearVelocity = pBody->GetLinearVelocity();
 	mvAngularVelocity = pBody->GetAngularVelocity();
 	m_mtxTransform = pBody->GetWorldMatrix();
-	
+
 	if(	gpInit->mpPlayer->GetState() == ePlayerState_Grab &&
 		gpInit->mpPlayer->GetPushBody()== pBody &&
 		gpInit->mpPlayer->mbUseNormalMass==false)
@@ -87,7 +87,7 @@ void cEngineJoint_SaveData::FromJoint(iPhysicsJoint *apJoint)
 		msOnMaxCallback = "";
 		msOnMinCallback = "";
 	}
-	
+
 	///////////////////////////////
 	//Controllers
 	cPhysicsControllerIterator ctrlIt = apJoint->GetControllerIterator();
@@ -99,12 +99,12 @@ void cEngineJoint_SaveData::FromJoint(iPhysicsJoint *apJoint)
 		saveCtrl.msName = pCtrl->GetName();
 		saveCtrl.mfDestValue = pCtrl->GetDestValue();
 		saveCtrl.mbActive = pCtrl->IsActive();
-        
+
 		mvControllers.Add(saveCtrl);
 	}
 
 	///////////////////////////////
-    //Type specific
+	//Type specific
 	switch(apJoint->GetType())
 	{
 	case ePhysicsJointType_Ball:
@@ -162,17 +162,17 @@ void cEngineJoint_SaveData::ToJoint(iPhysicsJoint *apJoint)
 		pCallback->msMinFunc = msOnMinCallback;
 	}
 
-	
+
 	///////////////////////////////
 	//Controllers
 	for(int i =0; i< (int)mvControllers.Size(); ++i)
 	{
 		iPhysicsController *pCtrl = apJoint->GetController(mvControllers[i].msName);
-		
-        pCtrl->SetDestValue(mvControllers[i].mfDestValue);
+
+		pCtrl->SetDestValue(mvControllers[i].mfDestValue);
 		pCtrl->SetActive(mvControllers[i].mbActive);
 	}
-	
+
 	///////////////////////////////
 	//Type specific
 	switch(apJoint->GetType())
@@ -244,8 +244,8 @@ void cEnginePS_SaveData::FromPS(cParticleSystem3D *apPS)
 		for(int i=0; i< apPS->GetEmitterNum(); ++i)
 		{
 			iParticleEmitter *pEmitter = apPS->GetEmitter(i);
-			
-			if(pEmitter->IsDying() || pEmitter->IsDead()) 
+
+			if(pEmitter->IsDying() || pEmitter->IsDead())
 				mvEmitterActive[i].mbActive = false;
 			else
 				mvEmitterActive[i].mbActive = true;
@@ -305,7 +305,7 @@ void cEngineBeam_SaveData::FromBeam(cBeam *apBeam)
 
 void cEngineBeam_SaveData::ToBeam(cBeam *apBeam)
 {
-	apBeam->LoadXMLProperties(msFile);	
+	apBeam->LoadXMLProperties(msFile);
 
 	apBeam->SetPosition(mvStartPos);
 	apBeam->GetEnd()->SetPosition(mvEndPos);
@@ -366,7 +366,7 @@ void cEngineLight_SaveData::FromLight(iLight3D *apLight)
 
 	mbActive = apLight->IsActive();
 	mbVisible = apLight->IsVisible();
-	
+
 	if(apLight->GetFlickerActive())
 	{
 		mDiffuseColor = apLight->GetFlickerOnColor();

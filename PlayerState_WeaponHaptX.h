@@ -88,40 +88,40 @@ class cHudModel_WeaponMelee;
 class cPlayerState_WeaponMeleeHaptX : public iPlayerState
 {
 public:
-	
+
 	cPlayerState_WeaponMeleeHaptX(cInit *apInit,cPlayer *apPlayer);
-	
+
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnDraw();
 	void OnPostSceneDraw();
-	
+
 	bool OnJump();
-	
+
 	void OnStartInteractMode();
-	
+
 	void OnStartInteract();
 	void OnStopInteract();
 	void OnStartExamine();
 	void OnStartHolster();
-	
+
 	bool OnAddYaw(float afVal);
 	bool OnAddPitch(float afVal);
-	
+
 	bool OnMoveForwards(float afMul, float afTimeStep);
 	bool OnMoveSideways(float afMul, float afTimeStep);
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 	void OnStartRun();
 	void OnStopRun();
-	
+
 	void OnStartCrouch();
 	void OnStopCrouch();
-	
+
 	bool OnStartInventory();
-	
+
 	void SetHudWeapon(cHudModel_WeaponMelee* apHudWeapon){ mpHudWeapon = apHudWeapon;}
 	cHudModel_WeaponMelee* GetHudWeapon(){ return mpHudWeapon;}
 
@@ -129,7 +129,7 @@ private:
 	void PlaySound(const tString &asSound);
 	bool CheckAttack(const cMatrixf& mtxTransform, float afSpeed);
 	void HitBody(iPhysicsBody *apBody, float afMinImpulse, float afMaxImpulse,
-				float afMinMass, float afMaxMass, 
+				float afMinMass, float afMaxMass,
 				float afMinDamage, float afMaxDamage,
 				int alStrength);
 
@@ -145,7 +145,7 @@ private:
 	iHapticForce *mpSlowdownForce;
 	iHapticForce *mpFeedbackForce;
 	iHapticForce *mpImpulseForce;
-	
+
 	bool mbCollided;
 
 	cVector3f mvPushBackVec;

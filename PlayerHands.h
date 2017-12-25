@@ -84,7 +84,7 @@ public:
 
 	tString msName;
 	tString msModelFile;
-	
+
 	cHudModelPose mEquipPose;
 	cHudModelPose mUnequipPose;
 
@@ -121,7 +121,7 @@ protected:
 
 	cMesh *mpMesh;
 	cMeshEntity *mpEntity;
-	
+
 	eHudModelState mState;
 
 	float mfTime;
@@ -173,7 +173,7 @@ public:
 
 private:
 	void UpdatePrevPostions();
-		
+
 	cInit *mpInit;
 	cMeshManager *mpMeshManager;
 

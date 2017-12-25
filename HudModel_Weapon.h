@@ -31,7 +31,7 @@ class cMeleeWeaponAttack
 public:
 	cHudModelPose mStart;
 	cHudModelPose mEnd;
-	
+
 	float mfAttackLength;
 	float mfChargeLength;
 	float mfTimeOfAttack;
@@ -89,14 +89,14 @@ public:
 	cHudModel_WeaponMelee();
 
 	void LoadData(TiXmlElement *apRootElem);
-	
+
 	void OnAttackDown();
 	void OnAttackUp();
 
 	bool OnMouseMove(const cVector2f &avMovement);
 
 	bool UpdatePoseMatrix(cMatrixf& aPoseMtx, float afTimeStep);
-	
+
 	void PostSceneDraw();
 
 	bool IsAttacking();
@@ -114,7 +114,7 @@ private:
 	void HitBody(iPhysicsBody *apBody);
 
 	void PlaySound(const tString &asSound);
-	
+
 	void LoadExtraEntites();
 	void DestroyExtraEntities();
 
@@ -130,14 +130,14 @@ private:
 
 	cMatrixf m_mtxPrevPose;
 	cMatrixf m_mtxNextPose;
-	
+
 	float mfMoveSpeed;
 
 	bool mbButtonDown;
 	bool mbAttacked;
 
 	cMeleeRayCallback mRayCallback;
-	
+
 	std::vector<cMeleeWeaponAttack> mvAttacks;
 
 	iLowLevelHaptic *mpLowLevelHaptic;

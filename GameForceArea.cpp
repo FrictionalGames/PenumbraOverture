@@ -46,7 +46,7 @@ cAreaLoader_GameForceArea::~cAreaLoader_GameForceArea()
 
 //-----------------------------------------------------------------------
 
-iEntity3D* cAreaLoader_GameForceArea::Load(const tString &asName, const cVector3f &avSize, 
+iEntity3D* cAreaLoader_GameForceArea::Load(const tString &asName, const cVector3f &avSize,
 									  const cMatrixf &a_mtxTransform,cWorld3D *apWorld)
 {
 	cGameForceArea *pArea = hplNew( cGameForceArea, (mpInit,asName) );
@@ -69,7 +69,7 @@ iEntity3D* cAreaLoader_GameForceArea::Load(const tString &asName, const cVector3
 	mpInit->mpMapHandler->AddGameEntity(pArea);
 
 	pArea->Setup();
-	
+
 	//Return something else later perhaps.
 	return NULL;
 }
@@ -149,7 +149,7 @@ void cGameForceArea::Update(float afTimeStep)
 				if(pEntity->IsActive()==false) continue;
 				if(pBody->GetMass() ==0 && pEntity->GetType() != eGameEntityType_Enemy) continue;
 			}
-			else if((pBody->GetMass()==0 && pBody->IsCharacter()==false) || 
+			else if((pBody->GetMass()==0 && pBody->IsCharacter()==false) ||
 					pBody->GetMass() > mfMaxMass)
 			{
 				continue;
@@ -158,7 +158,7 @@ void cGameForceArea::Update(float afTimeStep)
 			/////////////////////////
 			//Bounding volume check
 			if(cMath::CheckCollisionBV(*pBody->GetBV(), *pAreaBody->GetBV())==false) continue;
-				
+
 			///////////////////////////////
 			//Check for collision
 			int lCollideNum = mbForceAtPoint ? 4: 1;
@@ -190,7 +190,7 @@ void cGameForceArea::Update(float afTimeStep)
 				//Log("Vel: %s Speed: %f Force: %f\n",pCharBody->GetForceVelocity().ToString().c_str(),
 				//									fRelSpeed,fForce);
 
-                pCharBody->AddForce(mvUp * fForce);                				                				
+				pCharBody->AddForce(mvUp * fForce);
 			}
 			///////////////////////////////
 			//Add Body Force
@@ -212,11 +212,11 @@ void cGameForceArea::Update(float afTimeStep)
 
 				float fRelSpeed = cMath::Vector3Dot(mvUp, vVel);
 				float fDiff = mfDestSpeed - fRelSpeed;
-				
+
 				//If speed is above wanted, do nothing.
 				if(fDiff<=0) continue;
 
-                float fForce = fDiff * mfConstant;
+				float fForce = fDiff * mfConstant;
 				if(mfMaxForce != 0 && fForce > mfMaxForce) fForce = mfMaxForce;
 				if(mbMulWithMass) fForce *= pBody->GetMass();
 
@@ -278,7 +278,7 @@ kEndSerialize()
 
 iGameEntity* cGameForceArea_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------

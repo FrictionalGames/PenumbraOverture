@@ -41,17 +41,17 @@ public:
 
 	virtual void OnMouseDown()=0;
 	virtual void OnMouseUp()=0;
-	
+
 	void OnMouseOver(bool abOver);
 
 	const cRect2f& GetRect(){return mRect;}
 
 protected:
 	float mfAlpha;
-	
+
 	cInit *mpInit;
 	cGraphicsDrawer *mpDrawer;
-	
+
 	cVector3f mvPositon;
 	cRect2f mRect;
 
@@ -69,7 +69,7 @@ class cDeathMenuButton_Continue : public cDeathMenuButton
 {
 public:
 	cDeathMenuButton_Continue(cInit *apInit, cVector2f avPos, const tWString& asText) :
-								cDeathMenuButton(apInit, avPos, asText){}						
+								cDeathMenuButton(apInit, avPos, asText){}
 
 	void OnMouseDown();
 	void OnMouseUp();
@@ -81,7 +81,7 @@ class cDeathMenuButton_BackToMain : public cDeathMenuButton
 {
 public:
 	cDeathMenuButton_BackToMain(cInit *apInit, cVector2f avPos, const tWString& asText) :
-								cDeathMenuButton(apInit, avPos, asText){}						
+								cDeathMenuButton(apInit, avPos, asText){}
 
 	void OnMouseDown();
 	void OnMouseUp();
@@ -130,7 +130,7 @@ private:
 	float mfAlpha;
 
 	iFontData *mpFont;
-	
+
 	cVector2f mvMousePos;
 
 	eCrossHairState mLastCrossHairState;

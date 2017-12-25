@@ -47,10 +47,10 @@ public:
 	void MoveTo(const cVector3f &avPos,float afTime);
 
 	void Reset();
-	
+
 	//////////////
 	//Variables
-    cVector3f mvCameraPosition;
+	cVector3f mvCameraPosition;
 	cVector3f mvFinalPos;
 	cVector3f mvPosStep;
 	float mfPosCount;
@@ -58,7 +58,7 @@ public:
 
 	tVector3fList mlstPrevPos;
 	int mlMaxPrevPos;
-	
+
 	iTexture *mpTexture;
 
 	bool mbActive;
@@ -94,20 +94,20 @@ public:
 	void OnPostSceneDraw();
 
 	void Exit();
-	
+
 	bool IsActive(){ return mbActive;}
 	void SetActive(bool abX);
-    
+
 private:
 	void SetMessage(const tWString &asMess);
-	
+
 	void Image00();
 	void Image01();
 	void Image02();
 	void Image03();
 	void Image04();
 	void Image05();
-	
+
 	bool mbSearchNext;
 
 	cInit *mpInit;

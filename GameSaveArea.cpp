@@ -45,7 +45,7 @@ cAreaLoader_GameSaveArea::~cAreaLoader_GameSaveArea()
 
 //-----------------------------------------------------------------------
 
-iEntity3D* cAreaLoader_GameSaveArea::Load(const tString &asName, const cVector3f &avSize, 
+iEntity3D* cAreaLoader_GameSaveArea::Load(const tString &asName, const cVector3f &avSize,
 									  const cMatrixf &a_mtxTransform,cWorld3D *apWorld)
 {
 	cGameSaveArea *pLink = hplNew( cGameSaveArea, (mpInit,asName) );
@@ -155,7 +155,7 @@ kEndSerialize()
 
 iGameEntity* cGameSaveArea_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------

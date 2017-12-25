@@ -113,7 +113,7 @@ public:
 	void OnUpdate(float afTimeStep);
 
 	void OnAnimationOver(const tString &asName);
-	
+
 	void OnPostSceneDraw();
 
 	void OnSeePlayer(const cVector3f &avPosition, float afChance){}
@@ -201,7 +201,7 @@ class cGameEnemy_Spider : public iGameEnemy
 public:
 	cGameEnemy_Spider(cInit *apInit,const tString& asName,TiXmlElement *apGameElem);
 	~cGameEnemy_Spider();
-	
+
 	void OnLoad();
 
 	void OnUpdate(float afTimeStep);
@@ -211,9 +211,9 @@ public:
 	bool MoveToPos(const cVector3f& avFeetPos);
 
 	bool IsFighting();
-	
+
 	iCollideShape *GetAttackShape(){ return mpAttackShape;}
-	
+
 //State properties
 	bool mbPathFind;
 
@@ -223,7 +223,7 @@ public:
 	float mfIdleMinHearVolume;
 	float mfIdleMinWaitLength;
 	float mfIdleMaxWaitLength;
-	
+
 	float mfHuntFOV;
 	float mfHuntSpeed;
 	float mfHuntForLostPlayerTime;
@@ -255,7 +255,7 @@ public:
 	tString msDeathSound;
 
 private:
-    iCollideShape *mpAttackShape;
+	iCollideShape *mpAttackShape;
 };
 
 //-----------------------------------------

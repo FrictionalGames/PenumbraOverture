@@ -39,7 +39,7 @@ cGameMessageHandler::cGameMessageHandler(cInit *apInit)  : iUpdateable("GameMess
 	mpFont = mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("verdana.fnt");
 
 	msOverCallback = "";
-	
+
 	mbFocusIsedUsed = false;
 
 	mbBlackText = false;
@@ -99,7 +99,7 @@ void cGameMessage::Update(float afTimeStep)
 void cGameMessage::Draw(iFontData *apFont)
 {
 	if(mbActive == false) return;
-	
+
 	float fSide=30;
 	if(mpMessHandler->mbBlackText)
 	{
@@ -156,7 +156,7 @@ void cGameMessageHandler::ShowNext()
 {
 	bool bFoundMess = false;
 	cGameMessage *pPrevMess = NULL;
-	
+
 	//wait till the message is fully visible.
 	if(mlstMessages.empty() == false)
 	{
@@ -182,7 +182,7 @@ void cGameMessageHandler::ShowNext()
 	if(bFoundMess==false)
 	{
 		if(pPrevMess) pPrevMess->mfFadeAdd = -pPrevMess->mfFadeAdd;
-		
+
 		if(mLastState != ePlayerState_Grab &&
 			mLastState != ePlayerState_Push &&
 			mLastState != ePlayerState_Move &&
@@ -200,8 +200,8 @@ void cGameMessageHandler::ShowNext()
 			mbFocusIsedUsed = false;
 			mpInit->mpEffectHandler->GetDepthOfField()->SetActive(false,2.0f);
 		}
-		
-		
+
+
 		//Check if there is a script callback
 		if(msOverCallback != "")
 		{
@@ -227,15 +227,15 @@ void cGameMessageHandler::Update(float afTimeStep)
 		mlstMessages.clear();
 		return;
 	}
-	
+
 	int lCount=0;
 	tGameMessageListIt it = mlstMessages.begin();
 	for(;it != mlstMessages.end(); ++lCount)
 	{
 		cGameMessage *pMess = *it;
-		
+
 		pMess->Update(afTimeStep);
-		
+
 		if(lCount==0 && pMess->mbActive==false)
 		{
 			hplDelete( pMess );

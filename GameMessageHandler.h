@@ -74,7 +74,7 @@ public:
 	void SetFocusIsedUsed(bool abX){mbFocusIsedUsed = abX;}
 
 	void SetBlackText(bool abX){ mbBlackText = abX;}
-	
+
 private:
 	cInit* mpInit;
 

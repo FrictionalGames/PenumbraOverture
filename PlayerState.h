@@ -43,7 +43,7 @@ public:
 	{
 		mpInit = apInit;
 
-        mpPlayer = apPlayer;
+		mpPlayer = apPlayer;
 		mType = aType;
 
 		mPreviuosState = ePlayerState_LastEnum;
@@ -64,7 +64,7 @@ public:
 	}
 
 	//-------------------------------------
-	
+
 	virtual void OnUpdate(float afTimeStep){}
 	virtual void OnPostSceneDraw(){}
 	virtual void OnDraw(){}

@@ -136,7 +136,7 @@ public:
 
 	std::list<cVector3f> mlstPositions;
 	cVector3f mvPostion;
-	
+
 	cVector3f mvGoalForward;
 
 	cVector3f mvForward;
@@ -146,11 +146,11 @@ public:
 	float mfDistToFront;
 
 	iPhysicsBody *mpBody;
-	
+
 	cBoneState *mpBone;
-	
+
 	cMatrixf m_mtxBaseRot;
-    
+
 	cWormTailSegment *mpChildSegment;
 };
 
@@ -172,7 +172,7 @@ private:
 class cVector3Smoother
 {
 public:
-	cVector3Smoother();	
+	cVector3Smoother();
 
 	void Add(const cVector3f& avVec);
 	cVector3f GetAverage();
@@ -193,7 +193,7 @@ friend class cGameEnemy_Worm_MeshCallback;
 public:
 	cGameEnemy_Worm(cInit *apInit,const tString& asName,TiXmlElement *apGameElem);
 	~cGameEnemy_Worm();
-	
+
 	void OnLoad();
 
 	void OnUpdate(float afTimeStep);
@@ -205,14 +205,14 @@ public:
 	bool MoveToPos(const cVector3f& avFeetPos);
 
 	bool IsFighting();
-	
+
 	iCollideShape *GetAttackShape(){ return mpAttackShape;}
 
 //Worm specific
 	void SetupTail();
 
 	cSoundEntity *mpMoveSound;
-	
+
 //State properties
 	tString msMoveSound;
 
@@ -222,7 +222,7 @@ public:
 	float mfIdleMinHearVolume;
 	float mfIdleMinWaitLength;
 	float mfIdleMaxWaitLength;
-	
+
 	float mfHuntFOV;
 	float mfHuntSpeed;
 	float mfHuntForLostPlayerTime;
@@ -244,9 +244,9 @@ public:
 	int mlAttackStrength;
 
 	cVector3f mvAttackDamageSize;
-	
+
 private:
-    iCollideShape *mpAttackShape;
+	iCollideShape *mpAttackShape;
 
 	cBoneState *mpRootBone;
 	std::list<cVector3f> mlstRootPositions;
@@ -258,7 +258,7 @@ private:
 	cVector3f mvRootUp;
 
 	cVector3f mvRootBaseForward;
-	
+
 	cVector3f mvLastForward;
 
 	int mlMaxSegmentPostions;

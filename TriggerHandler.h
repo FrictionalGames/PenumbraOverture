@@ -36,16 +36,16 @@ friend class cTriggerHandler;
 public:
 	cGameTrigger();
 	virtual ~cGameTrigger(){}
-	
+
 	int GetPrio(){ return mlPrio;}
 	float GetTimeCount(){ return mfTimeCount;}
 	eGameTriggerType GetType(){ return mType;}
-	
+
 	float GetRadius(){ return mfRadius;}
 	void SetRadius(float afX);
 
 	cBoundingVolume* GetBoundingVolume(){ return &mBoundingVolume;}
-	
+
 	virtual tString GetEntityType(){ return "GameTrigger"; }
 
 protected:

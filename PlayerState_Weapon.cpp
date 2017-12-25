@@ -42,8 +42,8 @@ cPlayerState_Throw::cPlayerState_Throw(cInit *apInit,cPlayer *apPlayer) : iPlaye
 
 
 void cPlayerState_Throw::OnUpdate(float afTimeStep)
-{	
-	if(	mpInit->mpNotebook->IsActive()==false && 
+{
+	if(	mpInit->mpNotebook->IsActive()==false &&
 		mpInit->mpInventory->IsActive()==false &&
 		mpInit->mpNumericalPanel->IsActive()==false &&
 		mpInit->mpDeathMenu->IsActive()==false)
@@ -54,7 +54,7 @@ void cPlayerState_Throw::OnUpdate(float afTimeStep)
 	/////////////////////////////////////
 	// If run is down, run!!
 	cInput *pInput = mpInit->mpGame->GetInput();
-	if(	pInput->IsTriggerd("Run") && 
+	if(	pInput->IsTriggerd("Run") &&
 		mpPlayer->GetMoveState() == ePlayerMoveState_Walk)
 	{
 		mpPlayer->ChangeMoveState(ePlayerMoveState_Run);
@@ -94,9 +94,9 @@ void cPlayerState_Throw::OnUpdate(float afTimeStep)
 	else
 	{
 		mpPlayer->SetCrossHairState(eCrossHairState_None);
-	}	
+	}
 
-	
+
 	//Quick fix but works, the OnLeave of the previous states sets an old cross hair state.
 	//mpPlayer->SetCrossHairState(eCrossHairState_None);
 }
@@ -119,7 +119,7 @@ void cPlayerState_Throw::OnPostSceneDraw()
 //-----------------------------------------------------------------------
 
 bool cPlayerState_Throw::OnJump()
-{ 
+{
 	return true;
 }
 
@@ -168,7 +168,7 @@ void cPlayerState_Throw::OnStartHolster()
 //-----------------------------------------------------------------------
 
 bool cPlayerState_Throw::OnAddYaw(float afVal)
-{ 
+{
 	return true;//mpHudObject->OnMouseMove(cVector2f(afVal,0));
 }
 
@@ -180,10 +180,10 @@ bool cPlayerState_Throw::OnAddPitch(float afVal)
 //-----------------------------------------------------------------------
 
 bool cPlayerState_Throw::OnMoveForwards(float afMul, float afTimeStep)
-{	
+{
 	mfLastForward = afMul;
 	return true;
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -271,7 +271,7 @@ bool cPlayerState_Throw::OnStartInventory()
 //-----------------------------------------------------------------------
 
 bool cPlayerState_Throw::OnStartInventoryShortCut(int alNum)
-{ 
+{
 	return true;
 }
 //-----------------------------------------------------------------------
@@ -291,8 +291,8 @@ cPlayerState_WeaponMelee::cPlayerState_WeaponMelee(cInit *apInit,cPlayer *apPlay
 
 
 void cPlayerState_WeaponMelee::OnUpdate(float afTimeStep)
-{	
-	if(	mpInit->mpNotebook->IsActive()==false && 
+{
+	if(	mpInit->mpNotebook->IsActive()==false &&
 		mpInit->mpInventory->IsActive()==false &&
 		mpInit->mpNumericalPanel->IsActive()==false &&
 		mpInit->mpDeathMenu->IsActive()==false)
@@ -303,7 +303,7 @@ void cPlayerState_WeaponMelee::OnUpdate(float afTimeStep)
 	/////////////////////////////////////
 	// If run is down, run!!
 	cInput *pInput = mpInit->mpGame->GetInput();
-	if(	pInput->IsTriggerd("Run") && 
+	if(	pInput->IsTriggerd("Run") &&
 		mpPlayer->GetMoveState() == ePlayerMoveState_Walk)
 	{
 		mpPlayer->ChangeMoveState(ePlayerMoveState_Run);
@@ -343,11 +343,11 @@ void cPlayerState_WeaponMelee::OnUpdate(float afTimeStep)
 	else
 	{
 		mpPlayer->SetCrossHairState(eCrossHairState_None);
-	}	
-	
-	
-	
-	
+	}
+
+
+
+
 	//Quick fix but works, the OnLeave of the previous states sets an old cross hair state.
 	//mpPlayer->SetCrossHairState(eCrossHairState_None);
 }
@@ -370,7 +370,7 @@ void cPlayerState_WeaponMelee::OnPostSceneDraw()
 //-----------------------------------------------------------------------
 
 bool cPlayerState_WeaponMelee::OnJump()
-{ 
+{
 	return true;
 }
 
@@ -417,7 +417,7 @@ void cPlayerState_WeaponMelee::OnStartHolster()
 //-----------------------------------------------------------------------
 
 bool cPlayerState_WeaponMelee::OnAddYaw(float afVal)
-{ 
+{
 	return mpHudWeapon->OnMouseMove(cVector2f(afVal,0));
 }
 
@@ -429,7 +429,7 @@ bool cPlayerState_WeaponMelee::OnAddPitch(float afVal)
 //-----------------------------------------------------------------------
 
 bool cPlayerState_WeaponMelee::OnMoveForwards(float afMul, float afTimeStep)
-{	
+{
 	/*cInput *pInput = mpInit->mpGame->GetInput();
 	if(pInput->IsTriggerd("Run"))
 	{
@@ -441,7 +441,7 @@ bool cPlayerState_WeaponMelee::OnMoveForwards(float afMul, float afTimeStep)
 			mpPlayer->GetCharacterBody()->AddForce( vDir * 300 * mpPlayer->GetDefaultMass() +
 				cVector3f(0,200 * mpPlayer->GetDefaultMass() ,0));
 		}
-		
+
 		mfLastForward = afMul;
 		return false;
 	}
@@ -491,7 +491,7 @@ void cPlayerState_WeaponMelee::EnterState(iPlayerState* apPrevState)
 	mpPlayer->ChangeState(ePlayerState_Normal);
 	}
 
-	//Load the data	
+	//Load the data
 	cCamera3D *pCamera = mpPlayer->GetCamera();
 	cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
 	cResources *pResources = mpInit->mpGame->GetResources();
@@ -586,7 +586,7 @@ bool cPlayerState_WeaponMelee::OnStartInventory()
 //-----------------------------------------------------------------------
 
 bool cPlayerState_WeaponMelee::OnStartInventoryShortCut(int alNum)
-{ 
+{
 	return true;
 }
 	//-----------------------------------------------------------------------
@@ -614,7 +614,7 @@ mvPosition = cVector3f(0.13f, -0.16f, 0.2f);
 
 
 void OnUpdate(float afTimeStep)
-{	
+{
 //Quick fix but works, the OnLeave of the previous states sets an old cross hair state.
 mpPlayer->SetCrossHairState(eCrossHairState_None);
 
@@ -625,7 +625,7 @@ mpMeshEntity->SetMatrix(cMath::MatrixMul(mtxInv,m_mtxOffset));
 
 cVector3f vLocalPos = mvPosition + cVector3f(0,-mpPlayer->GetHeadMove()->GetPos()*0.1f,0);
 
-cVector3f vPos =	pCamera->GetForward() * vLocalPos.z + 
+cVector3f vPos =	pCamera->GetForward() * vLocalPos.z +
 pCamera->GetUp() * vLocalPos.y +
 pCamera->GetRight() * vLocalPos.x;
 
@@ -649,7 +649,7 @@ void OnPostSceneDraw()
 //-----------------------------------------------------------------------
 
 bool OnJump()
-{ 
+{
 return true;
 }
 
@@ -684,7 +684,7 @@ mpPlayer->ChangeState(ePlayerState_Normal);
 //-----------------------------------------------------------------------
 
 bool OnAddYaw(float afVal)
-{ 
+{
 return true;
 }
 
@@ -719,7 +719,7 @@ Error("No weapon callback for player weapon state!\n");
 mpPlayer->ChangeState(ePlayerState_Normal);
 }
 
-//Load the data	
+//Load the data
 cCamera3D *pCamera = mpPlayer->GetCamera();
 cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
 cResources *pResources = mpInit->mpGame->GetResources();
@@ -809,7 +809,7 @@ return true;
 //-----------------------------------------------------------------------
 
 bool OnStartInventoryShortCut(int alNum)
-{ 
+{
 return false;
 }
 //-----------------------------------------------------------------------

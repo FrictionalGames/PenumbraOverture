@@ -35,7 +35,7 @@ cMapLoadText::cMapLoadText(cInit *apInit)  : iUpdateable("MapLoadText")
 
 	//Load graphics
 	//mpGfxMouse = mpDrawer->CreateGfxObject("player_crosshair_pointer.bmp","diffalpha2d");
-	
+
 	//load fonts
 	mpFont = mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("verdana.fnt");
 	mpTextFont = mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("font_computer.fnt");
@@ -173,7 +173,7 @@ void cMapLoadText::SetActive(bool abX)
 		mpInit->mpButtonHandler->ChangeState(eButtonHandlerState_MapLoadText);
 
 		mpBack = mpInit->mpGame->GetResources()->GetTextureManager()->Create2D("other_load_text_back.jpg",false);
-		
+
 		mpInit->mpGraphicsHelper->ClearScreen(cColor(0,0));
 		mpInit->mpGraphicsHelper->DrawTexture(mpBack,0,cVector3f(800,600,0),cColor(1,1));
 		DrawText(true);

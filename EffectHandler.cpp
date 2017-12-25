@@ -69,7 +69,7 @@ void cEffect_Underwater::Update(float afTimeStep)
 void cEffect_Underwater::OnDraw()
 {
 	if(mbActive==false) return;
-	
+
 	cColor invColor(1-mColor.r,1-mColor.g,1-mColor.b,0);
 	mpDrawer->DrawGfxObject(mpWhiteGfx,0,cVector2f(800,600),invColor);
 }
@@ -102,7 +102,7 @@ cEffect_ShakeScreen::cEffect_ShakeScreen(cInit *apInit)
 	{
 		mpForce = NULL;
 	}
-	
+
 }
 
 cEffect_ShakeScreen::~cEffect_ShakeScreen()
@@ -152,9 +152,9 @@ void cEffect_ShakeScreen::Update(float afTimeStep)
 		}
 
 		//Log("%f, %f, %f size: %f\n",shake.mfFadeInTime,shake.mfTime,shake.mfFadeOutTime,shake.mfSize);
-				
+
 		if(fLargest < shake.mfSize) fLargest = shake.mfSize;
-		
+
 		if(shake.mfTime <= 0 && shake.mfFadeOutTime <= 0 && shake.mfFadeInTime <= 0)
 		{
 			it = mlstShakes.erase(it);
@@ -164,7 +164,7 @@ void cEffect_ShakeScreen::Update(float afTimeStep)
 			++it;
 		}
 	}
-	
+
 	mvAdd.x = cMath::RandRectf(-fLargest,fLargest);
 	mvAdd.y = cMath::RandRectf(-fLargest,fLargest);
 	mvAdd.z = cMath::RandRectf(-fLargest,fLargest);
@@ -208,7 +208,7 @@ cEffect_SaveEffect::cEffect_SaveEffect(cInit *apInit, cGraphicsDrawer *apDrawer)
 }
 cEffect_SaveEffect::~cEffect_SaveEffect()
 {
-	
+
 }
 
 void cEffect_SaveEffect::NormalSave(const cVector3f &avPos, cGameSaveArea *apSaveArea)
@@ -232,7 +232,7 @@ void cEffect_SaveEffect::NormalSave(const cVector3f &avPos, cGameSaveArea *apSav
 	mvPosition = avPos;
 	mbActive = true;
 	mfTime =0;
-	
+
 	mfStartFov = mpInit->mpPlayer->GetCamera()->GetFOV();
 	mfFov = mpInit->mpPlayer->GetCamera()->GetFOV();
 
@@ -244,7 +244,7 @@ void cEffect_SaveEffect::NormalSave(const cVector3f &avPos, cGameSaveArea *apSav
 	mpInit->mpGame->GetGraphics()->GetRendererPostEffects()->SetImageTrailAmount(0.8f);
 
 	mfFlashAlpha =0;
-	mFlashColor = cColor(	216.0f / 255.0f, 
+	mFlashColor = cColor(	216.0f / 255.0f,
 							85.0f  / 255.0f,
 							5.0f   / 255.0f, 0);
 
@@ -261,7 +261,7 @@ void cEffect_SaveEffect::AutoSave()
 	//mpInit->mpPlayer->SetActive(false);
 
 	mfFlashAlpha =0;
-	mFlashColor = cColor(	216.0f / 255.0f, 
+	mFlashColor = cColor(	216.0f / 255.0f,
 							85.0f  / 255.0f,
 							5.0f   / 255.0f, 0);
 
@@ -274,7 +274,7 @@ void cEffect_SaveEffect::Update(float afTimeStep)
 {
 	if(mbActive==false) return;
 
-    mfTime += afTimeStep;
+	mfTime += afTimeStep;
 
 	if(mbAutoSave)
 	{
@@ -291,8 +291,8 @@ void cEffect_SaveEffect::OnDraw()
 	if(mbActive==false) return;
 
 	mpDrawer->DrawGfxObject(mpFlashGfx,0,cVector2f(800,600),
-							cColor(1,1) * mfFlashAlpha + 
-							mFlashColor * (1- mfFlashAlpha) 
+							cColor(1,1) * mfFlashAlpha +
+							mFlashColor * (1- mfFlashAlpha)
 							);
 }
 
@@ -398,10 +398,10 @@ void cEffect_SaveEffect::NormalSaveUpdate(float afTimeStep)
 
 				mpSaveArea->SetHasBeenUsed(true);
 			}
-			
+
 			mpInit->mpGameMessageHandler->SetBlackText(false);
 			mpInit->mpGameMessageHandler->Add(kTranslate("Save",sEntry));
-			
+
 			break;
 		}
 	}
@@ -420,7 +420,7 @@ void cEffect_SaveEffect::AutoSaveUpdate(float afTimeStep)
 		{
 			//Flash
 			mfFlashAlpha += 1.2f *afTimeStep;
-			if(mfFlashAlpha > 0.75f) 
+			if(mfFlashAlpha > 0.75f)
 			{
 				mfFlashAlpha =  0.75f;
 				mlState++;
@@ -504,10 +504,10 @@ void cEffect_DepthOfField::SetActive(bool abX, float afFadeTime)
 {
 	mbActive = abX;
 	if(mbDisabled) return;
-	
+
 	if(mbActive)
 		mpPostEffects->SetDepthOfFieldActive(true);
-	
+
 	if(afFadeTime >0)
 		mfFadeSpeed = 1 / afFadeTime;
 	else
@@ -531,7 +531,7 @@ void cEffect_DepthOfField::Update(float afTimeStep)
 	{
 		FocusOnBody(mpFocusBody);
 	}
-	
+
 	///////////////////////////
 	//Update max blur
 	if(mbActive)
@@ -568,11 +568,11 @@ void cEffect_DepthOfField::FocusOnBody(iPhysicsBody *apBody)
 
 	//Far plane
 	float fFarPlane = fFocalPlane + (pBV->GetRadius() + 0.3f);
-	
+
 	//float fDist = cMath::Vector3Dist(vCamPos,apBody->GetWorldPosition());
 	//Log("Body: %s Dist: %f PickedDist: %f\n",apBody->GetName().c_str(), fDist,mpInit->mpPlayer->GetPickedDist());
 	//Log("Setup near %f focal %f far %f Radii %f\n",fNearPlane,fFocalPlane,fFarPlane,pBV->GetRadius());
-	
+
 	SetUp(fNearPlane,fFocalPlane,fFarPlane);
 }
 
@@ -596,7 +596,7 @@ cEffect_Flash::cEffect_Flash(cInit *apInit, cGraphicsDrawer *apDrawer)
 }
 cEffect_Flash::~cEffect_Flash()
 {
-	mpDrawer->DestroyGfxObject(mpWhiteGfx);	
+	mpDrawer->DestroyGfxObject(mpWhiteGfx);
 }
 
 //-----------------------------------------------------------------------
@@ -604,7 +604,7 @@ cEffect_Flash::~cEffect_Flash()
 void cEffect_Flash::Start(float afFadeIn, float afWhite, float afFadeOut)
 {
 	mbActive = true;
-	
+
 	mlStep = 0;
 
 	mfFadeInSpeed = 1 / afFadeIn;
@@ -644,7 +644,7 @@ void cEffect_Flash::Update(float afTimeStep)
 			mbActive = false;
 		}
 	}
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -700,8 +700,8 @@ void cEffect_SubTitle::Add(const tWString& asMessage, float afTime, bool abRemov
 			}
 		}
 	}
-	
-	
+
+
 	cSubTitle subTitle;
 	subTitle.mfAlpha = 0.0f;
 	subTitle.mfCount = afTime;
@@ -720,14 +720,14 @@ void cEffect_SubTitle::Update(float afTimeStep)
 	{
 		cSubTitle &subTitle = *it;
 
-        if(subTitle.mbActive)
+		if(subTitle.mbActive)
 		{
 			if(subTitle.mfCount >0)
 			{
 				bFoundFirst = true;
 
 				subTitle.mfCount -= afTimeStep;
-				
+
 				subTitle.mfAlpha += afTimeStep *0.9f;
 				if(subTitle.mfAlpha > 1)subTitle.mfAlpha = 1;
 			}
@@ -791,7 +791,7 @@ void cEffect_SubTitle::Reset()
 cEffect_WaveGravity::cEffect_WaveGravity(cInit *apInit)
 {
 	mpInit = apInit;
-	
+
 	Reset();
 }
 cEffect_WaveGravity::~cEffect_WaveGravity()
@@ -818,15 +818,15 @@ void cEffect_WaveGravity::Update(float afTimeStep)
 	if(mbActive==false) return;
 
 	iPhysicsWorld *pWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
-	
+
 	//////////////////////////////////
 	//Set all bodies to not active
-	
+
 	cPhysicsBodyIterator it = pWorld->GetBodyIterator();
 	while(it.HasNext())
 	{
 		iPhysicsBody *pBody = it.Next();
-		
+
 		//quick fix for oscillation
 		if(pBody->GetJointNum()>0 && pBody->GetJoint(0)->GetLimitAutoSleep()) continue;
 
@@ -836,13 +836,13 @@ void cEffect_WaveGravity::Update(float afTimeStep)
 		}
 	}
 
-	
+
 	/////////////////////////////////
 	// Update gravity
 	mfTime += (k2Pif / mfSwingLength) * afTimeStep;
 
 	float afAngle = mfMaxAngle * sin(mfTime);
-	
+
 	cVector3f vDir(0,0,0);
 	vDir.y = -cos(afAngle);
 	if(mlDir==0)	vDir.x = sin(afAngle);

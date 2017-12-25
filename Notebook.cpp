@@ -35,11 +35,11 @@ cNotebookState_Front::cNotebookState_Front(cInit *apInit, cNotebook *apNotebook)
 {
 	mpDrawer = mpInit->mpGame->GetGraphics()->GetDrawer();
 	mpTextBack = mpDrawer->CreateGfxObject("notebook_textback.bmp","diffalpha2d");
-	
+
 	mpFrontFont =  mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("verdana.fnt");
 
 	mvOptions.resize(2);
-	
+
 	mvOptions[0].msText = kTranslate("Notebook", "TaskList");
 	mvOptions[0].mvPos = cVector3f(400, 220, 70);
 
@@ -68,7 +68,7 @@ void cNotebookState_Front::OnEnterState(int alLastState)
 {
 	mvOptions[0].msText = kTranslate("Notebook", "TaskList");
 	mvOptions[1].msText = kTranslate("Notebook", "PickedNotes");
-	
+
 	mpNotebook->SetBookType(eNotebookType_Front);
 }
 
@@ -94,7 +94,7 @@ void cNotebookState_Front::OnUpdate(float afTime)
 				mvOptions[i].mfAlpha = 0;
 			}
 			bFound = true;
-			
+
 			mvOptions[i].mfAlpha += 1.8f *afTime;
 			if(mvOptions[i].mfAlpha >1.0f) mvOptions[i].mfAlpha = 1.0f;
 		}
@@ -123,7 +123,7 @@ void cNotebookState_Front::OnDraw()
 			mpDrawer->DrawGfxObject(mpTextBack,mvOptions[i].mvPos+cVector3f(-160,-2,-1),
 									cVector2f(320,mvFontSize.y+15),cColor(1,mvOptions[i].mfAlpha*0.7f));
 		}
-		
+
 		mpFrontFont->Draw(mvOptions[i].mvPos,mvFontSize,cColor(0.7f,0.7f,0.7f, 0.8f*mpNotebook->GetAlpha()),
 				eFontAlign_Center,mvOptions[i].msText.c_str());
 		mpFrontFont->Draw(mvOptions[i].mvPos + cVector3f(1,1,-1),mvFontSize,cColor(0.0f,0.0f,0.0f, 0.8f*mpNotebook->GetAlpha()),
@@ -168,7 +168,7 @@ cNotebookState_TaskList::cNotebookState_TaskList(cInit *apInit, cNotebook *apNot
 	mpTextFont =  mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("cour.fnt",14);
 
 	mfFontSize = 15;
-	
+
 	//////////////////
 	//Options
 	mlSelected = -1;
@@ -208,7 +208,7 @@ void cNotebookState_TaskList::OnEnterState(int alLastState)
 
 	mlCurrentPage =0;
 	mlSelected = -1;
-	
+
 	int lStart=0;
 	int lCount =0;
 	float fYPos =0;
@@ -218,7 +218,7 @@ void cNotebookState_TaskList::OnEnterState(int alLastState)
 	while(it.HasNext())
 	{
 		cNotebook_BookTask *pTask = it.Next();
-		
+
 		mpTextFont->GetWordWrapRows(308,mfFontSize,mfFontSize-1,_W("- ")+pTask->msText, &vTempStrings);
 
 		fYPos += ((float)vTempStrings.size()) * mfFontSize;
@@ -239,10 +239,10 @@ void cNotebookState_TaskList::OnEnterState(int alLastState)
 
 			fYPos = ((float)vTempStrings.size()) * mfFontSize;
 		}
-		
+
 		//Space between tasks
 		fYPos += 30;
-		
+
 
 		lCount++;
 		vTempStrings.clear();
@@ -295,7 +295,7 @@ void cNotebookState_TaskList::OnUpdate(float afTime)
 	}
 
 	if(bFound ==false) mlSelected = -1;
-}	
+}
 
 //-----------------------------------------------------------------------
 
@@ -316,11 +316,11 @@ void cNotebookState_TaskList::OnDraw()
 			++lCount;
 			continue;
 		}
-		
+
 		mpTextFont->Draw(vPos+cVector3f(-12,0,0),14,cColor(0.0f,0.0f,0.0f,0.9f),eFontAlign_Left,
 						_W("-"));
 		int lRows = mpTextFont->DrawWordWrap(vPos,308,15,14,cColor(0.0f,0.0f,0.0f,0.9f),eFontAlign_Left,pTask->msText.c_str());
-		
+
 		vPos.y += 30.0f+ (float)lRows * 15.0f;
 
 		++lCount;
@@ -397,7 +397,7 @@ cNotebookState_NoteList::cNotebookState_NoteList(cInit *apInit, cNotebook *apNot
 	mpTextFont =  mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("verdana.fnt",14);
 
 	msUnread = kTranslate("Notebook","Unread");
-		
+
 	mvSize = cVector2f(14,14);
 
 	mlMaxNotesPerPage = 11;
@@ -445,12 +445,12 @@ void cNotebookState_NoteList::OnEnterState(int alLastState)
 	mpNotebook->SetBookType(eNotebookType_Open);
 
 	mpSelectedNote = NULL;
-	
+
 	if(alLastState != eNotebookState_Note)
-		mlFirstNote = (mpNotebook->GetNoteNum() / 12) * 11; 
-	
+		mlFirstNote = (mpNotebook->GetNoteNum() / 12) * 11;
+
 	mlSelected = -1;
-    
+
 	//////////////////////////////////////////
 	//Setup pos and size of all entries
 	int lCount =0;
@@ -465,12 +465,12 @@ void cNotebookState_NoteList::OnEnterState(int alLastState)
 		}
 
 		cNotebook_Note *pNote = it.Next();
-		
+
 		pNote->mRect.x = vPos.x;
 		pNote->mRect.y = vPos.y+6;
 		pNote->mRect.w = 300;
 		pNote->mRect.h = mvSize.y + 12;
-		
+
 		vPos.y += mvSize.y + 15;
 
 		lCount++;
@@ -489,7 +489,7 @@ void cNotebookState_NoteList::OnLeaveState(int alNextState)
 void cNotebookState_NoteList::OnUpdate(float afTime)
 {
 	mpSelectedNote = NULL;
-	
+
 	//////////////////////////////////
 	// Notes
 	int lCount=0;
@@ -502,7 +502,7 @@ void cNotebookState_NoteList::OnUpdate(float afTime)
 			lCount++;
 			continue;
 		}
-		
+
 		if(cMath::PointBoxCollision(mpNotebook->GetMousePos(), pNote->mRect))
 		{
 			mpSelectedNote = pNote;
@@ -521,7 +521,7 @@ void cNotebookState_NoteList::OnUpdate(float afTime)
 
 		lCount++;
 	}
-	
+
 	//////////////////////////////////
 	// Next/Prev Page
 	bool bFound=false;
@@ -563,11 +563,11 @@ void cNotebookState_NoteList::OnDraw()
 			lCount++;
 			continue;
 		}
-		
+
 		cVector3f vTabPos(400 - 175,pNote->mRect.y,68);
 		cVector2f vTabSize(14,pNote->mRect.h+3);
 		mpDrawer->DrawGfxObject(mpTab,vTabPos,vTabSize,cColor(1,mpNotebook->GetAlpha()));
-		
+
 		cVector3f vTextPos(pNote->mRect.x,pNote->mRect.y,70);
 
 		if(pNote->mfAlpha < 1)
@@ -580,12 +580,12 @@ void cNotebookState_NoteList::OnDraw()
 		{
 			float fAlpha = pNote->mfAlpha*mpNotebook->GetAlpha();
 			float fShadowWidth = mpTextFont->GetLength(mvSize,pNote->msName.c_str());
-			
+
 			cVector3f vPos(pNote->mRect.x-10, pNote->mRect.y, 69);
-			cVector2f vSize(fShadowWidth+20,pNote->mRect.h-2); 
-			
+			cVector2f vSize(fShadowWidth+20,pNote->mRect.h-2);
+
 			mpDrawer->DrawGfxObject(mpTextBack,vPos,vSize,cColor(1,fAlpha*0.7f));
-			
+
 			mpTextFont->Draw(vTextPos,mvSize,cColor(0.85f,fAlpha),eFontAlign_Left,pNote->msName.c_str());
 		}
 
@@ -672,22 +672,22 @@ cNotebookState_Note::cNotebookState_Note(cInit *apInit, cNotebook *apNotebook) :
 
 	mvSize = cVector2f(14,14);
 	mlMaxRows = 22;
-	
+
 	mvOptions.resize(2);
 
 	cVector2f vBookSize(350,460);
 	cVector3f vBookPos(400 - vBookSize.x/2, 300 - vBookSize.y/2, 60);
-	
+
 	mvOptions[0].msText = _W(">>>");
-	mvOptions[0].mvPos = cVector3f(	(vBookPos.x + vBookSize.x) - 119, 
-									(vBookPos.y + vBookSize.y) - 120, 
+	mvOptions[0].mvPos = cVector3f(	(vBookPos.x + vBookSize.x) - 119,
+									(vBookPos.y + vBookSize.y) - 120,
 									15);
 
 	mvOptions[1].msText = _W("<<<");
 	mvOptions[1].mvPos = cVector3f(	vBookPos.x,
-									vBookPos.y + vBookSize.y - 120, 
+									vBookPos.y + vBookSize.y - 120,
 									15);
-	
+
 	for(size_t i=0; i< mvOptions.size(); ++i)
 	{
 		cRect2f optionRect;
@@ -716,7 +716,7 @@ void cNotebookState_Note::OnEnterState(int alLastState)
 {
 	mpNotebook->SetBookType(eNotebookType_Open);
 	cNotebook_Note *pNote = mpNotebook->GetSelectedNote();
-	
+
 	mvRows.clear();
 	mvPages.clear();
 	mpTextFont->GetWordWrapRows(320,mvSize.y+5,mvSize,pNote->msText, &mvRows);
@@ -728,7 +728,7 @@ void cNotebookState_Note::OnEnterState(int alLastState)
 		//Log("Row%d: %s\n",i, mvRows[i].c_str());
 
 		lRowCount++;
-		
+
 		//Log("Row: %d\n",lRowCount);
 		if(	cString::GetLastStringPosW(mvRows[i],_W("[new_page]"))>=0)
 		{
@@ -821,7 +821,7 @@ void cNotebookState_Note::OnDraw()
 	{
 		mpTextFont->Draw(vPos,mvSize,cColor(0,1.0f*mpNotebook->GetAlpha()),
 							eFontAlign_Left,mvRows[i].c_str());
-		
+
 		vPos.y += mvSize.y+2;
 	}
 
@@ -829,29 +829,29 @@ void cNotebookState_Note::OnDraw()
 	// Page number
 	mpTextFont->Draw(cVector3f(400,490,16),15,cColor(0.05f,mpNotebook->GetAlpha()),eFontAlign_Center,
 		_W("%d"),mlCurrentPage+1);
-	
+
 	//////////////////////////////////
 	// Draw arrows back and forward
 	for(size_t i=0; i< mvOptions.size(); ++i)
 	{
 		if(i==0 && mlCurrentPage == mvPages.size()-1) continue;
 		if(i==1 && mlCurrentPage == 0) continue;
-		
-		
+
+
 		mpDrawer->DrawGfxObject(mpOptionsImage[i],mvOptions[i].mvPos,
 							cVector2f(mvOptions[i].mRect.w,mvOptions[i].mRect.h),
 							cColor(1,mpNotebook->GetAlpha()));
 
 	}
 
-	
+
 }
 
 //-----------------------------------------------------------------------
 
 
 void cNotebookState_Note::OnMouseDown(eMButton aButton)
-{	
+{
 	//Forward
 	if(mlSelected==0)
 	{
@@ -896,8 +896,8 @@ cNotebook::cNotebook(cInit *apInit)  : iUpdateable("Notebook")
 	Reset();
 
 	mpGfxBackground = mpDrawer->CreateGfxObject("notebook_background.bmp","diffalpha2d");
-	
-    mStateMachine.AddState(hplNew( cNotebookState_Front,(mpInit,this) ),"Front",eNotebookState_Front,mpInit->mpGame->GetStepSize());
+
+	mStateMachine.AddState(hplNew( cNotebookState_Front,(mpInit,this) ),"Front",eNotebookState_Front,mpInit->mpGame->GetStepSize());
 	mStateMachine.AddState(hplNew( cNotebookState_TaskList,(mpInit,this) ),"TaskList",eNotebookState_TaskList,mpInit->mpGame->GetStepSize());
 	mStateMachine.AddState(hplNew( cNotebookState_NoteList,(mpInit,this) ),"NoteList",eNotebookState_NoteList,mpInit->mpGame->GetStepSize());
 	mStateMachine.AddState(hplNew( cNotebookState_Note,(mpInit,this) ),"Note",eNotebookState_Note,mpInit->mpGame->GetStepSize());
@@ -905,7 +905,7 @@ cNotebook::cNotebook(cInit *apInit)  : iUpdateable("Notebook")
 	///////////////////////
 	//Book types
 	mvBookTypes.resize(2);
-	
+
 	//front
 	mvBookTypes[0].mpGfxImage = mpDrawer->CreateGfxObject("notebook_front.bmp","diffalpha2d");
 	mvBookTypes[0].mfAlpha = 1;
@@ -972,7 +972,7 @@ void cNotebook::Update(float afTimeStep)
 		}
 
 	}
-	
+
 	//////////////////////////////
 	//Update state machine
 	mStateMachine.Update(afTimeStep);
@@ -994,23 +994,23 @@ void cNotebook::Reset()
 void cNotebook::OnDraw()
 {
 	if(mfAlpha == 0) return;
-	
-    mpDrawer->DrawGfxObject(mpGfxBackground,cVector3f(0,0,0),cVector2f(800,600),cColor(1,mfAlpha));
-	
+
+	mpDrawer->DrawGfxObject(mpGfxBackground,cVector3f(0,0,0),cVector2f(800,600),cColor(1,mfAlpha));
+
 	////////////////////////////////////
 	//Book types
 	cVector2f vBookSize(350,460);
 	cVector3f vBookPos(400 - vBookSize.x/2, 300 - vBookSize.y/2, 10);
-	
+
 	for(size_t i=0; i< mvBookTypes.size(); ++i)
 	{
-		mpDrawer->DrawGfxObject(mvBookTypes[i].mpGfxImage,vBookPos,vBookSize,cColor(1, 
+		mpDrawer->DrawGfxObject(mvBookTypes[i].mpGfxImage,vBookPos,vBookSize,cColor(1,
 								mfAlpha * mvBookTypes[i].mfAlpha));
 	}
-	
+
 	////////////////////////////////////
 	//Current state
-	static_cast<iNotebookState*>(mStateMachine.CurrentState())->OnDraw();	
+	static_cast<iNotebookState*>(mStateMachine.CurrentState())->OnDraw();
 }
 
 //-----------------------------------------------------------------------
@@ -1078,10 +1078,10 @@ cNotebook_Note* cNotebook::AddNote(const tWString &asName, const tString &asText
 {
 	cNotebook_Note *pNote = hplNew( cNotebook_Note,() );
 	pNote->msName =asName;
-	
+
 	pNote->msTextCat = asTextCat;
 	pNote->msTextEntry = asTextEntry;
-	
+
 	pNote->msText =kTranslate(asTextCat,asTextEntry);
 
 	mlstNotes.push_back(pNote);
@@ -1090,7 +1090,7 @@ cNotebook_Note* cNotebook::AddNote(const tWString &asName, const tString &asText
 }
 
 void cNotebook::RemoveNote(const tString &asName)
-{	
+{
 	/*tNotebook_NoteListIt it = mlstNotes.begin();
 	for(; it != mlstNotes.end(); ){
 		cNotebook_Note *pNote = *it;
@@ -1123,7 +1123,7 @@ void cNotebook::AddTask(const tString &asName, const tWString &asText)
 			return;
 		}
 	}
-	
+
 	cNotebook_BookTask *pTask = hplNew( cNotebook_BookTask, () );
 	pTask->msName =asName;
 	pTask->msText =asText;
@@ -1135,7 +1135,7 @@ void cNotebook::AddTask(const tString &asName, const tWString &asText)
 }
 
 void cNotebook::RemoveTask(const tString &asName)
-{	
+{
 	tNotebook_BookTaskListIt it = mlstTasks.begin();
 	for(; it != mlstTasks.end(); )
 	{
@@ -1185,7 +1185,7 @@ void cNotebook::SetActive(bool abX)
 		}
 		mpInit->mpPlayer->SetCrossHairPos(mvMousePos);
 		mpInit->mpPlayer->SetCrossHairState(eCrossHairState_Pointer);
-		
+
 		mBookType = eNotebookType_Front;
 		mStateMachine.ChangeState(eNotebookState_Front);
 		mvBookTypes[0].mfAlpha = 1;

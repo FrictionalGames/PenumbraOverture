@@ -38,11 +38,11 @@ public:
 	void Reset();
 
 	void OnPostSceneDraw();
-	
+
 	void OnDraw();
-    
+
 	void Update(float afTimeStep);
-	
+
 	void OnMouseDown(eMButton aButton);
 	void OnMouseUp(eMButton aButton);
 

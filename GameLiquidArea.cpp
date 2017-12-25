@@ -45,7 +45,7 @@ cAreaLoader_GameLiquidArea::~cAreaLoader_GameLiquidArea()
 
 //-----------------------------------------------------------------------
 
-iEntity3D* cAreaLoader_GameLiquidArea::Load(const tString &asName, const cVector3f &avSize, 
+iEntity3D* cAreaLoader_GameLiquidArea::Load(const tString &asName, const cVector3f &avSize,
 									  const cMatrixf &a_mtxTransform,cWorld3D *apWorld)
 {
 	cGameLiquidArea *pArea = hplNew( cGameLiquidArea, (mpInit,asName) );
@@ -68,7 +68,7 @@ iEntity3D* cAreaLoader_GameLiquidArea::Load(const tString &asName, const cVector
 	mpInit->mpMapHandler->AddGameEntity(pArea);
 
 	pArea->Setup();
-	
+
 	//Return something else later perhaps.
 	return NULL;
 }
@@ -122,7 +122,7 @@ void cGameLiquidArea::SetPhysicsMaterial(const tString asName)
 
 	mpPhysicsMaterial = pPhysicsWorld->GetMaterialFromName(asName);
 	if(mpPhysicsMaterial==NULL){
-		Error("Liquid '%s' could not find material '%s'\n",GetName().c_str(), 
+		Error("Liquid '%s' could not find material '%s'\n",GetName().c_str(),
 														mpPhysicsMaterial->GetName().c_str());
 	}
 }
@@ -143,17 +143,17 @@ void cGameLiquidArea::Update(float afTimeStep)
 	cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
 	iPhysicsWorld *pPhysicsWorld = pWorld->GetPhysicsWorld();
 	cCamera3D *pCam = mpInit->mpPlayer->GetCamera();
-	float fSurfaceY =	mvBodies[0]->GetWorldPosition().y + 
+	float fSurfaceY =	mvBodies[0]->GetWorldPosition().y +
 						mvBodies[0]->GetShape()->GetSize().y /2;
-	
-    cCollideData collideData;
+
+	cCollideData collideData;
 	collideData.SetMaxSize(1);
 
 	mfTimeCount += afTimeStep;
 
 	////////////////////////////////////////////////////////
 	//Update waves
-	
+
 
 	////////////////////////////////////////////////////////
 	//Check if player camera is in water.
@@ -177,7 +177,7 @@ void cGameLiquidArea::Update(float afTimeStep)
 	while(bodyIt.HasNext())
 	{
 		iPhysicsBody *pBody = static_cast<iPhysicsBody*>(bodyIt.Next());
-		
+
 		iGameEntity *pEntity = (iGameEntity*)pBody->GetUserData();
 
 		if(pBody->GetCollide() && pBody->IsActive())
@@ -208,16 +208,16 @@ void cGameLiquidArea::Update(float afTimeStep)
 				float fToSurface = cMath::Abs(fSurfaceY - pCharBody->GetFeetPosition().y);
 				float fCharHeight = pCharBody->GetSize().y;
 				if(fToSurface > fCharHeight) fToSurface = fCharHeight;
-				
+
 				float fRadius = pCharBody->GetSize().x/2;
 				float fVolume = fToSurface*fRadius*fRadius*kPif;
 				float fWaterWeight = fVolume * mfDensity;
 				cVector3f vForce = pPhysicsWorld->GetGravity() * -fWaterWeight;
 
 				//Log("Tosurface: %f Vol: %f\n",fToSurface,fVolume);
-                				
+
 				pCharBody->AddForce(vForce);
-				
+
 				if(pBody->GetBuoyancyActive()==false)
 				{
 					SplashEffect(pBody);
@@ -232,7 +232,7 @@ void cGameLiquidArea::Update(float afTimeStep)
 					pBody->SetBuoyancyDensity(mfDensity);
 					pBody->SetBuoyancyLinearViscosity(mfLinearViscosity);
 					pBody->SetBuoyancyAngularViscosity(mfAngularViscosity);
-	
+
 					SplashEffect(pBody);
 					//Log("Splash body: %s\n",pBody->GetName().c_str());
 
@@ -244,22 +244,22 @@ void cGameLiquidArea::Update(float afTimeStep)
 
 					float fAddX = sin(mfTimeCount * mfWaveFreq + vPos.x * 15)*mfWaveAmp;
 					float fAddZ = sin(mfTimeCount * mfWaveFreq + vPos.z * 15)*mfWaveAmp;
-					
+
 					//pBody->AddForce(cVector3f(0, 9.8f * (fAddZ+fAddX)*pBody->GetMass()*2, 0));
 					//pBody->AddForce(cVector3f(0, 9.8f * cMath::RandRectf(-0.1, 0.1f)*pBody->GetMass()*2, 0));
 					//Log("F:%f Amp %f\n",fAddZ+fAddX,mfWaveAmp);
-					//pBody->AddTorque(cVector3f((fAddZ+fAddX)*pBody->GetMass(), (fAddZ+fAddX)*pBody->GetMass(), 
+					//pBody->AddTorque(cVector3f((fAddZ+fAddX)*pBody->GetMass(), (fAddZ+fAddX)*pBody->GetMass(),
 					//							(fAddZ+fAddX)*pBody->GetMass()));
 
 					cPlanef tempPlane;
 					tempPlane.FromNormalPoint(	cVector3f(0,1,0),
 													cVector3f(0,fSurfaceY + fAddX + fAddZ,0));
-					
+
 
 					pBody->SetBuoyancySurface(tempPlane);
 					pBody->SetEnabled(true);
 				}
-    		}
+			}
 		}
 	}
 }
@@ -295,18 +295,18 @@ void cGameLiquidArea::SplashEffect(iPhysicsBody *apBody)
 	else
 		fSpeed = apBody->GetLinearVelocity().Length();
 
-    
+
 	cSurfaceImpactData *pImpact = pSurface->GetImpactDataFromSpeed(fSpeed);
-	
+
 	if(pImpact == NULL) return;
 
 	cVector3f vPos = cMath::MatrixMul(apBody->GetLocalMatrix(),apBody->GetMassCentre());
-						
-	vPos.y =	mvBodies[0]->GetWorldPosition().y + 
+
+	vPos.y =	mvBodies[0]->GetWorldPosition().y +
 				mvBodies[0]->GetShape()->GetSize().y/2;
 
-    cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
-	
+	cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
+
 	if(pImpact->GetPSName() != "")
 	{
 		pWorld->CreateParticleSystem("Splash", pImpact->GetPSName(),1, cMath::MatrixTranslate(vPos));
@@ -320,7 +320,7 @@ void cGameLiquidArea::SplashEffect(iPhysicsBody *apBody)
 			pSound->SetPosition(vPos);
 		}
 	}
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -351,7 +351,7 @@ kEndSerialize()
 
 iGameEntity* cGameLiquidArea_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------
@@ -375,11 +375,11 @@ void cGameLiquidArea::SaveToSaveData(iGameEntity_SaveData *apSaveData)
 	kCopyToVar(pData, mColor);
 	kCopyToVar(pData, mbHasWaves);
 
-	if(mpPhysicsMaterial) 
+	if(mpPhysicsMaterial)
 		pData->msPhysicsMaterial = mpPhysicsMaterial->GetName();
 	else
 		pData->msPhysicsMaterial = "";
-	
+
 	pData->mvSize = mvBodies[0]->GetShape()->GetSize();
 }
 

@@ -34,7 +34,7 @@ public:
 
 	bool mbUseCustomIcon;
 	eCrossHairState mCustomIcon;
-	
+
 	iGameEntity* CreateEntity();
 };
 
@@ -62,7 +62,7 @@ public:
 	iGameEntity_SaveData* CreateSaveData();
 	void SaveToSaveData(iGameEntity_SaveData *apSaveData);
 	void LoadFromSaveData(iGameEntity_SaveData *apSaveData);
-	
+
 private:
 	bool mbUseCustomIcon;
 	eCrossHairState mCustomIcon;

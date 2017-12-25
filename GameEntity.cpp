@@ -101,7 +101,7 @@ iGameEntity::~iGameEntity()
 	//Player
 	mpInit->mpPlayer->RemoveCollideScriptWithChildEntity(this);
 
-	//Other entities (check so not all entities are being destroyed, 
+	//Other entities (check so not all entities are being destroyed,
 	//                 in that case it is not needed and might be bad).
 	if(mpInit->mpMapHandler->IsDestroyingAll()==false)
 	{
@@ -122,10 +122,10 @@ iGameEntity::~iGameEntity()
 			mpInit->mpGame->GetHaptic()->GetLowLevel()->DestroyShape(mvHapticShapes[i]);
 		}
 	}
-	
+
 	//////////////////////////////////////////////
 	// Destroy all graphics in the entity!
-    if(pWorld && mpInit->mbDestroyGraphics)
+	if(pWorld && mpInit->mbDestroyGraphics)
 	{
 		for(size_t i=0; i<mvBodies.size(); ++i)
 		{
@@ -149,21 +149,21 @@ iGameEntity::~iGameEntity()
 
 				mpInit->mpPlayer->SetPushBody(NULL);
 			}
-			
-			
+
+
 			pWorld->GetPhysicsWorld()->DestroyBody(mvBodies[i]);
 		}
 		if(mpMeshEntity) pWorld->DestroyMeshEntity(mpMeshEntity);
-	
-		for(size_t i=0; i<mvLights.size(); ++i) 
+
+		for(size_t i=0; i<mvLights.size(); ++i)
 			pWorld->DestroyLight(mvLights[i]);
-		for(size_t i=0; i<mvParticleSystems.size(); ++i) 
+		for(size_t i=0; i<mvParticleSystems.size(); ++i)
 			if(mvParticleSystems[i]) mvParticleSystems[i]->Kill();
-		for(size_t i=0; i<mvBillboards.size(); ++i) 
+		for(size_t i=0; i<mvBillboards.size(); ++i)
 			pWorld->DestroyBillboard(mvBillboards[i]);
-		for(size_t i=0; i<mvBeams.size(); ++i) 
+		for(size_t i=0; i<mvBeams.size(); ++i)
 			pWorld->DestroyBeam(mvBeams[i]);
-		for(size_t i=0; i<mvSoundEntities.size(); ++i) 
+		for(size_t i=0; i<mvSoundEntities.size(); ++i)
 		{
 			pWorld->DestroySoundEntity(mvSoundEntities[i]);
 		}
@@ -171,9 +171,9 @@ iGameEntity::~iGameEntity()
 		if(mpCharBody)
 			pWorld->GetPhysicsWorld()->DestroyCharacterBody(mpCharBody);
 	}
-	
+
 	//Delete callbacks
-	for(int i=0; i< eGameEntityScriptType_LastEnum; ++i) 
+	for(int i=0; i< eGameEntityScriptType_LastEnum; ++i)
 	{
 		if( mvCallbackScripts[i]) hplDelete( mvCallbackScripts[i] );
 	}
@@ -206,15 +206,15 @@ void iGameEntity::SetActive(bool abX)
 		mvBodies[i]->SetTransformUpdated(true);
 	}
 
-	if(mpMeshEntity) 
+	if(mpMeshEntity)
 	{
 		mpMeshEntity->SetVisible(mbActive);
 		mpMeshEntity->SetActive(mbActive);
 		if(mbActive) mpMeshEntity->UpdateLogic(0.01f);
 	}
-	
 
-	if(mpCharBody) 
+
+	if(mpCharBody)
 	{
 		mpCharBody->SetActive(mbActive);
 		if(mbActive)
@@ -227,17 +227,17 @@ void iGameEntity::SetActive(bool abX)
 			}*/
 		}
 	}
-	
+
 	for(size_t i=0; i<mvParticleSystems.size(); ++i)
-	{ 
+	{
 		if(mvParticleSystems[i]) mvParticleSystems[i]->SetVisible(mbActive);
 		if(mvParticleSystems[i]) mvParticleSystems[i]->SetActive(mbActive);
 	}
 
-	for(size_t i=0; i<mvLights.size(); ++i) 
+	for(size_t i=0; i<mvLights.size(); ++i)
 		if(mvLights[i]) mvLights[i]->SetVisible(mbActive);
 
-	for(size_t i=0; i<mvBillboards.size(); ++i) 
+	for(size_t i=0; i<mvBillboards.size(); ++i)
 		if(mvBillboards[i]) mvBillboards[i]->SetVisible(mbActive);
 
 	OnSetActive(mbActive);
@@ -253,7 +253,7 @@ float iGameEntity::GetPickedDistance()
 //-----------------------------------------------------------------------
 
 eCrossHairState iGameEntity::GetPickCrossHairState(iPhysicsBody *apBody)
-{	
+{
 	float fDistance = GetPickedDistance();
 
 	//////////////////////////////////////////
@@ -318,7 +318,7 @@ void iGameEntity::SetSoundEntity(cSoundEntity* apSound)
 //-----------------------------------------------------------------------
 
 void iGameEntity::PlayerPick()
-{	
+{
 	//////////////////////
 	// Script stuff
 	cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
@@ -336,7 +336,7 @@ void iGameEntity::PlayerInteract()
 	//////////////////////
 	// Script stuff
 	if(GetPickedDistance() <= mfMaxInteractDist &&
-		(mpInit->mbHasHaptics==false || mpInit->mpPlayer->mbProxyTouching || 
+		(mpInit->mbHasHaptics==false || mpInit->mpPlayer->mbProxyTouching ||
 		 mType == eGameEntityType_Area))
 	{
 		cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
@@ -376,7 +376,7 @@ void iGameEntity::OnPlayerExamine()
 		mpInit->mpGameMessageHandler->Add(msDescription);
 		//if(mbShowDescritionOnce) msDescription = _W("");
 		mbHasBeenExamined = true;
-		
+
 		//////////////////////////////
 		//Set focus on the object
 		mpInit->mpEffectHandler->GetDepthOfField()->FocusOnBody(mpInit->mpPlayer->GetPickedBody());
@@ -399,14 +399,14 @@ void iGameEntity::Damage(float afDamage, int alStrength)
 			if(mpInit->mDifficulty== eGameDifficulty_Hard) afDamage /= 2.0f;
 			if(mpInit->mbHasHaptics) afDamage *= 2.0f;
 		}
-		
+
 		int lDiff = mlToughness - alStrength;
-        
+
 		if(alStrength>=0)
 		{
 			float fDamageMul = 1 - (0.25f * (float)lDiff);
 			if(fDamageMul<0) fDamageMul =0;
-			
+
 			//Could be 2 here, depends on what you wanna do. This way the damage is never increased.
 			if(fDamageMul>1) fDamageMul =1;
 
@@ -453,15 +453,15 @@ void iGameEntity::SetUpTransMaterials()
 	{
 		cSubMeshEntity *pSubEntity = mpMeshEntity->GetSubMeshEntity(i);
 		cSubMesh *pSubMesh = mpMeshEntity->GetMesh()->GetSubMesh(i);
-		
+
 		iMaterial *pNormalMaterial = pSubEntity->GetMaterial();
-		
+
 		mvNormalMaterials[i]= pSubEntity->GetCustomMaterial();
-		
+
 		//create material for the transperancy
 		iMaterial *pTransMaterial = mpInit->mpGame->GetGraphics()->GetMaterialHandler()->Create(
 													"Trans","Modulative",eMaterialPicture_Texture);
-		
+
 		//Set texture for the trans material
 		iTexture *pDiffTex = pNormalMaterial->GetTexture(eMaterialTexture_Diffuse);
 		if(pDiffTex)
@@ -484,16 +484,16 @@ void iGameEntity::SetTransActive(bool abX)
 	if(mbTransActive == abX) return;
 
 	mbTransActive = abX;
-	
+
 	if(mbTransShadow)
 	{
 		//mpMeshEntity->SetForceShadow(mbTransActive);
 	}
-	
+
 	for(int i=0; i< mpMeshEntity->GetSubMeshEntityNum(); ++i)
 	{
 		cSubMeshEntity *pSubEntity = mpMeshEntity->GetSubMeshEntity(i);
-		
+
 		if(mbTransActive)
 		{
 			pSubEntity->SetCustomMaterial(mvTransMaterials[i],false);
@@ -508,7 +508,7 @@ void iGameEntity::SetTransActive(bool abX)
 
 //-----------------------------------------------------------------------
 
-static inline tString GetCollideCommand(const tString &asFuncName,const tString &asParent, 
+static inline tString GetCollideCommand(const tString &asFuncName,const tString &asParent,
 										const tString &asChild)
 {
 	return asFuncName + "(\"" + asParent+"\", \""+asChild+"\")";
@@ -529,14 +529,14 @@ void iGameEntity::OnUpdate(float afTimeStep)
 	// If entity has character body add it to the array and then remove.
 	std::vector<iPhysicsBody*> vTempBodies;
 	if(mpCharBody){
-		for(size_t i=0; i<mvBodies.size(); ++i) 
+		for(size_t i=0; i<mvBodies.size(); ++i)
 		{
 			vTempBodies.push_back(mvBodies[i]);
 		}
 		mvBodies.clear();
 		mvBodies.push_back(mpCharBody->GetBody());
 	}
-	
+
 	cCollideData collideData;
 	collideData.SetMaxSize(1);
 
@@ -550,28 +550,28 @@ void iGameEntity::OnUpdate(float afTimeStep)
 
 		if(pEntity->IsActive() ==false)continue;
 
-        bool bCollide = false;
-		
+		bool bCollide = false;
+
 		for(size_t i=0; i< mvBodies.size(); ++i)
 			for(size_t j=0; j< pEntity->mvBodies.size(); ++j)
 			{
 				iPhysicsBody *pParentBody = mvBodies[i];
 				iPhysicsBody *pChildBody = pEntity->mvBodies[j];
-				
+
 				//if(msName == "liftclose") Log("Start shape collision....");
 				if(cMath::CheckCollisionBV( *pParentBody->GetBV(),*pChildBody->GetBV()))
 				{
-					bCollide = pPhysicsWorld->CheckShapeCollision(pParentBody->GetShape(), 
+					bCollide = pPhysicsWorld->CheckShapeCollision(pParentBody->GetShape(),
 																pParentBody->GetLocalMatrix(),
-																pChildBody->GetShape(), 
+																pChildBody->GetShape(),
 																pChildBody->GetLocalMatrix(),
 																collideData,1);
 				}
 				//if(msName == "liftclose") Log("end it\n");
 				if(bCollide) break;
 			}
-		
-		//Run Collide scripts	
+
+		//Run Collide scripts
 		if(bCollide)
 		{
 			//if(msName == "liftclose") Log("entity %s collided!\n",msName.c_str());
@@ -621,10 +621,10 @@ void iGameEntity::OnUpdate(float afTimeStep)
 	// If entity has character body remove the previuously added.
 	if(mpCharBody){
 		mvBodies.clear();
-		for(size_t i=0; i<vTempBodies.size(); ++i) 
+		for(size_t i=0; i<vTempBodies.size(); ++i)
 			mvBodies.push_back(vTempBodies[i]);
 	}
-	
+
 	//if(msName == "liftclose") Log("--- End collision test\n");
 
 	//////////////////////////////////////////////////
@@ -650,7 +650,7 @@ void iGameEntity::OnUpdate(float afTimeStep)
 		tString sCommand = GetScriptCommand(eGameEntityScriptType_OnUpdate);
 		mpInit->RunScriptCommand(sCommand);
 	}
-    
+
 	///////////////////////////////////////////
 	//update entity specific stuff.
 	Update(afTimeStep);
@@ -666,12 +666,12 @@ void iGameEntity::AddCollideScript(eGameCollideScriptType aType,const tString &a
 	tGameCollideScriptMapIt it = m_mapCollideCallbacks.find(asEntity);
 	if(it != m_mapCollideCallbacks.end())
 	{
-		pCallback = it->second;	
+		pCallback = it->second;
 	}
 	else
 	{
 		pCallback = hplNew(  cGameCollideScript, () );
-		
+
 		//Get the entity
 		iGameEntity *pEntity = mpInit->mpMapHandler->GetGameEntity(asEntity);
 		if(pEntity==NULL)
@@ -680,15 +680,15 @@ void iGameEntity::AddCollideScript(eGameCollideScriptType aType,const tString &a
 			hplDelete( pCallback );
 			return;
 		}
-		
+
 		//Set the entity
-        pCallback->mpEntity = pEntity;
-		
+		pCallback->mpEntity = pEntity;
+
 		//Add to container
 		m_mapCollideCallbacks.insert(tGameCollideScriptMap::value_type(asEntity,pCallback));
 	}
-	
-	pCallback->msFuncName[aType] = asFunc;	
+
+	pCallback->msFuncName[aType] = asFunc;
 }
 
 //-----------------------------------------------------------------------
@@ -701,7 +701,7 @@ void iGameEntity::RemoveCollideScriptWithChildEntity(iGameEntity *apEntity)
 		cGameCollideScript *pCallback = it->second;
 		tGameCollideScriptMapIt currentIt = it;
 		++it;
-		
+
 		if(pCallback && pCallback->mpEntity == apEntity)
 		{
 			if(mbUpdatingCollisionCallbacks)
@@ -753,13 +753,13 @@ void iGameEntity::RemoveCollideScript(eGameCollideScriptType aType,const tString
 void iGameEntity::AddScript(eGameEntityScriptType aType,const tString &asFunc)
 {
 	cGameEntityScript *pScript = mvCallbackScripts[aType];
-	
+
 	if(pScript==NULL)
 	{
 		pScript = hplNew( cGameEntityScript, () );
 		mvCallbackScripts[aType] = pScript;
 	}
-	
+
 	pScript->msScriptFunc = asFunc;
 }
 
@@ -767,7 +767,7 @@ void iGameEntity::AddScript(eGameEntityScriptType aType,const tString &asFunc)
 
 void iGameEntity::RemoveScript(eGameEntityScriptType aType)
 {
-    if(mvCallbackScripts[aType])
+	if(mvCallbackScripts[aType])
 	{
 		hplDelete( mvCallbackScripts[aType] );
 		mvCallbackScripts[aType] = NULL;
@@ -781,7 +781,7 @@ void iGameEntity::CreateVar(const tString &asName, int alVal)
 	tGameEntityVarMapIt it = m_mapVars.find(asName);
 	if(it == m_mapVars.end())
 	{
-		m_mapVars.insert(tGameEntityVarMap::value_type(asName,alVal));		
+		m_mapVars.insert(tGameEntityVarMap::value_type(asName,alVal));
 	}
 }
 
@@ -880,7 +880,7 @@ void iGameEntity::PreloadModel(const tString &asFile)
 iGameEntity_SaveData::~iGameEntity_SaveData()
 {
 	//Log("Deleting save data %d\n",this);
-}	
+}
 
 //-----------------------------------------------------------------------
 
@@ -982,7 +982,7 @@ void iGameEntity::SaveToSaveData(iGameEntity_SaveData* apSaveData)
 
 		apSaveData->mlstCollideCallbacks.Add(savedScript);
 	}
-	
+
 	//Script functions
 	for(int i=0; i< eGameEntityScriptType_LastEnum; ++i)
 	{
@@ -1062,7 +1062,7 @@ void iGameEntity::SaveToSaveData(iGameEntity_SaveData* apSaveData)
 			saveAnim.mfFadeStep = pAnim->GetFadeStep();
 			saveAnim.mfTimePos = pAnim->GetTimePosition();
 			saveAnim.mfSpeed = pAnim->GetSpeed();
-		}	
+		}
 	}
 }
 
@@ -1093,23 +1093,23 @@ void iGameEntity::LoadFromSaveData(iGameEntity_SaveData* apSaveData)
 		mvCallbackScripts[script.mlNum] = hplNew( cGameEntityScript, () );
 		mvCallbackScripts[script.mlNum]->msScriptFunc = script.msScriptFunc;
 	}
-	
+
 	//Script variables
 	cContainerListIterator<cScriptVar> scriptVar = apSaveData->mlstVars.GetIterator();
 	while(scriptVar.HasNext())
 	{
 		cScriptVar &var = scriptVar.Next();
-		CreateVar(var.msName,var.mlVal);	
+		CreateVar(var.msName,var.mlVal);
 	}
-	
+
 
 	//Bodies
 	for(size_t i=0; i<mvBodies.size(); ++i)
 	{
 		apSaveData->mvBodies[i].ToBody(mvBodies[i]);
 	}
-	
-	
+
+
 	//Lights
 	if(mbSaveLights)
 	{
@@ -1153,7 +1153,7 @@ void iGameEntity::LoadFromSaveData(iGameEntity_SaveData* apSaveData)
 				it = mvParticleSystems.erase(it);
 			}
 		}
-		
+
 		++lCount;
 	}
 
@@ -1219,7 +1219,7 @@ void iGameEntity::SetupSaveData(iGameEntity_SaveData *apSaveData)
 			continue;
 		}
 		savedScript.SaveTo(pCallback);
-		
+
 
 		m_mapCollideCallbacks.insert(tGameCollideScriptMap::value_type(savedScript.msEntity,pCallback));
 	}

@@ -230,7 +230,7 @@ private:
 
 	cInit *mpInit;
 
-    cScene *mpScene;
+	cScene *mpScene;
 	cResources *mpResources;
 
 	iTexture *mpMapChangeTexture;

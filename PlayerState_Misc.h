@@ -32,22 +32,22 @@ class cPlayerState_Normal : public iPlayerState
 {
 public:
 	cPlayerState_Normal(cInit *apInit,cPlayer *apPlayer);
-	
+
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnStartInteract();
 	void OnStartExamine();
-	
+
 	void OnStartRun();
 	void OnStopRun();
 	void OnStartCrouch();
 	void OnStopCrouch();
-	
+
 	void OnStartInteractMode();
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 };
 //////////////////////////////////////////////////////////////////////////
 // INTERACT MODE STATE
@@ -59,18 +59,18 @@ public:
 	cPlayerState_InteractMode(cInit *apInit,cPlayer *apPlayer);
 
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnStartInteract();
 	void OnStartExamine();
-	
+
 	bool OnAddYaw(float afVal);
 	bool OnAddPitch(float afVal);
-	
+
 	void OnStartInteractMode();
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 	void OnStartCrouch();
 	void OnStopCrouch();
 
@@ -94,21 +94,21 @@ private:
 
 public:
 	cPlayerState_UseItem(cInit *apInit,cPlayer *apPlayer);
-	
+
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnStartInteract();
 	void OnStartExamine();
-	
+
 	bool OnAddYaw(float afVal);
 	bool OnAddPitch(float afVal);
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 	void OnStartCrouch();
 	void OnStopCrouch();
-	
+
 	bool OnStartInventory();
 };
 
@@ -124,17 +124,17 @@ private:
 	ePlayerState mPrevState;
 
 public:
-	
+
 	cPlayerState_Message(cInit *apInit,cPlayer *apPlayer);
-	
+
 	void OnUpdate(float afTimeStep);
-	
+
 	bool OnJump();
-	
+
 	void OnStartInteract();
 	void OnStopInteract();
 	void OnStartExamine();
-	
+
 	bool OnMoveForwards(float afMul, float afTimeStep);
 	bool OnMoveSideways(float afMul, float afTimeStep);
 
@@ -143,7 +143,7 @@ public:
 
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 	bool OnStartInventory();
 	bool OnStartInventoryShortCut(int alNum);
 };
@@ -179,7 +179,7 @@ private:
 
 	float mfLeaveAtTopCount;
 
-    void PlaySound(const tString &asSound);
+	void PlaySound(const tString &asSound);
 public:
 	cPlayerState_Climb(cInit *apInit,cPlayer *apPlayer);
 
@@ -196,7 +196,7 @@ public:
 
 	bool OnMoveForwards(float afMul, float afTimeStep);
 	bool OnMoveSideways(float afMul, float afTimeStep);
-	
+
 	void OnStartCrouch();
 	void OnStopCrouch();
 

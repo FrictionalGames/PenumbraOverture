@@ -45,7 +45,7 @@ cAreaLoader_GameLadder::~cAreaLoader_GameLadder()
 
 //-----------------------------------------------------------------------
 
-iEntity3D* cAreaLoader_GameLadder::Load(const tString &asName, const cVector3f &avSize, 
+iEntity3D* cAreaLoader_GameLadder::Load(const tString &asName, const cVector3f &avSize,
 									  const cMatrixf &a_mtxTransform,cWorld3D *apWorld)
 {
 	cGameLadder *pLadder = hplNew( cGameLadder, (mpInit,asName) );
@@ -137,11 +137,11 @@ void cGameLadder::OnPlayerInteract()
 					bFound = true;
 					break;
 			}
-			
+
 			mtxPos.SetTranslation(mtxPos.GetTranslation() + cVector3f(0,0.1f,0));
 		}
 		while(mtxPos.GetTranslation().y <= mfMaxY);
-		
+
 		if(bFound==false) {
 			//TODO: Message?
 			return;
@@ -197,7 +197,7 @@ float cGameLadder::GetHeight()
 	iCharacterBody *pCharBody = mpInit->mpPlayer->GetCharacterBody();
 	cVector3f vPosA = pCharBody->GetPosition();
 	cVector3f vPosB = mpInit->mpPlayer->GetPickedPos();
-	
+
 	return vPosB.y - vPosA.y;
 }
 
@@ -214,16 +214,16 @@ cVector3f cGameLadder::GetStartPosition()
 	iCharacterBody *pCharBody = mpInit->mpPlayer->GetCharacterBody();
 
 	cVector3f vPos = pCharBody->GetPosition();
-	cVector3f vLadderPos =	GetBody(0)->GetWorldPosition() + 
+	cVector3f vLadderPos =	GetBody(0)->GetWorldPosition() +
 							GetForward()*pCharBody->GetSize().x *0.6f;
 	vLadderPos.y = vPos.y+0.05f;
 
 	if(vLadderPos.y > mfMaxY - pCharBody->GetSize().y*0.3f)
 		vLadderPos.y = mfMaxY - pCharBody->GetSize().y*0.3f;
-	
+
 	if(vLadderPos.y - pCharBody->GetSize().y/2 < mfMinY)
 		vLadderPos.y = mfMinY + pCharBody->GetSize().y/2+0.1f;
-	
+
 	return vLadderPos;
 }
 
@@ -257,7 +257,7 @@ kEndSerialize()
 
 iGameEntity* cGameLadder_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------

@@ -46,7 +46,7 @@ cAreaLoader_GameDamageArea::~cAreaLoader_GameDamageArea()
 
 //-----------------------------------------------------------------------
 
-iEntity3D* cAreaLoader_GameDamageArea::Load(const tString &asName, const cVector3f &avSize, 
+iEntity3D* cAreaLoader_GameDamageArea::Load(const tString &asName, const cVector3f &avSize,
 									  const cMatrixf &a_mtxTransform,cWorld3D *apWorld)
 {
 	cGameDamageArea *pArea = hplNew( cGameDamageArea, (mpInit,asName) );
@@ -67,7 +67,7 @@ iEntity3D* cAreaLoader_GameDamageArea::Load(const tString &asName, const cVector
 	pArea->SetBodies(vBodies);
 
 	mpInit->mpMapHandler->AddGameEntity(pArea);
-	
+
 	//Return something else later perhaps.
 	return NULL;
 }
@@ -127,7 +127,7 @@ void cGameDamageArea::Update(float afTimeStep)
 
 		cCollideData collideData;
 		collideData.SetMaxSize(1);
-		
+
 		//Get bodies and add to list, this incase the portal contaniner gets changed.
 		std::list<iPhysicsBody*> lstBodies;
 		cPortalContainerEntityIterator bodyIt = pWorld->GetPortalContainer()->GetEntityIterator(
@@ -141,7 +141,7 @@ void cGameDamageArea::Update(float afTimeStep)
 		////////////////////////////////////////////////////////
 		//Iterate all bodies in world and check for intersection
 		std::list<iPhysicsBody*>::iterator it = lstBodies.begin();
-        for(; it != lstBodies.end(); ++it)
+		for(; it != lstBodies.end(); ++it)
 		{
 			iPhysicsBody *pBody = *it;
 			iGameEntity *pEntity = (iGameEntity*)pBody->GetUserData();
@@ -160,7 +160,7 @@ void cGameDamageArea::Update(float afTimeStep)
 				/////////////////////////
 				//Bounding volume check
 				if(cMath::CheckCollisionBV(*pBody->GetBV(), *pAreaBody->GetBV())==false) continue;
-				
+
 				///////////////////////////////
 				//Check for collision
 				if(pPhysicsWorld->CheckShapeCollision(pBody->GetShape(),pBody->GetLocalMatrix(),
@@ -180,7 +180,7 @@ void cGameDamageArea::Update(float afTimeStep)
 					if( (pEntity->GetType() == eGameEntityType_Object && mbDisableObjects) ||
 						(pEntity->GetType() == eGameEntityType_Enemy && mbDisableEnemies))
 					{
-						if( pEntity->GetType() == eGameEntityType_Enemy && 
+						if( pEntity->GetType() == eGameEntityType_Enemy &&
 							pEntity->GetSubType() == "Worm")
 						{
 							return;
@@ -233,7 +233,7 @@ kEndSerialize()
 
 iGameEntity* cGameDamageArea_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------

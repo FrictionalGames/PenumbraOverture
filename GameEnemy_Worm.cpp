@@ -34,7 +34,7 @@
 
 iGameEnemyState_Worm_Base::iGameEnemyState_Worm_Base(int alId, cInit *apInit, iGameEnemy *apEnemy)
 							: iGameEnemyState(alId,apInit,apEnemy)
-{	
+{
 	mpEnemyWorm = static_cast<cGameEnemy_Worm*>(mpEnemy);
 }
 
@@ -140,7 +140,7 @@ void cGameEnemyState_Worm_Idle::OnUpdate(float afTimeStep)
 			mpMover->GetCharBody()->SetMaxPositiveMoveSpeed(eCharDir_Forward,mpEnemyWorm->mfHuntSpeed);
 
 			cAINode *pNode = NULL;
-			
+
 			if(mpEnemy->GetPatrolNodeNum()==0)
 			{
 				pNode = mpMover->GetAINodeInRange(	1, 5);
@@ -151,8 +151,8 @@ void cGameEnemyState_Worm_Idle::OnUpdate(float afTimeStep)
 				tString sName = mpEnemy->GetPatrolNode(lNodeNum)->msNodeName;
 				pNode = mpMover->GetNodeContainer()->GetNodeFromName(sName);
 			}
-			
-			if(pNode) 
+
+			if(pNode)
 			{
 				mpMover->MoveToPos(pNode->GetPosition());
 			}
@@ -193,7 +193,7 @@ void cGameEnemyState_Worm_Hunt::OnEnterState(iGameEnemyState *apPrevState)
 	else
 		mpMover->GetCharBody()->SetMaxPositiveMoveSpeed(eCharDir_Forward,mpEnemyWorm->mfHuntSpeed*1.2f*fMul);
 
-	
+
 
 
 	//Setup enemy
@@ -202,12 +202,12 @@ void cGameEnemyState_Worm_Hunt::OnEnterState(iGameEnemyState *apPrevState)
 	mfUpdatePathCount =0;
 	mfUpdateFreq = 1.0f;
 	mbFreePlayerPath = false;
-	
+
 	mbLostPlayer = false;
 	mfLostPlayerCount =0;
 	mfMaxLostPlayerCount = mpEnemyWorm->mfHuntForLostPlayerTime;
 
-    mpInit->mpMusicHandler->AddAttacker(mpEnemy);
+	mpInit->mpMusicHandler->AddAttacker(mpEnemy);
 
 	mfAttackCount = mpEnemyWorm->mfAttackInterval;
 
@@ -275,7 +275,7 @@ void cGameEnemyState_Worm_Hunt::OnUpdate(float afTimeStep)
 		mfAttackCount = mpEnemyWorm->mfAttackInterval;
 
 		cVector3f vPos =	mpMover->GetCharBody()->GetPosition() +
-							mpMover->GetCharBody()->GetForward() * 
+							mpMover->GetCharBody()->GetForward() *
 							(	0 +
 								mpEnemyWorm->mvAttackDamageSize.z/2.0f);
 
@@ -289,7 +289,7 @@ void cGameEnemyState_Worm_Hunt::OnUpdate(float afTimeStep)
 			mtxOffset,
 			mpMover->GetCharBody()->GetPosition(),
 			mpEnemyWorm->mfAttackDamage,
-			
+
 			mpEnemyWorm->mfAttackMinMass, mpEnemyWorm->mfAttackMaxMass,
 			mpEnemyWorm->mfAttackMinImpulse, mpEnemyWorm->mfAttackMaxImpulse,
 
@@ -300,7 +300,7 @@ void cGameEnemyState_Worm_Hunt::OnUpdate(float afTimeStep)
 			if(mfAttackSoundCount<=0)
 			{
 				mpEnemy->PlaySound(mpEnemyWorm->msAttackHitSound);
-				
+
 				mfAttackSoundCount = mpEnemyWorm->mfAttackHitSoundInterval;
 			}
 		}
@@ -310,15 +310,15 @@ void cGameEnemyState_Worm_Hunt::OnUpdate(float afTimeStep)
 		mfAttackCount -= afTimeStep;
 	}
 
-	
+
 	////////////////////////////////
 	//Update the path
 	if(mfUpdatePathCount <=0)
 	{
 		mfUpdatePathCount = mfUpdateFreq;
-		
+
 		cAINodeContainer *pNodeCont = mpEnemy->GetMover()->GetNodeContainer();
-		
+
 		//Check if there is a free path to the player
 		if(mbLostPlayer == false && mpMover->FreeDirectPathToChar(mpPlayer->GetCharacterBody()))
 		{
@@ -329,7 +329,7 @@ void cGameEnemyState_Worm_Hunt::OnUpdate(float afTimeStep)
 		{
 			mbFreePlayerPath = false;
 		}
-		
+
 		//Get path to player
 		if(mbFreePlayerPath==false && mbLostPlayer == false)
 		{
@@ -343,8 +343,8 @@ void cGameEnemyState_Worm_Hunt::OnUpdate(float afTimeStep)
 	{
 		mfUpdatePathCount -= afTimeStep;
 	}
-	
-	
+
+
 	////////////////////////////////
 	//Go directly towards the player
 	if(mbFreePlayerPath)
@@ -361,11 +361,11 @@ void cGameEnemyState_Worm_Hunt::OnUpdate(float afTimeStep)
 			mbLostPlayer = true;
 			mfLostPlayerCount = mfMaxLostPlayerCount;
 		}
-		
+
 		if(mbLostPlayer)
 		{
 			mpMover->GetCharBody()->Move(eCharDir_Forward,1.0f,afTimeStep);
-			
+
 			mfLostPlayerCount -= afTimeStep;
 			if(mfLostPlayerCount <= 0 || mpMover->GetStuckCounter()>0.5f)
 			{
@@ -409,7 +409,7 @@ bool cGameEnemyState_Worm_Hunt::OnHearNoise(const cVector3f &avPosition, float a
 			}
 		}
 	}
-	
+
 	return false;
 }
 
@@ -428,12 +428,12 @@ void cGameEnemyState_Worm_Hunt::OnPostSceneDraw()
 	cCamera3D *pCamera = static_cast<cCamera3D*>(mpInit->mpGame->GetScene()->GetCamera());
 
 	cVector3f vPos =	mpMover->GetCharBody()->GetPosition() +
-		mpMover->GetCharBody()->GetForward() * 
+		mpMover->GetCharBody()->GetForward() *
 		(0 + mpEnemyWorm->mvAttackDamageSize.z/2.0f);
 
 	cVector3f vRot = cVector3f(0,mpMover->GetCharBody()->GetYaw(),0);
 	cMatrixf mtxOffset = cMath::MatrixRotate(vRot,eEulerRotationOrder_XYZ);
-	mtxOffset.SetTranslation(vPos);	
+	mtxOffset.SetTranslation(vPos);
 
 
 	cMatrixf mtxCollider = cMath::MatrixMul(pCamera->GetViewMatrix(),mtxOffset);
@@ -490,7 +490,7 @@ cGameEnemy_Worm::cGameEnemy_Worm(cInit *apInit,const tString& asName,TiXmlElemen
 	mbSetFeetAtGroundOnStart = false;
 	mbAttachMeshToBody = false;
 	mbRemoveAttackerOnDisable = false;
-	
+
 	//////////////////////////////
 	//State properties
 	msMoveSound = cString::ToString(apGameElem->Attribute("MoveSound"),"");
@@ -499,7 +499,7 @@ cGameEnemy_Worm::cGameEnemy_Worm(cInit *apInit,const tString& asName,TiXmlElemen
 	msIdleFoundPlayerSound = cString::ToString(apGameElem->Attribute("IdleFoundPlayerSound"),"");
 	mfIdleMinSeeChance = cString::ToFloat(apGameElem->Attribute("IdleMinSeeChance"),0);
 	mfIdleMinHearVolume = cString::ToFloat(apGameElem->Attribute("IdleMinHearVolume"),0);
-	
+
 	mfHuntFOV = cMath::ToRad(cString::ToFloat(apGameElem->Attribute("HuntFOV"),0));
 	mfHuntSpeed = cString::ToFloat(apGameElem->Attribute("HuntSpeed"),0);
 	mfHuntMinSeeChance = cString::ToFloat(apGameElem->Attribute("IdleMinSeeChance"),0);
@@ -520,7 +520,7 @@ cGameEnemy_Worm::cGameEnemy_Worm(cInit *apInit,const tString& asName,TiXmlElemen
 	mlAttackStrength = cString::ToInt(apGameElem->Attribute("AttackStrength"),0);
 
 	mvAttackDamageSize = cString::ToVector3f(apGameElem->Attribute("AttackDamageSize"),0);
-	
+
 
 	//////////////////////////////
 	//Set up states
@@ -594,20 +594,20 @@ void cGameEnemy_Worm_MeshCallback::AfterAnimationUpdate(cMeshEntity *apMeshEntit
 
 		cVector3f vAngles = cMath::GetAngleFromPoints3D(0,mpWorm->mvRootForward);
 		mtxEntity = cMath::MatrixRotate(cVector3f(-vAngles.x,kPif+vAngles.y,0),eEulerRotationOrder_XYZ);
-		
+
 		mtxEntity.SetTranslation(mtxEntity.GetTranslation() + mpWorm->mvRootPosition +
 									pCharBody->GetEntityOffset().GetTranslation());
 
 		pEntity->SetMatrix(mtxEntity);
 	}
-	
+
 	//return;
-	
+
 	// Set bone matrix of segments
 	for(size_t i=0; i< mpWorm->mvTailSegments.size();++i)
 	{
 		cWormTailSegment *pSegment = mpWorm->mvTailSegments[i];
-		
+
 		//////////////////////////////////////////////////
 		//Change orientation according to forward
 		cMatrixf mtxTrans = cMatrixf::Identity;
@@ -711,7 +711,7 @@ void cGameEnemy_Worm::OnUpdate(float afTimeStep)
 			mpMoveSound = pWorld->CreateSoundEntity("WormMove",msMoveSound,true);
 			//Log("created move sound...\n");
 		}
-		else 
+		else
 		{
 			if(pWorld->SoundEntityExists(mpMoveSound))
 			{
@@ -733,7 +733,7 @@ void cGameEnemy_Worm::OnUpdate(float afTimeStep)
 			mpMoveSound = NULL;
 		}
 	}
-	
+
 
 
 	////////////////////////////////////////
@@ -746,15 +746,15 @@ void cGameEnemy_Worm::OnUpdate(float afTimeStep)
 
 	/////////////////////////////////////////
 	// Get the position of the worm
-	
+
 	cVector3f vPrevRootPos = mvRootPosition;
-	
+
 	//Add newer position to list
 	if(mbFirstUpdate)	{mlstRootPositions.push_back(mvFirstUpdatePos);mbFirstUpdate = false;}
 	else				mlstRootPositions.push_back(pCharBody->GetPosition());
-	
+
 	if((int)mlstRootPositions.size() >mlMaxSegmentPostions) mlstRootPositions.pop_front();
-	
+
 	//Get smooth position
 	mvRootPosition =0;
 	std::list<cVector3f>::iterator posIt = mlstRootPositions.begin();
@@ -766,15 +766,15 @@ void cGameEnemy_Worm::OnUpdate(float afTimeStep)
 
 	//Get movement this update
 	vMovement = mvRootPosition - vPrevRootPos;
-		
+
 	/////////////////////////////////////////
-	// Calculate direction vectors 
+	// Calculate direction vectors
 	if(vMovement.SqrLength()>0.00001f)
 		mvRootGoalForward = cMath::Vector3Normalize(vMovement);
 	else
 		mvRootGoalForward = mvRootGoalForward;
 
-	
+
 	//Rotate vectors to get closer to goal
 	{
 		float fAngleDist = cMath::Vector3Angle(mvRootForward, mvRootGoalForward);
@@ -782,23 +782,23 @@ void cGameEnemy_Worm::OnUpdate(float afTimeStep)
 		{
 			//Iterate to split the turning into 10 smaller parts
 			cVector3f vTurnVec = cMath::Vector3Cross(mvRootForward, mvRootGoalForward);
-				
+
 			cQuaternion qRotation;
 			if(fAngleDist <= afTimeStep*mfTurnSpeed)
 				qRotation =  cQuaternion(fAngleDist, vTurnVec);
 			else
 				qRotation = cQuaternion(afTimeStep*mfTurnSpeed, vTurnVec);
-			
+
 			cMatrixf mtxRot = cMath::MatrixQuaternion(qRotation);
 			mvRootForward = cMath::MatrixMul(mtxRot,mvRootForward);
 			//mvRootForward.y=0;
 			mvRootForward.Normalise();
-			
+
 			/*cVector3f vLastRight = mvRootRight;
 			mvRootRight = cMath::MatrixMul(	mtxRot,	mvRootRight);
-			mvRootRight.y =0; 
+			mvRootRight.y =0;
 			mvRootRight.Normalise(); //Make sure x-z plane
-			
+
 			mvRootUp = cMath::Vector3Cross(mvRootRight,mvRootForward);
 			mvRootUp.Normalise();*/
 		}
@@ -809,7 +809,7 @@ void cGameEnemy_Worm::OnUpdate(float afTimeStep)
 	cVector3f vSegForward = mvRootForward;
 	cVector3f vSegBackPos = mpRootBone->GetWorldPosition() + vSegForward * -mvTailSegments[0]->mfDistToFront;
 	gvBackPos = vSegBackPos;
-	
+
 	/////////////////////////////////////////
 	// Iterate the segments.
 	for(size_t i=0; i< mvTailSegments.size();++i)
@@ -847,9 +847,9 @@ void cGameEnemy_Worm::OnUpdate(float afTimeStep)
 		{
 			if(vSegMovement.SqrLength() > 0.00001f)
 				pSegment->mvGoalForward = cMath::Vector3Normalize(vSegMovement);
-			//Used for more stiff worms				
+			//Used for more stiff worms
 			//pSegment->mvGoalForward = vSegForward;
-			
+
 			float fAngleDist = cMath::Vector3Angle(pSegment->mvForward,pSegment->mvGoalForward);
 			if(fAngleDist > 0.001f)
 			{
@@ -860,23 +860,23 @@ void cGameEnemy_Worm::OnUpdate(float afTimeStep)
 					qRotation = cQuaternion(fAngleDist, vTurnVec);
 				else
 					qRotation = cQuaternion(afTimeStep*mfTurnSpeed, vTurnVec);
-				
+
 				pSegment->mvForward = cMath::MatrixMul(	cMath::MatrixQuaternion(qRotation),
 														pSegment->mvForward);
 				pSegment->mvForward.Normalise();
-				
+
 				/*pSegment->mvRight = cMath::MatrixMul(	cMath::MatrixQuaternion(qRotation),
 														pSegment->mvRight);
-				
+
 				pSegment->mvRight.y =0; pSegment->mvRight.Normalise();
-				
+
 
 				pSegment->mvUp = cMath::Vector3Cross(pSegment->mvRight,pSegment->mvForward);
 				pSegment->mvUp.Normalise();*/
 			}
 		}
 		vSegForward = pSegment->mvForward;
-		
+
 		////////////////////////////////////////
 		//Set the New back pos
 		if(i < mvTailSegments.size()-1)
@@ -892,10 +892,10 @@ void cGameEnemy_Worm::OnUpdate(float afTimeStep)
 void cGameEnemy_Worm::ExtraPostSceneDraw()
 {
 	iLowLevelGraphics *pLowLevelGfx = mpInit->mpGame->GetGraphics()->GetLowLevel();
-	
+
 	pLowLevelGfx->SetDepthTestActive(false);
 
-	
+
 	//pLowLevelGfx->DrawLine(mpRootBone->GetWorldPosition(),gvBackPos,cColor(1,1));
 	pLowLevelGfx->DrawLine(mpRootBone->GetWorldPosition(),
 							mpRootBone->GetWorldPosition() + mvRootForward,cColor(0,0,1,1));
@@ -906,10 +906,10 @@ void cGameEnemy_Worm::ExtraPostSceneDraw()
 
 	pLowLevelGfx->DrawSphere(mpRootBone->GetWorldPosition(),0.3f,cColor(1,0,1,1));
 
-	
+
 	for(size_t i=0; i< mvTailSegments.size();++i)
 	{
-	    cWormTailSegment *pSegment = mvTailSegments[i];
+		cWormTailSegment *pSegment = mvTailSegments[i];
 
 		pLowLevelGfx->DrawSphere(pSegment->mvPostion,0.3f,cColor(1,1));
 
@@ -936,7 +936,7 @@ void cGameEnemy_Worm::ExtraPostSceneDraw()
 
 void cGameEnemy_Worm::ShowPlayer(const cVector3f& avPlayerFeetPos)
 {
-	if(	mlCurrentState == STATE_IDLE || mlCurrentState == STATE_PATROL || 
+	if(	mlCurrentState == STATE_IDLE || mlCurrentState == STATE_PATROL ||
 		mlCurrentState == STATE_INVESTIGATE)
 	{
 		mvLastPlayerPos = avPlayerFeetPos;
@@ -965,7 +965,7 @@ bool cGameEnemy_Worm::MoveToPos(const cVector3f& avFeetPos)
 bool cGameEnemy_Worm::IsFighting()
 {
 	if( mfHealth <= 0 || IsActive()==false) return false;
-	if(	mlCurrentState == STATE_IDLE || mlCurrentState == STATE_PATROL || 
+	if(	mlCurrentState == STATE_IDLE || mlCurrentState == STATE_PATROL ||
 		mlCurrentState == STATE_INVESTIGATE) return false;
 
 	return true;
@@ -975,24 +975,24 @@ bool cGameEnemy_Worm::IsFighting()
 void cGameEnemy_Worm::SetupTail()
 {
 	//Log("Setting up tail!\n");
-	
+
 	iCharacterBody *pCharBody = mpMover->GetCharBody();
 	cMeshEntity *pEntity = mpMeshEntity;
 
 	//Set up character body
 	pCharBody->SetCollideCharacter(false);
-	
+
 	//Set up mesh entity matrix.
-	//Do not set any rotation here since then the base 
+	//Do not set any rotation here since then the base
 	//bone matrices will not be correct.
 	if(mbAttachMeshToBody==false)
 	{
-		cMatrixf mtxEntity = cMatrixf::Identity; 
+		cMatrixf mtxEntity = cMatrixf::Identity;
 		mtxEntity.SetTranslation(pCharBody->GetPosition() +
 								pCharBody->GetEntityOffset().GetTranslation());
 		pEntity->SetMatrix(mtxEntity);
 	}
-	
+
 	//Get root bone and directions
 	mpRootBone = mpMeshEntity->GetBoneStateFromName("Root");
 	mvRootForward = mpMover->GetCharBody()->GetForward();
@@ -1019,14 +1019,14 @@ void cGameEnemy_Worm::SetupTail()
 		pSegment->mpBone = mpMeshEntity->GetBoneStateFromName(sBoneName);
 		pSegment->mpBone->SetActive(false);
 
-			
+
 		//Start Position,forward and rotation
 		pSegment->mvPostion = pSegment->mpBone->GetWorldPosition();
-		
+
 		pSegment->mvForward = mpMover->GetCharBody()->GetForward();
 		pSegment->mvUp = mpMover->GetCharBody()->GetUp();
 		pSegment->mvRight = mpMover->GetCharBody()->GetRight();
-		
+
 		pSegment->mvGoalForward = pSegment->mvForward;
 
 		//Get the rotation it needs to be pointed forward.
@@ -1034,7 +1034,7 @@ void cGameEnemy_Worm::SetupTail()
 
 		//Create body
 		iPhysicsWorld *pPhysicsWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
-		iCollideShape *pShape = pPhysicsWorld->CreateSphereShape(pCharBody->GetSize().x/2.0f,NULL); 
+		iCollideShape *pShape = pPhysicsWorld->CreateSphereShape(pCharBody->GetSize().x/2.0f,NULL);
 		pSegment->mpBody = pPhysicsWorld->CreateBody("Tail0"+cString::ToString(i+1),pShape);
 		pSegment->mpBody->SetMass(0);
 		pSegment->mpBody->SetPosition(pSegment->mvPostion);

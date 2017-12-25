@@ -94,7 +94,7 @@ void cEntityLoader_GameLamp::AfterLoad(TiXmlElement *apRootElem, const cMatrixf 
 
 		pObject->msOffMaterialName = cString::ToString(pGameElem->Attribute("OffMaterial"),"");
 		pObject->msOffSubMesh = cString::ToString(pGameElem->Attribute("OffSubMesh"),"");
-		
+
 
 		////////////////////////////////////
 		//Flickering
@@ -147,7 +147,7 @@ void cEntityLoader_GameLamp::AfterLoad(TiXmlElement *apRootElem, const cMatrixf 
 cGameLamp::cGameLamp(cInit *apInit,const tString& asName) : iGameEntity(apInit,asName)
 {
 	mType = eGameEntityType_Lamp;
-    mbHasInteraction = true;
+	mbHasInteraction = true;
 
 	mbLit = true;
 	mfMaxInteractDist = 2.1f;
@@ -231,9 +231,9 @@ void cGameLamp::OnPlayerInteract()
 			SetLit(true,true);
 			bInteracted = true;
 		}
-		
+
 		//If no interaction, use grab mode
-		if(	mpInit->mpPlayer->GetPickedBody()->GetMass() != 0 && 
+		if(	mpInit->mpPlayer->GetPickedBody()->GetMass() != 0 &&
 			bInteracted==false && ((mbLit && mbInteractOff) || (!mbLit && mbInteractOn)))
 		{
 			if(mpInit->mbHasHaptics && mpInit->mpPlayer->mbProxyTouching==false) return;
@@ -276,7 +276,7 @@ void cGameLamp::Update(float afTimeStep)
 	//Update alpha
 	if(mbFlickering && mbLit)
 	{
-		for(size_t i=0; i<mvLights.size(); ++i) 
+		for(size_t i=0; i<mvLights.size(); ++i)
 		{
 			if(	mvLights[i]->GetFlickerActive()==false &&
 				mvLights[i]->IsFading()==false)
@@ -292,7 +292,7 @@ void cGameLamp::Update(float afTimeStep)
 	if(mbLit && mbFlickering && mpSubMesh && mpOffMaterial)
 	{
 		bool bHasLight = true;
-		for(size_t i=0; i<mvLights.size(); ++i) 
+		for(size_t i=0; i<mvLights.size(); ++i)
 		{
 			iLight3D *pLight = mvLights[i];
 			if(pLight->GetDiffuseColor() == cColor(0,0,0,0) ||
@@ -331,16 +331,16 @@ void cGameLamp::Update(float afTimeStep)
 		if(mfAlpha < 0) mfAlpha = 0;
 		bChanged = true;
 	}
-	
+
 	////////////////////////////////
 	//Update billboards
-    if(bChanged)
+	if(bChanged)
 	{
-		for(size_t i=0; i<mvBillboards.size(); ++i) 
+		for(size_t i=0; i<mvBillboards.size(); ++i)
 		{
 			mvBillboards[i]->SetColor(mvBBColors[i] * mfAlpha);
-			
-			if(mfAlpha ==0) 
+
+			if(mfAlpha ==0)
 				mvBillboards[i]->SetVisible(false);
 			else if(mvBillboards[i]->IsVisible()==false)
 				mvBillboards[i]->SetVisible(true);
@@ -362,7 +362,7 @@ void cGameLamp::SetLit(bool abX, bool abFade)
 	//Turn On
 	if(mbLit)
 	{
-		for(size_t i=0; i<mvLights.size(); ++i) 
+		for(size_t i=0; i<mvLights.size(); ++i)
 		{
 			mvLights[i]->SetVisible(true);
 			if(abFade)
@@ -376,31 +376,31 @@ void cGameLamp::SetLit(bool abX, bool abFade)
 				mvLights[i]->SetFlickerActive(mbFlickering);
 			}
 		}
-		for(size_t i=0; i<mvParticleSystems.size(); ++i) 
+		for(size_t i=0; i<mvParticleSystems.size(); ++i)
 		{
-			mvParticleSystems[i] = pWorld->CreateParticleSystem(	
+			mvParticleSystems[i] = pWorld->CreateParticleSystem(
 										mvParticleSystemNames[i].msName,
 										mvParticleSystemNames[i].msDataName,
 										1,mvParticleSystemNames[i].m_mtxTransform);
 			mpMeshEntity->AddChild(mvParticleSystems[i]);
-			
+
 			/*Log("Creating ps %s at pos (%s) meshpos: (%s)\n",
 				mvParticleSystems[i]->GetName().c_str(),
 				mvParticleSystems[i]->GetWorldPosition().ToString().c_str(),
 				mpMeshEntity->GetWorldPosition().ToString().c_str());*/
-			
+
 			mvParticleSystems[i]->SetTransformUpdated(true);
-			
+
 			if(!abFade){
 				for(int j=0; j<3*60;++j)
 					mvParticleSystems[i]->UpdateLogic(1.0f/60.0f);
 			}
 		}
-		for(size_t i=0; i<mvBillboards.size(); ++i) 
+		for(size_t i=0; i<mvBillboards.size(); ++i)
 		{
 			if(!abFade) mvBillboards[i]->SetVisible(true);
 		}
-		for(size_t i=0; i<mvSoundEntities.size(); ++i) 
+		for(size_t i=0; i<mvSoundEntities.size(); ++i)
 		{
 			if(abFade)
 				mvSoundEntities[i]->Play(true);
@@ -408,7 +408,7 @@ void cGameLamp::SetLit(bool abX, bool abFade)
 				mvSoundEntities[i]->Play(false);
 		}
 
-		if(mpSubMesh && mpOffMaterial) 
+		if(mpSubMesh && mpOffMaterial)
 		{
 			if(mpOnMaterial)
 				mpSubMesh->SetCustomMaterial(mpOnMaterial,false);
@@ -427,7 +427,7 @@ void cGameLamp::SetLit(bool abX, bool abFade)
 	//Turn Off
 	else
 	{
-		for(size_t i=0; i<mvLights.size(); ++i) 
+		for(size_t i=0; i<mvLights.size(); ++i)
 		{
 			mvLights[i]->SetFlickerActive(false);
 			if(abFade)
@@ -438,7 +438,7 @@ void cGameLamp::SetLit(bool abX, bool abFade)
 				mvLights[i]->SetDiffuseColor(cColor(0,0));
 			}
 		}
-		for(size_t i=0; i<mvParticleSystems.size(); ++i) 
+		for(size_t i=0; i<mvParticleSystems.size(); ++i)
 		{
 			if(abFade)
 				mvParticleSystems[i]->Kill();
@@ -447,11 +447,11 @@ void cGameLamp::SetLit(bool abX, bool abFade)
 
 			mvParticleSystems[i] = NULL;
 		}
-		for(size_t i=0; i<mvBillboards.size(); ++i) 
+		for(size_t i=0; i<mvBillboards.size(); ++i)
 		{
 			if(!abFade) mvBillboards[i]->SetVisible(false);
 		}
-		for(size_t i=0; i<mvSoundEntities.size(); ++i) 
+		for(size_t i=0; i<mvSoundEntities.size(); ++i)
 		{
 			if(abFade)
 				mvSoundEntities[i]->Stop(true);
@@ -460,7 +460,7 @@ void cGameLamp::SetLit(bool abX, bool abFade)
 		}
 		if(mpSubMesh && mpOffMaterial) mpSubMesh->SetCustomMaterial(mpOffMaterial,false);
 
-        if(!abFade)mfAlpha = 0;
+		if(!abFade)mfAlpha = 0;
 
 		if(msTurnOffSound!="" && abFade)
 		{
@@ -482,7 +482,7 @@ void cGameLamp::SetLit(bool abX, bool abFade)
 void cGameLamp::SetFlicker(bool abX)
 {
 	mbFlickering = abX;
-	for(size_t i=0; i<mvLights.size(); ++i) 
+	for(size_t i=0; i<mvLights.size(); ++i)
 	{
 		mvLights[i]->SetFlickerActive(mbFlickering);
 		SetUpFlicker((int)i);
@@ -492,10 +492,10 @@ void cGameLamp::SetFlicker(bool abX)
 //-----------------------------------------------------------------------
 
 void cGameLamp::Init()
-{	
+{
 	//////////////////////
 	//Set up lights
-	for(size_t i=0; i<mvLights.size(); ++i) 
+	for(size_t i=0; i<mvLights.size(); ++i)
 	{
 		mvLightColors.push_back(mvLights[i]->GetDiffuseColor());
 
@@ -504,28 +504,28 @@ void cGameLamp::Init()
 		mvLights[i]->SetFlickerActive(mbFlickering);
 		if(mbFlickering)
 		{
-			SetUpFlicker((int)i);	
+			SetUpFlicker((int)i);
 		}
 
 	}
-	
+
 	//////////////////////
 	//Billboards
-	for(size_t i=0; i<mvBillboards.size(); ++i) 
+	for(size_t i=0; i<mvBillboards.size(); ++i)
 	{
 		mvBBColors.push_back(mvBillboards[i]->GetColor());
 	}
-	
+
 	//////////////////////
 	//Set up Particle Systems
 	mvParticleSystemNames.resize(mvParticleSystems.size());
-	for(size_t i=0; i<mvParticleSystems.size(); ++i) 
+	for(size_t i=0; i<mvParticleSystems.size(); ++i)
 	{
 		mvParticleSystemNames[i].msName = mvParticleSystems[i]->GetName();
 		mvParticleSystemNames[i].msDataName = mvParticleSystems[i]->GetDataName();
 		mvParticleSystemNames[i].m_mtxTransform = mvParticleSystems[i]->GetLocalMatrix();
 	}
-	
+
 	//////////////////////
 	//Set up Materials
 	if(msOffSubMesh == "" || mpMeshEntity->GetSubMeshEntityNum()==1)
@@ -543,7 +543,7 @@ void cGameLamp::Init()
 			Warning("Could not load material '%s'\n",msOffMaterialName.c_str());
 			return;
 		}
-		
+
 		mpOnMaterial = mpSubMesh->GetCustomMaterial();
 	}
 	else
@@ -588,7 +588,7 @@ kEndSerialize()
 
 iGameEntity* cGameLamp_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------
@@ -616,7 +616,7 @@ void cGameLamp::LoadFromSaveData(iGameEntity_SaveData *apSaveData)
 {
 	__super::LoadFromSaveData(apSaveData);
 	cGameLamp_SaveData *pData = static_cast<cGameLamp_SaveData*>(apSaveData);
-	
+
 	kCopyFromVar(pData,msLitChangeCallback);
 
 	SetLit(pData->mbLit,false);

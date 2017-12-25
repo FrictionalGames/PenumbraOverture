@@ -27,12 +27,12 @@
 #define PRODUCT_DATE "$Date: 2010-02-06 22:45:08 +0000 $"
 /* Revision History */
 /*
- * Linux: 2007-05-28 
+ * Linux: 2007-05-28
  *  * http://frictionalgames.com/forum/showthread.php?tid=1125
  *  * * No Steam in Refinery
  *  * http://frictionalgames.com/forum/showthread.php?tid=1122
- *  * * Slowness in Refinery   
- */ 
+ *  * * Slowness in Refinery
+ */
 /*
  * Mac: 2007-06-02
  *  * Workaround for Cg issues (always use ARBVP/FP).  Added debugging so "available" profiles will be logged on users systems.

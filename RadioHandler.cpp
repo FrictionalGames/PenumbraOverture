@@ -86,7 +86,7 @@ void cRadioHandler::Update(float afTimeStep)
 		mlstMessages.clear();
 		return;
 	}
-	
+
 	/////////////////////////////
 	//Update current message
 	if(mpCurrentMessage)
@@ -108,7 +108,7 @@ void cRadioHandler::Update(float afTimeStep)
 
 	////////////////////////////
 	// Get next message
-    if(mpCurrentMessage==NULL && mlstMessages.empty()==false)
+	if(mpCurrentMessage==NULL && mlstMessages.empty()==false)
 	{
 		//Get newer message
 		mpCurrentMessage = mlstMessages.front();
@@ -118,10 +118,10 @@ void cRadioHandler::Update(float afTimeStep)
 
 		mfAlpha =0;
 
-        //Start newer message
+		//Start newer message
 		mpCurrentMessage->mpChannel = mpSoundHandler->PlayStream(mpCurrentMessage->msSound,false,1);
 	}
-	
+
 	////////////////////////
 	//Alpha
 	if(mfAlpha <1)
@@ -146,7 +146,7 @@ bool cRadioHandler::IsActive()
 void cRadioHandler::OnDraw()
 {
 	float fAlpha = mfAlpha;
-    
+
 	if(mpInit->mbSubtitles)
 	{
 		if(msCurrentText !=_W(""))
@@ -177,7 +177,7 @@ void cRadioHandler::Reset()
 
 	msCurrentText = _W("");
 	msPrevText = _W("");
-	
+
 	mfAlpha =0;
 
 	mpCurrentMessage = NULL;

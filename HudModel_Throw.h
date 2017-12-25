@@ -37,7 +37,7 @@ public:
 	cHudModel_Throw();
 
 	void LoadData(TiXmlElement *apRootElem);
-	
+
 	void OnStart();
 
 	void OnAttackDown();

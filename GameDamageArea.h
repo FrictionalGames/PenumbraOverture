@@ -37,7 +37,7 @@ public:
 	int mlStrength;
 	bool mbDisableObjects;
 	bool mbDisableEnemies;
-		
+
 	iGameEntity* CreateEntity();
 };
 
@@ -62,7 +62,7 @@ public:
 	void SetStrength(int alX){ mlStrength = alX;}
 	void SetDisableObjects(bool abX){ mbDisableObjects = abX;}
 	void SetDisableEnemies(bool abX){ mbDisableEnemies = abX;}
-	
+
 	//SaveObject implementation
 	iGameEntity_SaveData* CreateSaveData();
 	void SaveToSaveData(iGameEntity_SaveData *apSaveData);

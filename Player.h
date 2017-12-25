@@ -71,7 +71,7 @@ kSaveData_BaseClass(cPlayer)
 public:
 
 	int mlStat_NumOfSaves;
-	
+
 	cContainerList<cSaveGame_cGameCollideScript>  mlstCollideCallbacks;
 
 	virtual iSaveObject* CreateSaveObject(cSaveObjectHandler *apSaveObjectHandler,cGame *apGame);
@@ -84,17 +84,17 @@ class iPlayerMoveState
 {
 public:
 	iPlayerMoveState(cPlayer *apPlayer, cInit *apInit);
-	
+
 	void SetupBody();
 
 	void InitState(iPlayerMoveState* apPrevState);
 
 	void Update(float afTimeStep);
-	
+
 	void Stop();
 
 	void Start();
-	
+
 	virtual void EnterState(iPlayerMoveState* apPrevState){}
 	virtual void LeaveState(iPlayerMoveState* apNextState){}
 
@@ -145,10 +145,10 @@ friend class cSaveData_cPlayer;
 public:
 	cPlayer(cInit *apInit);
 	~cPlayer();
-	
+
 	////////////////////////////////////////
 	//Interaction
-	
+
 	void MoveForwards(float afMul, float afTimeStep);
 	void MoveSideways(float afMul, float afTimeStep);
 	void AddYaw(float afVal);
@@ -169,7 +169,7 @@ public:
 	void StartCrouch();
 	void StopCrouch();
 
-    void StartInteractMode();
+	void StartInteractMode();
 
 	void StartInventory();
 
@@ -178,21 +178,21 @@ public:
 	void StartFlashLightButton();
 
 	void StartGlowStickButton();
-		
+
 	////////////////////////////////
 	// Actions
 	void SetStartPos(const tString& asName);
 
 	void FootStep(float afMul, const tString &asType="", bool abSkipCount= false);
 
-	void ChangeState(ePlayerState aState);  
+	void ChangeState(ePlayerState aState);
 	void ChangeMoveState(ePlayerMoveState aState, bool abSetHeadHeightDirectly=false);
 
 	void AddCollideScript(eGameCollideScriptType aType,const tString &asFunc, const tString &asEntity);
 	void RemoveCollideScript(eGameCollideScriptType aType,const tString &asFunc);
 	void RemoveCollideScriptWithChildEntity(iGameEntity *apEntity);
 	void ClearCollideScripts();
-	
+
 	void SetHealth(float afX);
 	void AddHealth(float afX);
 	float GetHealth(){ return mfHealth;}
@@ -201,7 +201,7 @@ public:
 	void DestroyWorldObjects();
 
 	iSaveData* CreateSaveData();
-	
+
 	/////////////////////////////////////////
 	// Events
 	void OnWorldLoad();
@@ -217,10 +217,10 @@ public:
 
 	void AddSaveData(cSavedWorld* apSavedWorld);
 	void LoadSaveData(cSavedWorld* apSavedWorld);
-	
+
 	void SaveToGlobal(cPlayer_GlobalSave *apSave);
 	void LoadFromGlobal(cPlayer_GlobalSave *apSave);
-	
+
 	/////////////////////////////////////////
 	//Properties
 	bool IsDead();
@@ -242,7 +242,7 @@ public:
 
 	iCharacterBody* GetCharacterBody(){ return mpCharBody;}
 	cCamera3D* GetCamera(){ return mpCamera;}
-	
+
 	cVector3f GetSize(){ return mvSize;}
 	float GetCrouchHeight(){ return mfCrouchHeight;}
 
@@ -250,11 +250,11 @@ public:
 	float GetMaxPushSpeed(){ return mfMaxPushSpeed;}
 	cVector2f GetMaxPushHeadMovement(){ return mvMaxPushHeadMovement;}
 	cVector2f GetMinPushHeadMovement(){ return mvMinPushHeadMovement;}
-	
+
 	float GetMaxMoveDist(){ return mfMaxMoveDist;}
 
 	float GetMaxGrabDist(){ return mfMaxGrabDist;}
-	
+
 	float GetMaxUseItemDist(){ return mfMaxUseItemDist;}
 
 	void SetPrevMoveState(ePlayerMoveState aState);
@@ -279,7 +279,7 @@ public:
 
 	void SetCrossHairState(eCrossHairState aState){ mCrossHairState = aState;}
 	eCrossHairState GetCrossHairState(){ return mCrossHairState;}
-	
+
 	iPhysicsBody* GetPickedBody();
 	void SetPickedBody(iPhysicsBody* apBody);
 	float GetPickedDist();
@@ -311,9 +311,9 @@ public:
 
 	float GetHeightAdd(){ return mfHeightAdd;}
 	void SetHeightAdd(float afX){ mfHeightAdd = afX;}
-	
+
 	cInit * GetInit(){return mpInit;}
-	
+
 	cVector2f GetInteractMoveBorder(){ return mvInteractMoveBorder;}
 
 	cVector2f GetCrossHairPos(){ return mvCrossHairPos;}
@@ -345,14 +345,14 @@ public:
 	//State properties
 	float mfForwardUpMul;
 	float mfForwardRightMul;
-	
+
 	float mfUpMul;
 	float mfRightMul;
 
 	bool mbPickAtPoint;
 	bool mbRotateWithPlayer;
 	bool mbUseNormalMass;
-	
+
 	float mfGrabMassMul;
 
 	bool mbCanBeThrown;
@@ -367,7 +367,7 @@ public:
 
 	bool mbDamageFromPos;
 	cVector3f mvDamagePos;
-	
+
 	//Debug
 	cVector3f mvLineStart;
 	cVector3f mvLineEnd;
@@ -375,7 +375,7 @@ public:
 private:
 	cInit *mpInit;
 
-    cScene *mpScene;
+	cScene *mpScene;
 	cGraphics *mpGraphics;
 	cResources *mpResources;
 	cGraphicsDrawer *mpGfxDrawer;
@@ -387,7 +387,7 @@ private:
 
 	bool mbActive;
 
-    cCamera3D *mpCamera;
+	cCamera3D *mpCamera;
 	float mfLookSpeed;
 	float mfCameraHeightAdd;
 
@@ -395,7 +395,7 @@ private:
 
 	cVector3f mvSize;
 	float mfCrouchHeight;
-	
+
 	bool mbJumpButtonDown;
 	float mfJumpCount;
 	float mfMaxJumpCount;
@@ -405,7 +405,7 @@ private:
 	cVector2f mvInteractMoveBorder;
 
 	float mfHeightAdd;
-	
+
 	float mfMaxPushDist;
 	float mfMaxPushSpeed;
 
@@ -431,7 +431,7 @@ private:
 
 	cVector2f mvMaxPushHeadMovement;
 	cVector2f mvMinPushHeadMovement;
-	
+
 	bool mbMoving;
 
 	int mlGroundCount;
@@ -456,13 +456,13 @@ private:
 	cPlayerFearFilter *mpFearFilter;
 	cPlayerLookAt *mpLookAt;
 	cPlayerHidden *mpHidden;
-	
+
 	iPlayerWeaponCallback *mpWeaponCallback;
 
 	ePlayerState mState;
 	tPlayerStateVec mvStates;
 
-    ePlayerMoveState mMoveState;
+	ePlayerMoveState mMoveState;
 	tPlayerMoveStateVec mvMoveStates;
 
 	eCrossHairState mCrossHairState;

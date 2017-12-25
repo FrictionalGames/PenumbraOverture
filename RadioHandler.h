@@ -33,7 +33,7 @@ public:
 	cRadioMessage(const tWString &asText, const tString &asSound);
 
 	void Update(float afTimeStep);
-	
+
 	tWString msText;
 	tString msSound;
 
@@ -52,7 +52,7 @@ public:
 	~cRadioHandler();
 
 	void Add(const tWString& asText,const tString& asSound);
-	
+
 	void Update(float afTimeStep);
 	void OnDraw();
 	void Reset();
@@ -75,7 +75,7 @@ private:
 	tString msOnEndCallback;
 
 	float mfAlpha;
-	
+
 	tRadioMessageList mlstMessages;
 };
 

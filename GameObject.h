@@ -36,7 +36,7 @@ class cGameObject_SaveData : public iGameEntity_SaveData
 	kSerializableClassInit(cGameObject_SaveData);
 public:
 	eObjectInteractMode mInteractMode;
-	
+
 	iGameEntity* CreateEntity();
 };
 
@@ -64,12 +64,12 @@ public:
 	cObjectDisappearProperties(){
 		mbActive = false;
 	}
-	
+
 	bool mbActive;
 
 	float mfMinTime;
 	float mfMaxTime;
-    
+
 	float mfTime;
 	float mfMinDistance;
 
@@ -87,7 +87,7 @@ public:
 
 	bool mbActive;
 
-    tString msEntity;
+	tString msEntity;
 	tString msSound;
 	tString msPS;
 	float mfMinImpulse;
@@ -125,12 +125,12 @@ public:
 	cObjectAttractProperties(){
 		mbActive = false;
 	}
-	
+
 	bool mbActive;
 	float mfDistance;
 	tStringVec mvSubtypes;
 
-    bool mbIsEaten;
+	bool mbIsEaten;
 	float mfEatLength;
 };
 
@@ -169,7 +169,7 @@ public:
 	void OnPlayerInteract();
 	void OnPlayerPick();
 
-	bool IsSaved(){ 
+	bool IsSaved(){
 		if(mDisappearProps.mbActive) return false;
 		return mbIsSaved;
 	}
@@ -188,7 +188,7 @@ public:
 	eObjectInteractMode GetInteractMode(){ return mInteractMode;}
 
 	void SetupBreakObject();
-	
+
 	bool IsDestroyable(){ return mbDestroyable;}
 	float GetDestroyStrength(){ return mfDestroyStrength;}
 	const tString& GetDestroySound(){ return msDestoySound;}
@@ -204,7 +204,7 @@ private:
 
 	void MoveObject();
 	float GetMoveDist();
-	
+
 	void PushObject();
 	float GetPushDist();
 
@@ -212,12 +212,12 @@ private:
 	std::set<iGameEnemy*> m_setAttractedEnemies;
 	iGameEnemy* mpCurrentAttraction;
 	float mfAttractCount;
-	
+
 	eObjectInteractMode mInteractMode;
 
 	float mfForwardUpMul;
 	float mfForwardRightMul;
-	
+
 	float mfUpMul;
 	float mfRightMul;
 
@@ -262,14 +262,14 @@ class cEntityLoader_GameObject : public cEntityLoader_Object
 public:
 	cEntityLoader_GameObject(const tString &asName, cInit *apInit);
 	~cEntityLoader_GameObject();
-	
+
 	static eObjectInteractMode ToInteractMode(const char* apString);
 
 private:
 	void BeforeLoad(TiXmlElement *apRootElem, const cMatrixf &a_mtxTransform,cWorld3D *apWorld);
 	void AfterLoad(TiXmlElement *apRootElem, const cMatrixf &a_mtxTransform,cWorld3D *apWorld);
 
-	
+
 	cInit *mpInit;
 };
 

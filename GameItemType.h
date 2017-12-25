@@ -39,8 +39,8 @@ public:
 	cGameItemType(cInit *apInit);
 	virtual ~cGameItemType();
 
-	tWStringVec* GetActions(bool mbCanBeDropped){ 
-			if(mbCanBeDropped)					
+	tWStringVec* GetActions(bool mbCanBeDropped){
+			if(mbCanBeDropped)
 				return &mvActions;
 			else
 				return &mvNonDropActions;
@@ -58,7 +58,7 @@ public:
 
 protected:
 	cInit *mpInit;
-	
+
 	tWStringVec mvActions;
 	tWStringVec mvNonDropActions;
 };
@@ -83,7 +83,7 @@ class cGameItemType_Notebook : public cGameItemType
 {
 public:
 	cGameItemType_Notebook(cInit *apInit);
-	
+
 	bool OnPickUp(cInventoryItem *apItem, bool abInGame);
 	bool OnAction(cInventoryItem *apItem, int alActionNum);
 

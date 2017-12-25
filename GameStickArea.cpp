@@ -45,10 +45,10 @@ cAreaLoader_GameStickArea::~cAreaLoader_GameStickArea()
 
 //-----------------------------------------------------------------------
 
-iEntity3D* cAreaLoader_GameStickArea::Load(const tString &asName, const cVector3f &avSize, 
+iEntity3D* cAreaLoader_GameStickArea::Load(const tString &asName, const cVector3f &avSize,
 									  const cMatrixf &a_mtxTransform,cWorld3D *apWorld)
 {
-	cGameStickArea *pArea = hplNew( cGameStickArea, (mpInit,asName) ); 
+	cGameStickArea *pArea = hplNew( cGameStickArea, (mpInit,asName) );
 
 	pArea->m_mtxOnLoadTransform = a_mtxTransform;
 
@@ -137,9 +137,9 @@ void cGameStickArea::Update(float afTimeStep)
 {
 	iPhysicsBody *pAreaBody = mvBodies[0];
 	cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
-	
+
 	if(mpAttachedBody && mfSetMtxTime < 1)
-	{	
+	{
 		if(mbMoveBody && mbRotateBody)
 		{
 			if(mfPoseTime==0)	mfSetMtxTime = 1.0f;
@@ -147,9 +147,9 @@ void cGameStickArea::Update(float afTimeStep)
 
 			cMatrixf mtxGoal = pAreaBody->GetWorldMatrix();
 			mtxGoal.SetTranslation(pAreaBody->GetWorldPosition() - mpAttachedBody->GetMassCentre());
-		
+
 			cMatrixf mtxNew = cMath::MatrixSlerp(mfSetMtxTime,mtxAttachedStart,mtxGoal,true);
-        
+
 			mpAttachedBody->SetMatrix(mtxNew);
 		}
 		else if(mbMoveBody && !mbRotateBody)
@@ -168,9 +168,9 @@ void cGameStickArea::Update(float afTimeStep)
 		{
 			if(mfPoseTime==0)	mfSetMtxTime = 1.0f;
 			else				mfSetMtxTime += afTimeStep / mfPoseTime;
-			
+
 			cMatrixf mtxGoal = pAreaBody->GetWorldMatrix();
-			
+
 			cMatrixf mtxNew = cMath::MatrixSlerp(mfSetMtxTime,mtxAttachedStart,mtxGoal,true);
 
 			mtxNew.SetTranslation(mpAttachedBody->GetWorldPosition());
@@ -199,15 +199,15 @@ void cGameStickArea::Update(float afTimeStep)
 		}
 	}
 
-	
+
 	if(mpAttachedBody) return;
 
 	iPhysicsWorld *pPhysicsWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
 	iPhysicsBody *pAttachBody = NULL;
-	
+
 	////////////////////////////////////////////////////////
 	//Iterate all bodies in world and check for intersection
-    cPhysicsBodyIterator bodyIt = pPhysicsWorld->GetBodyIterator();
+	cPhysicsBodyIterator bodyIt = pPhysicsWorld->GetBodyIterator();
 	while(bodyIt.HasNext())
 	{
 		iPhysicsBody *pBody = bodyIt.Next();
@@ -227,10 +227,10 @@ void cGameStickArea::Update(float afTimeStep)
 			//Bounding volume check
 			//if(cMath::CheckCollisionBV(*pBody->GetBV(), *pAreaBody->GetBV())==false) continue;
 
-            bool bCheck = false;
+			bool bCheck = false;
 			if(mbCheckCenterInArea)
 			{
-				cVector3f vPos =	pBody->GetLocalPosition() + 
+				cVector3f vPos =	pBody->GetLocalPosition() +
 									cMath::MatrixMul(	pBody->GetLocalMatrix().GetRotation(),
 														pBody->GetMassCentre());
 				bCheck = cMath::PointBVCollision(vPos,*pAreaBody->GetBV());
@@ -254,9 +254,9 @@ void cGameStickArea::Update(float afTimeStep)
 			//Shape collision check.
 			cCollideData collideData;
 			collideData.SetMaxSize(1);
-			bool bCollide = pPhysicsWorld->CheckShapeCollision(pAreaBody->GetShape(), 
+			bool bCollide = pPhysicsWorld->CheckShapeCollision(pAreaBody->GetShape(),
 														pAreaBody->GetLocalMatrix(),
-														pBody->GetShape(), 
+														pBody->GetShape(),
 														pBody->GetLocalMatrix(),
 														collideData,1);
 			if(bCollide)
@@ -274,7 +274,7 @@ void cGameStickArea::Update(float afTimeStep)
 			}
 		}
 	}
-	
+
 	////////////////////////////////////////////////////////
 	// Do some stuff with the body to be attached.
 	if(pAttachBody)
@@ -282,7 +282,7 @@ void cGameStickArea::Update(float afTimeStep)
 		//Log("Attaching body %s\n", pAttachBody->GetName().c_str());
 
 		/////////////////////////
-		//If in an interact state, set the previous state		
+		//If in an interact state, set the previous state
 		if(	mpInit->mpPlayer->GetPushBody() == pAttachBody &&
 		(	mpInit->mpPlayer->GetState() == ePlayerState_Grab ||
 			mpInit->mpPlayer->GetState() == ePlayerState_Move ||
@@ -298,7 +298,7 @@ void cGameStickArea::Update(float afTimeStep)
 			else
 				mpInit->mpPlayer->ChangeState(ePlayerState_Normal);
 		}
-		
+
 		/////////////////////////
 		//Snap it into place.
 		//pAttachBody->SetMatrix(pAreaBody->GetWorldMatrix());
@@ -309,10 +309,10 @@ void cGameStickArea::Update(float afTimeStep)
 
 		pAttachBody->SetLinearVelocity(0);
 		pAttachBody->SetAngularVelocity(0);
-		
+
 		mbBodyGravity = pAttachBody->GetGravity();
 		pAttachBody->SetGravity(false);
-		
+
 		mfBodyMass = pAttachBody->GetMass();
 		pAttachBody->SetMass(0);
 
@@ -349,14 +349,14 @@ void cGameStickArea::DetachBody()
 			cSoundEntity *pSound = pWorld->CreateSoundEntity("DetachSound",msDetachSound,true);
 			if(pSound) pSound->SetPosition(pAreaBody->GetWorldPosition());
 		}
-		
+
 		//Particle System
 		if(msDetachPS!="")
 		{
 			pWorld->CreateParticleSystem("DetachPS",msDetachPS,1,pAreaBody->GetWorldMatrix());
 		}
 
-        mpAttachedBody->SetGravity(true);
+		mpAttachedBody->SetGravity(true);
 		mpAttachedBody->SetMass(mfBodyMass);
 		mpAttachedBody->SetEnabled(true);
 
@@ -369,9 +369,9 @@ void cGameStickArea::DetachBody()
 //-----------------------------------------------------------------------
 
 bool cGameStickArea::GetCanDeatch()
-{ 
+{
 	if(mfSetMtxTime < 1) return false;
-    
+
 	return mbCanDeatch;
 }
 
@@ -379,7 +379,7 @@ bool cGameStickArea::GetCanDeatch()
 
 tString cGameStickArea::GetCallbackFunc(const tString &asFunc,iPhysicsBody *apBody)
 {
-	return asFunc + "(\"" + msName + "\",\"" + apBody->GetName() + "\")"; 
+	return asFunc + "(\"" + msName + "\",\"" + apBody->GetName() + "\")";
 }
 
 //-----------------------------------------------------------------------
@@ -435,7 +435,7 @@ kEndSerialize()
 
 iGameEntity* cGameStickArea_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------

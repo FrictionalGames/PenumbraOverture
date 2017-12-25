@@ -31,15 +31,15 @@ using namespace hpl;
 class cPlayerState_NormalHaptX : public iPlayerState
 {
 private:
-	
+
 public:
 	cPlayerState_NormalHaptX(cInit *apInit,cPlayer *apPlayer);
-	
+
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnStartInteract();
 	void OnStartExamine();
-	
+
 	void OnStartRun();
 	void OnStopRun();
 	void OnStartCrouch();
@@ -47,14 +47,14 @@ public:
 
 	bool OnAddYaw(float afVal){ return true;}
 	bool OnAddPitch(float afVal){return true;}
-	
+
 	void OnStartInteractMode();
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
 
 	void OnPostSceneDraw();
-	
+
 };
 //////////////////////////////////////////////////////////////////////////
 // INTERACT MODE STATE
@@ -66,18 +66,18 @@ public:
 	cPlayerState_InteractModeHaptX(cInit *apInit,cPlayer *apPlayer);
 
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnStartInteract();
 	void OnStartExamine();
-	
+
 	bool OnAddYaw(float afVal);
 	bool OnAddPitch(float afVal);
-	
+
 	void OnStartInteractMode();
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 	void OnStartCrouch();
 	void OnStopCrouch();
 
@@ -101,21 +101,21 @@ private:
 
 public:
 	cPlayerState_UseItemHaptX(cInit *apInit,cPlayer *apPlayer);
-	
+
 	void OnUpdate(float afTimeStep);
-	
+
 	void OnStartInteract();
 	void OnStartExamine();
-	
+
 	bool OnAddYaw(float afVal);
 	bool OnAddPitch(float afVal);
-	
+
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 	void OnStartCrouch();
 	void OnStopCrouch();
-	
+
 	bool OnStartInventory();
 };
 
@@ -131,17 +131,17 @@ private:
 	ePlayerState mPrevState;
 
 public:
-	
+
 	cPlayerState_MessageHaptX(cInit *apInit,cPlayer *apPlayer);
-	
+
 	void OnUpdate(float afTimeStep);
-	
+
 	bool OnJump();
-	
+
 	void OnStartInteract();
 	void OnStopInteract();
 	void OnStartExamine();
-	
+
 	bool OnMoveForwards(float afMul, float afTimeStep);
 	bool OnMoveSideways(float afMul, float afTimeStep);
 
@@ -150,7 +150,7 @@ public:
 
 	void EnterState(iPlayerState* apPrevState);
 	void LeaveState(iPlayerState* apNextState);
-	
+
 	bool OnStartInventory();
 	bool OnStartInventoryShortCut(int alNum);
 };
@@ -186,7 +186,7 @@ private:
 
 	float mfLeaveAtTopCount;
 
-    void PlaySound(const tString &asSound);
+	void PlaySound(const tString &asSound);
 public:
 	cPlayerState_ClimbHaptX(cInit *apInit,cPlayer *apPlayer);
 
@@ -203,7 +203,7 @@ public:
 
 	bool OnMoveForwards(float afMul, float afTimeStep);
 	bool OnMoveSideways(float afMul, float afTimeStep);
-	
+
 	void OnStartCrouch();
 	void OnStopCrouch();
 

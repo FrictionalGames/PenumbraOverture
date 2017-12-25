@@ -34,7 +34,7 @@
 
 iGameEnemyState_Spider_Base::iGameEnemyState_Spider_Base(int alId, cInit *apInit, iGameEnemy *apEnemy)
 							: iGameEnemyState(alId,apInit,apEnemy)
-{	
+{
 	mpEnemySpider = static_cast<cGameEnemy_Spider*>(mpEnemy);
 }
 
@@ -78,7 +78,7 @@ void iGameEnemyState_Spider_Base::OnFlashlight(const cVector3f &avPosition)
 	//mpInit->mpEffectHandler->GetSubTitle()->Add("Flashlight!",0.5f);
 	//OnSeePlayer(mpPlayer->GetCharacterBody()->GetFeetPosition(),1.0f);
 	if(mlId == STATE_KNOCKDOWN) return;
-	
+
 	if(mpEnemySpider->mbFleeFromFlashlight) mpEnemy->ChangeState(STATE_FLEE);
 }
 
@@ -150,7 +150,7 @@ void cGameEnemyState_Spider_Idle::OnUpdate(float afTimeStep)
 			mpMover->GetCharBody()->SetMaxPositiveMoveSpeed(eCharDir_Forward,mpEnemySpider->mfHuntSpeed);
 
 			cAINode *pNode = NULL;
-			
+
 			if(mpEnemy->GetPatrolNodeNum()==0)
 			{
 				pNode = mpMover->GetAINodeInRange(	1, 5);
@@ -161,8 +161,8 @@ void cGameEnemyState_Spider_Idle::OnUpdate(float afTimeStep)
 				tString sName = mpEnemy->GetPatrolNode(lNodeNum)->msNodeName;
 				pNode = mpMover->GetNodeContainer()->GetNodeFromName(sName);
 			}
-			
-			if(pNode) 
+
+			if(pNode)
 			{
 				mpMover->MoveToPos(pNode->GetPosition());
 			}
@@ -209,12 +209,12 @@ void cGameEnemyState_Spider_Hunt::OnEnterState(iGameEnemyState *apPrevState)
 	mfUpdatePathCount =0;
 	mfUpdateFreq = 1.0f;
 	mbFreePlayerPath = false;
-	
+
 	mbLostPlayer = false;
 	mfLostPlayerCount =0;
 	mfMaxLostPlayerCount = mpEnemySpider->mfHuntForLostPlayerTime;
 
-    mpInit->mpMusicHandler->AddAttacker(mpEnemy);
+	mpInit->mpMusicHandler->AddAttacker(mpEnemy);
 
 	if(mpEnemySpider->mbPathFind==false) mpMover->Stop();
 }
@@ -247,15 +247,15 @@ void cGameEnemyState_Spider_Hunt::OnUpdate(float afTimeStep)
 	{
 		mpEnemy->ChangeState(STATE_ATTACK);
 	}
-	
+
 	if(mpEnemySpider->mbPathFind)
 	{
 		if(mfUpdatePathCount <=0)
 		{
 			mfUpdatePathCount = mfUpdateFreq;
-			
+
 			cAINodeContainer *pNodeCont = mpEnemy->GetMover()->GetNodeContainer();
-			
+
 			//Check if there is a free path to the player
 			if(mbLostPlayer == false && mpMover->FreeDirectPathToChar(mpPlayer->GetCharacterBody()))
 			{
@@ -266,7 +266,7 @@ void cGameEnemyState_Spider_Hunt::OnUpdate(float afTimeStep)
 			{
 				mbFreePlayerPath = false;
 			}
-			
+
 			//Get path to player
 			if(mbFreePlayerPath==false && mbLostPlayer == false)
 			{
@@ -299,7 +299,7 @@ void cGameEnemyState_Spider_Hunt::OnUpdate(float afTimeStep)
 			mfLostPlayerCount = mfMaxLostPlayerCount*2;
 		}
 	}
-	
+
 	////////////////////////////////
 	//Go directly towards the player
 	if(mbFreePlayerPath)
@@ -316,11 +316,11 @@ void cGameEnemyState_Spider_Hunt::OnUpdate(float afTimeStep)
 			mbLostPlayer = true;
 			mfLostPlayerCount = mfMaxLostPlayerCount;
 		}
-		
+
 		if(mbLostPlayer)
 		{
 			mpMover->GetCharBody()->Move(eCharDir_Forward,1.0f,afTimeStep);
-			
+
 			mfLostPlayerCount -= afTimeStep;
 			if(mfLostPlayerCount <= 0 || mpMover->GetStuckCounter()>0.5f)
 			{
@@ -365,7 +365,7 @@ bool cGameEnemyState_Spider_Hunt::OnHearNoise(const cVector3f &avPosition, float
 			}
 		}
 	}
-	
+
 	return false;
 }
 
@@ -391,7 +391,7 @@ void cGameEnemyState_Spider_Attack::OnEnterState(iGameEnemyState *apPrevState)
 	//Setup body
 	mpEnemy->SetupBody();
 	mpMover->GetCharBody()->SetMaxPositiveMoveSpeed(eCharDir_Forward,mpEnemySpider->mfHuntSpeed);
-	
+
 	//Animation
 	mpEnemy->PlayAnim("Attack",false,0.2f);
 
@@ -426,13 +426,13 @@ void cGameEnemyState_Spider_Attack::OnUpdate(float afTimeStep)
 									mpMover->GetCharBody()->GetPosition();
 			float fHeight = cMath::Abs(vDirection.y);
 			vDirection.Normalise();
-			
+
 			cVector3f vForce = vDirection * mpEnemySpider->mfAttackForce;
 			vForce.y = fHeight * 0.5f * mpEnemySpider->mfAttackForce;
 			mpMover->GetCharBody()->AddForce(vForce);
 		}
 	}
-	
+
 	cVector3f vStart = mpPlayer->GetCharacterBody()->GetPosition();
 	vStart.y =0;
 	cVector3f vEnd = mpMover->GetCharBody()->GetPosition();
@@ -445,13 +445,13 @@ void cGameEnemyState_Spider_Attack::OnUpdate(float afTimeStep)
 		if(mbAttacked == false)
 		{
 			cVector3f vPos =	mpMover->GetCharBody()->GetPosition() +
-								mpMover->GetCharBody()->GetForward() * 
+								mpMover->GetCharBody()->GetForward() *
 								mpEnemySpider->mfAttackDamageRange;
 
 			cVector3f vRot = cVector3f(0,mpMover->GetCharBody()->GetYaw(),0);
 			cMatrixf mtxOffset = cMath::MatrixRotate(vRot,eEulerRotationOrder_XYZ);
 			mtxOffset.SetTranslation(vPos);
-			
+
 			eAttackTargetFlag target = eAttackTargetFlag_Player | eAttackTargetFlag_Bodies;
 
 			mpInit->mpPlayer->mbDamageFromPos = true;
@@ -461,10 +461,10 @@ void cGameEnemyState_Spider_Attack::OnUpdate(float afTimeStep)
 										mpMover->GetCharBody()->GetPosition(),
 										cMath::RandRectf(	mpEnemySpider->mfAttackMinDamage,
 															mpEnemySpider->mfAttackMaxDamage),
-										
+
 										mpEnemySpider->mfAttackMinMass, mpEnemySpider->mfAttackMaxMass,
 										mpEnemySpider->mfAttackMinImpulse, mpEnemySpider->mfAttackMaxImpulse,
-										
+
 										mpEnemySpider->mlAttackStrength,
 
 										target,NULL))
@@ -499,16 +499,16 @@ void cGameEnemyState_Spider_Attack::OnAnimationOver(const tString &asName)
 void cGameEnemyState_Spider_Attack::OnPostSceneDraw()
 {
 	cCamera3D *pCamera = static_cast<cCamera3D*>(mpInit->mpGame->GetScene()->GetCamera());
-	
+
 	cVector3f vPos =	mpMover->GetCharBody()->GetPosition() +
-						mpMover->GetCharBody()->GetForward() * 
+						mpMover->GetCharBody()->GetForward() *
 						mpEnemySpider->mfAttackDamageRange;
 
 	cVector3f vRot = cVector3f(0,mpMover->GetCharBody()->GetYaw(),0);
 	cMatrixf mtxOffset = cMath::MatrixRotate(vRot,eEulerRotationOrder_XYZ);
-	mtxOffset.SetTranslation(vPos);	
-	
-	
+	mtxOffset.SetTranslation(vPos);
+
+
 	cMatrixf mtxCollider = cMath::MatrixMul(pCamera->GetViewMatrix(),mtxOffset);
 
 	mpInit->mpGame->GetGraphics()->GetLowLevel()->SetMatrix(eMatrix_ModelView,mtxCollider);
@@ -538,14 +538,14 @@ void cGameEnemyState_Spider_Flee::OnEnterState(iGameEnemyState *apPrevState)
 
 	cVector3f vDir = mpMover->GetCharBody()->GetPosition() - mpPlayer->GetCharacterBody()->GetPosition();
 	vDir.Normalise();
-	
+
 	cVector3f vStart = 	mpMover->GetCharBody()->GetPosition() + vDir*mpEnemySpider->mfFleeMaxDistance;
 
-	cAINode *pNode = mpMover->GetAINodeAtPosInRange(vStart,	
-													mpEnemySpider->mfFleeMinDistance, 
+	cAINode *pNode = mpMover->GetAINodeAtPosInRange(vStart,
+													mpEnemySpider->mfFleeMinDistance,
 													mpEnemySpider->mfFleeMaxDistance,
 													false,0);
-	if(pNode) 
+	if(pNode)
 	{
 		mpMover->MoveToPos(pNode->GetPosition());
 	}
@@ -645,7 +645,7 @@ void cGameEnemyState_Spider_KnockDown::OnUpdate(float afTimeStep)
 				mpEnemy->PlayAnim("Walk",false,fFadeTime);
 			else
 				mpEnemy->PlayAnim("Death",false,fFadeTime);
-			
+
 			mpEnemy->GetMeshEntity()->FadeSkeletonPhysicsWeight(fFadeTime);
 
 			//Calculate values
@@ -673,7 +673,7 @@ void cGameEnemyState_Spider_KnockDown::OnUpdate(float afTimeStep)
 				mpEnemy->GetMeshEntity()->UpdateLogic(1.0f/60.0f);
 				mpEnemy->GetMeshEntity()->UpdateGraphics(NULL,1.0f/60.0f,NULL);
 			}
-			
+
 			if(mpEnemy->GetHealth() > 0)
 				mpEnemy->ChangeState(STATE_HUNT);
 			else
@@ -745,7 +745,7 @@ void cGameEnemyState_Spider_Dead::OnUpdate(float afTimeStep)
 cGameEnemy_Spider::cGameEnemy_Spider(cInit *apInit,const tString& asName,TiXmlElement *apGameElem) : iGameEnemy(apInit,asName,apGameElem)
 {
 	LoadBaseProperties(apGameElem);
-	
+
 	//////////////////////////////
 	//State properties
 	mbPathFind = cString::ToBool(apGameElem->Attribute("PathFind"),true);
@@ -787,10 +787,10 @@ cGameEnemy_Spider::cGameEnemy_Spider(cInit *apInit,const tString& asName,TiXmlEl
 
 	msKnockDownSound = cString::ToString(apGameElem->Attribute("KnockDownSound"),"");
 	mvPreloadSounds.push_back(msKnockDownSound);
-	
+
 	msDeathSound = cString::ToString(apGameElem->Attribute("DeathSound"),"");
 	mvPreloadSounds.push_back(msDeathSound);
-	
+
 
 
 	//////////////////////////////
@@ -823,7 +823,7 @@ void cGameEnemy_Spider::OnLoad()
 	//Create attack shape
 	iPhysicsWorld *pPhysicsWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
 	mpAttackShape = pPhysicsWorld->CreateBoxShape(mvAttackDamageSize,NULL);
-	
+
 	//Set up shape
 	ChangeState(STATE_IDLE);
 }
@@ -839,7 +839,7 @@ void cGameEnemy_Spider::OnUpdate(float afTimeStep)
 
 void cGameEnemy_Spider::ShowPlayer(const cVector3f& avPlayerFeetPos)
 {
-	if(	mlCurrentState == STATE_IDLE || mlCurrentState == STATE_PATROL || 
+	if(	mlCurrentState == STATE_IDLE || mlCurrentState == STATE_PATROL ||
 		mlCurrentState == STATE_INVESTIGATE)
 	{
 		mvLastPlayerPos = avPlayerFeetPos;
@@ -862,7 +862,7 @@ bool cGameEnemy_Spider::MoveToPos(const cVector3f& avFeetPos)
 	{
 		return false;
 	}
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -870,7 +870,7 @@ bool cGameEnemy_Spider::MoveToPos(const cVector3f& avFeetPos)
 bool cGameEnemy_Spider::IsFighting()
 {
 	if( mfHealth <= 0 || IsActive()==false) return false;
-	if(	mlCurrentState == STATE_IDLE || mlCurrentState == STATE_PATROL || 
+	if(	mlCurrentState == STATE_IDLE || mlCurrentState == STATE_PATROL ||
 		mlCurrentState == STATE_INVESTIGATE) return false;
 
 	return true;

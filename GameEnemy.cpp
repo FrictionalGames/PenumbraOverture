@@ -101,12 +101,12 @@ static bool BodyIsTransperant(iPhysicsBody *apBody)
 	if(pEntity && pEntity->GetMeshEntity())
 	{
 		cMeshEntity *pMeshEntity = pEntity->GetMeshEntity();
-		
+
 		bool bFoundSolid = false;
 		for(int i=0; i< pMeshEntity->GetSubMeshEntityNum(); ++i)
 		{
-			iMaterial *pMaterial = pMeshEntity->GetSubMeshEntity(i)->GetMaterial(); 
-			if(pMaterial && 
+			iMaterial *pMaterial = pMeshEntity->GetSubMeshEntity(i)->GetMaterial();
+			if(pMaterial &&
 				(pMaterial->IsTransperant()==false && pMaterial->HasAlpha()==false))
 			{
 				bFoundSolid = true;
@@ -115,7 +115,7 @@ static bool BodyIsTransperant(iPhysicsBody *apBody)
 		}
 		if(bFoundSolid==false) return true;
 	}
-	
+
 	return false;
 }
 
@@ -126,8 +126,8 @@ bool cLineOfSightRayCallback::OnIntersect(iPhysicsBody *pBody,cPhysicsRayParams 
 	if(mpGrabBody == pBody) return true;
 
 	if(BodyIsTransperant(pBody)) return true;
-	
-	
+
+
 	mbIntersected = true;
 	return false;
 }
@@ -148,7 +148,7 @@ bool cEnemyFindGround::GetGround(	const cVector3f &avStartPos,const cVector3f &a
 	mfMinDist = afMaxDistance;
 	mfMaxDistance = afMaxDistance;
 
-    iPhysicsWorld *pPhysicsWorld = gpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
+	iPhysicsWorld *pPhysicsWorld = gpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
 
 	pPhysicsWorld->CastRay(this,avStartPos,avStartPos + avDir * mfMaxDistance,true,true,true);
 
@@ -166,7 +166,7 @@ bool cEnemyFindGround::OnIntersect(iPhysicsBody *pBody,cPhysicsRayParams *apPara
 {
 	if(apParams->mfT < 0) return true;
 	if(pBody->GetCollideCharacter() == false || pBody->IsCharacter()) return true;
-    
+
 	if(mbIntersected == false || mfMinDist > apParams->mfDist)
 	{
 		mbIntersected = true;
@@ -216,7 +216,7 @@ static bool BodyCanBeBroken(iPhysicsBody *pBody)
 
 bool cEnemyCheckForDoor::BeforeIntersect(iPhysicsBody *pBody)
 {
-	if(BodyCanBeBroken(pBody)) return true;	
+	if(BodyCanBeBroken(pBody)) return true;
 
 	return false;
 }
@@ -260,7 +260,7 @@ iGameEnemy::iGameEnemy(cInit *apInit,const tString& asName,TiXmlElement *apGameE
 	//States
 	mvStates.resize(100);
 	for(size_t i=0; i < mvStates.size(); ++i) mvStates[i] = NULL;
-	
+
 	//Player find init
 	mvLastPlayerPos = cVector3f(0,0,0);
 	mbCanSeePlayer = false;
@@ -293,24 +293,24 @@ iGameEnemy::iGameEnemy(cInit *apInit,const tString& asName,TiXmlElement *apGameE
 
 	mfDoorBreakCount =0;
 
-    //Default body settings
+	//Default body settings
 	mfDisappearTime =0;
 	mbDisappearActive = false;
 	mbHasDisappeared = false;
-	
+
 	msCloseMusic ="";
 	mlCloseMusicPrio =0;
 
 	msAttackMusic ="";
 	mlAttackMusicPrio =0;
-	
+
 	mbShowDebug = false;
 
 	msGroundNodeType = "ground";
-	
+
 	mvBodySize = cVector3f(0.5f,1.4f,0.5f);
 	mfBodyMass = 10;
-		
+
 	mfMaxForwardSpeed = 1.0f;
 	mfMaxBackwardSpeed = 1.0f;
 	mfAcceleration = 1;
@@ -324,7 +324,7 @@ iGameEnemy::iGameEnemy(cInit *apInit,const tString& asName,TiXmlElement *apGameE
 
 	mfSpeedMoveAnimMul = 4.7f;
 	mfTurnSpeedMoveAnimMul = 4.0f;
-	
+
 	mfMaxPushMass = 10.0f;
 	mfPushForce = 19.0f;
 
@@ -353,14 +353,14 @@ iGameEnemy::iGameEnemy(cInit *apInit,const tString& asName,TiXmlElement *apGameE
 	mfTriggerUpdateRate = 1.0f/ 60.0f;
 
 	mfSkipSoundTriggerCount =0;
-		
+
 	mpCurrentAnimation = NULL;
 
 	mbAnimationIsSpeedDependant = false;
 	mfAnimationSpeedMul = 1.0f;
 
 	msHitPS = "";
-	
+
 	mbOverideMoveState = false;
 	mMoveState = eEnemyMoveState_LastEnum;
 
@@ -461,7 +461,7 @@ void iGameEnemy::LoadBaseProperties(TiXmlElement *apGameElem)
 
 void iGameEnemy::OnPlayerInteract()
 {
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -496,7 +496,7 @@ void iGameEnemy::Setup(cWorld3D *apWorld)
 	pBody->SetGroundFriction(10);
 
 	mpMover->SetCharBody(pBody);
-	
+
 	SetCharBody(pBody);
 
 	SetupBody();
@@ -505,15 +505,15 @@ void iGameEnemy::Setup(cWorld3D *apWorld)
 //-----------------------------------------------------------------------
 
 void iGameEnemy::OnWorldLoad()
-{	
+{
 	//////////////////////////////////
 	// Setup EnemyMove
 	cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
-	
+
 	mpNodeContainerGround = pWorld->CreateAINodeContainer(msEnemyType,msGroundNodeType,
 													mvBodySize,
 													false, 2 , 6 , 5.0f,0.41f);
-	
+
 
 	if(mpNodeContainerGround)
 		mpAStarGround = pWorld->CreateAStarHandler(mpNodeContainerGround);
@@ -524,17 +524,17 @@ void iGameEnemy::OnWorldLoad()
 	//Set up the body
 	if(mbAttachMeshToBody && mfHealth > 0)
 		mpMover->GetCharBody()->SetEntity(mpMeshEntity);
-	
+
 	mpMover->GetCharBody()->GetBody()->SetUserData(this);
 
 	mpMover->GetCharBody()->Update(0.001f);
 
 	mpMover->SetAStar(mpAStarGround);
 	mpMover->SetNodeContainer(mpNodeContainerGround);
-	
+
 	//////////////////////////////////
 	//Stop all animations
-    mpMeshEntity->Stop();
+	mpMeshEntity->Stop();
 	mpMeshEntity->UpdateLogic(0.005f);
 
 	//////////////////////////////////
@@ -546,9 +546,9 @@ void iGameEnemy::OnWorldLoad()
 		mpInit->PreloadSoundEntityData(mvPreloadSounds[i]);
 	}
 
-    //Particle system
+	//Particle system
 	mpInit->PreloadParticleSystem(msHitPS);
-	
+
 	//////////////////////////////////
 	//Implemented load
 	OnLoad();
@@ -577,7 +577,7 @@ void iGameEnemy::OnPostLoadScripts()
 	{
 		int lStartNode = cMath::RandRectl(0,(int)mvPatrolNodes.size()-1);
 		tString sNode = mvPatrolNodes[lStartNode].msNodeName;
-        cAINode *pNode = mpMover->GetNodeContainer()->GetNodeFromName(sNode);
+		cAINode *pNode = mpMover->GetNodeContainer()->GetNodeFromName(sNode);
 
 		mpMover->GetCharBody()->SetFeetPosition(pNode->GetPosition());
 	}
@@ -619,7 +619,7 @@ void iGameEnemy::OnDraw()
 	}
 	//mpInit->mpDefaultFont->Draw(cVector3f(5,29,100),14,cColor(1,1,1,1),eFontAlign_Left,
 	//	"State: %s",mStateMachine.CurrentState()->GetName().c_str());
-	
+
 	tWString sStateName = _W("NONE");
 	if(mlCurrentState >=0) sStateName = cString::To16Char(gvStateName[mlCurrentState]);
 	mpInit->mpDefaultFont->Draw(cVector3f(5,48,100),14,cColor(1,1,1,1),eFontAlign_Left,
@@ -631,7 +631,7 @@ void iGameEnemy::OnDraw()
 	mpInit->mpDefaultFont->Draw(cVector3f(5,64,100),14,cColor(1,1,1,1),eFontAlign_Left,
 		_W("Speed: %f"), mpMover->GetCharBody()->GetMoveSpeed(eCharDir_Forward));
 
-											
+
 
 	mpMover->OnDraw(mpInit);
 
@@ -651,7 +651,7 @@ void iGameEnemy::OnPostSceneDraw()
 {
 	if(IsActive()==false) return;
 	if(mbShowDebug == false) return;
-	
+
 	iLowLevelGraphics *pLowLevelGfx = mpInit->mpGame->GetGraphics()->GetLowLevel();
 	mpMover->OnPostSceneDraw(pLowLevelGfx);
 
@@ -662,14 +662,14 @@ void iGameEnemy::OnPostSceneDraw()
 
 	/*pLowLevelGfx->SetDepthTestActive(false);
 	pLowLevelGfx->SetDepthWriteActive(false);
-	
+
 	cVector3f vNormal(0,1,0);
 	cVector3f vUp(0,1,0);
 	cVector3f vStartPos = mpMover->GetCharBody()->GetFeetPosition() + cVector3f(0,0.05f,0);
 	cVector3f vPosition = vStartPos;
 
 	mFindGround.GetGround(vStartPos,cVector3f(0,-1,0),NULL,&vNormal);
-	
+
 	vNormal.Normalise();
 	float fAngle = cMath::Vector3Angle(vUp,vNormal);
 	cVector3f vRotateAxis = cMath::Vector3Cross(vUp,vNormal);
@@ -681,7 +681,7 @@ void iGameEnemy::OnPostSceneDraw()
 
 	cMatrixf mtxFinalOffset = cMath::MatrixMul(mtxPoseRotation,m_mtxModelOffset);
 
-    cVector3f vCenter = mpMover->GetCharBody()->GetPosition();
+	cVector3f vCenter = mpMover->GetCharBody()->GetPosition();
 
 	cVector3f vRot = cMath::MatrixMul(mtxPoseRotation,cVector3f(0,1,0));
 
@@ -691,7 +691,7 @@ void iGameEnemy::OnPostSceneDraw()
 	pLowLevelGfx->DrawLine(vCenter, vCenter + vRot,cColor(0,1,1,1));
 
 	gfAngle =cMath::ToDeg(fAngle);
-			
+
 	pLowLevelGfx->SetDepthTestActive(true);
 	pLowLevelGfx->SetDepthWriteActive(true);*/
 
@@ -725,7 +725,7 @@ void iGameEnemy::OnPostSceneDraw()
 void iGameEnemy::Update(float afTimeStep)
 {
 	if(mbActive==false) return;
-	
+
 	START_TIMING_EX(GetName().c_str(),enemy);
 
 	if(mpMeshEntity->GetSkeletonPhysicsActive() && mpCharBody->IsActive()==false &&
@@ -737,7 +737,7 @@ void iGameEnemy::Update(float afTimeStep)
 	{
 		mbHasInteraction = false;
 	}
-	
+
 	START_TIMING_TAB(pose);
 	UpdateEnemyPose(afTimeStep);
 	STOP_TIMING_TAB(pose);
@@ -745,7 +745,7 @@ void iGameEnemy::Update(float afTimeStep)
 	START_TIMING_TAB(checkforplayer);
 	UpdateCheckForPlayer(afTimeStep);
 	STOP_TIMING_TAB(checkforplayer);
-	
+
 	START_TIMING_TAB(MoverUpdate);
 	mpMover->Update(afTimeStep);
 	STOP_TIMING_TAB(MoverUpdate);
@@ -755,14 +755,14 @@ void iGameEnemy::Update(float afTimeStep)
 	STOP_TIMING_TAB(Animations);
 
 	OnUpdate(afTimeStep);
-	
+
 #ifdef UPDATE_TIMING_ENABLED
 	LogUpdate("\tState: %d\n",mlCurrentState);
 #endif
 	START_TIMING_TAB(State);
 	mvStates[mlCurrentState]->OnUpdate(afTimeStep);
 	STOP_TIMING_TAB(State);
-	
+
 
 	if(mfDamageSoundTimer>0) mfDamageSoundTimer -= afTimeStep;
 
@@ -793,7 +793,7 @@ void iGameEnemy::Update(float afTimeStep)
 					pWorld->CreateParticleSystem("Disappear",msDisappearPS,cVector3f(1,1,1),
 												cMath::MatrixTranslate(vPostion));
 				}
-				
+
 				if(mbDisappearFreezesRagdoll)
 				{
 					mpMeshEntity->ResetGraphicsUpdated();
@@ -837,7 +837,7 @@ void iGameEnemy::Update(float afTimeStep)
 		SetHealth(0);
 		SetActive(false);
 	}
-	
+
 	STOP_TIMING(enemy);
 }
 
@@ -863,16 +863,16 @@ void iGameEnemy::ChangeState(int alId)
 	Log("%s\n",sStr);*/
 
 	//Log("Leave old...");
-	if(mlCurrentState>=0) 
+	if(mlCurrentState>=0)
 		mvStates[mlCurrentState]->OnLeaveState(mvStates[alId]);
-	
+
 	int lPrevState = mlCurrentState;
 	iGameEnemyState *pPrevState = NULL;
 	if(mlCurrentState>=0) pPrevState = mvStates[mlCurrentState];
-	
+
 	mlCurrentState = alId;
 	mbCanSeePlayer = false;
-	
+
 	//Log("enter newer\n");
 	mvStates[mlCurrentState]->SetPreviousState(lPrevState);
 	mvStates[mlCurrentState]->OnEnterState(pPrevState);
@@ -914,11 +914,11 @@ bool iGameEnemy::HandleSoundTrigger(cGameTrigger *apTrigger)
 	float fHearVolume = 1.0f - cMath::Clamp( (fDistance - fMin)/(fMax - fMin), 0.0f ,1.0f);
 
 	fHearVolume *= pSoundTrigger->mpSound->GetVolume();
-	
+
 	//If not audible return
 	if(fHearVolume <=0) return false;
-	
-    return mvStates[mlCurrentState]->OnHearNoise(pSoundTrigger->GetWorldPosition(),fHearVolume);
+
+	return mvStates[mlCurrentState]->OnHearNoise(pSoundTrigger->GetWorldPosition(),fHearVolume);
 
 	return true;
 }
@@ -927,7 +927,7 @@ bool iGameEnemy::HandleSoundTrigger(cGameTrigger *apTrigger)
 
 cVector3f iGameEnemy::GetPosition()
 {
-	return mpMover->GetCharBody()->GetPosition();	
+	return mpMover->GetCharBody()->GetPosition();
 }
 
 //-----------------------------------------------------------------------
@@ -938,8 +938,8 @@ void iGameEnemy::PlayAnim(	const tString &asName, bool abLoop, float afFadeTime,
 							bool abOverideMoveState)
 {
 	//Check if the animation is already playing.
-	if(	mpCurrentAnimation != NULL && 
-		mpCurrentAnimation->GetName() == asName && 
+	if(	mpCurrentAnimation != NULL &&
+		mpCurrentAnimation->GetName() == asName &&
 		mpCurrentAnimation->IsActive() &&
 		mpCurrentAnimation->IsOver()== false)
 	{
@@ -951,12 +951,12 @@ void iGameEnemy::PlayAnim(	const tString &asName, bool abLoop, float afFadeTime,
 		//Warning("Animation '%s' does not exist!\n",asName.c_str());
 		return;
 	}
-	
+
 	pNewAnim->SetActive(true);
-	if(mpCurrentAnimation && mpCurrentAnimation != pNewAnim) 
+	if(mpCurrentAnimation && mpCurrentAnimation != pNewAnim)
 	{
 		mpCurrentAnimation->FadeOut(afFadeTime);
-		
+
 		if(pNewAnim->IsFading()==false) pNewAnim->SetWeight(0);
 		pNewAnim->FadeIn(afFadeTime);
 	}
@@ -965,7 +965,7 @@ void iGameEnemy::PlayAnim(	const tString &asName, bool abLoop, float afFadeTime,
 		pNewAnim->SetWeight(1.0f);
 	}
 	pNewAnim->SetLoop(abLoop);
-	
+
 	/////////////////////////////////////////
 	//Check if this animation should start at the same place as the previous
 	if(abSyncWithPrevFrame && mpCurrentAnimation)
@@ -976,7 +976,7 @@ void iGameEnemy::PlayAnim(	const tString &asName, bool abLoop, float afFadeTime,
 	{
 		pNewAnim->SetTimePosition(0);
 	}
-	
+
 
 	mpCurrentAnimation  = pNewAnim;
 
@@ -1005,7 +1005,7 @@ void iGameEnemy::PlaySound(const tString &asName)
 
 	cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
 
-    cSoundEntity *pSound = pWorld->CreateSoundEntity("Enemy",asName,true);
+	cSoundEntity *pSound = pWorld->CreateSoundEntity("Enemy",asName,true);
 	if(pSound)
 	{
 		pSound->SetPosition(mpMover->GetCharBody()->GetPosition());
@@ -1081,7 +1081,7 @@ void iGameEnemy::OnSetActive(bool abX)
 	{
 		mvBodies[i]->SetActive(false);
 	}
-	
+
 	//Make sure it is on the ground
 	if(mfHealth >0 && mbSetFeetAtGroundOnStart)
 	{
@@ -1091,12 +1091,12 @@ void iGameEnemy::OnSetActive(bool abX)
 		mpMover->GetCharBody()->SetFeetPosition(vGroundPosition);
 	}
 
-	
+
 	if(mbActive==false)
 	{
 		if(mbRemoveAttackerOnDisable)
 			mpInit->mpMusicHandler->RemoveAttacker(this);
-		
+
 		if(mfHealth >0) ChangeState(STATE_IDLE);
 	}
 	else
@@ -1172,38 +1172,38 @@ void iGameEnemy::UpdateEnemyPose(float afTimeStep)
 		m_mtxStartPose = m_mtxGoalPose;
 
 		cVector3f vNormal(0,1,0);
-			
+
 		cVector3f vStartPos = mpMover->GetCharBody()->GetFeetPosition() + cVector3f(0,0.05f,0);
 		cVector3f vPosition = vStartPos;
-		
+
 		mFindGround.GetGround(vStartPos,cVector3f(0,-1,0),&vPosition,&vNormal);
 
 		cVector3f vUp(0,1,0);
-		
+
 		float fDist = vStartPos.y - vPosition.y;
-        
-        vNormal.Normalise();
+
+		vNormal.Normalise();
 		float fAngle = cMath::Vector3Angle(vUp,vNormal);
-		
+
 		cVector3f vRotateAxis = cMath::Vector3Cross(vUp,vNormal);
 		//cVector3f vRotateAxis = cMath::Vector3Cross(vUp,mpMover->GetCharBody()->GetForward());
 
 		//cVector3f vRotateAxis2 = cMath::Vector3Cross(vUp,vRotateAxis);
-		
+
 		vRotateAxis.Normalise();
 		cQuaternion qRotation = cQuaternion(fAngle, vRotateAxis);
 		cMatrixf mtxPoseRotation = cMath::MatrixQuaternion(qRotation);
-		
+
 			//cVector3f vDelta = vPosition - mpMover->GetCharBody()->GetFeetPosition();
-			
+
 			//mtxPoseRotation.SetTranslation(cVector3f(0,-fabs(vDelta.y),0));
 			//mtxPoseRotation.SetTranslation(vNormal * -fabs(vDelta.y));
-		
+
 		if(vNormal != cVector3f(0,1,0))
 		{
 			mFindGround.GetGround(mpMover->GetCharBody()->GetPosition(),vNormal *-1.0f,&vPosition,NULL);
 			fDist = cMath::Vector3Dist(mpMover->GetCharBody()->GetPosition(),vPosition);
-			
+
 			//So there is no warp to the ground.
 			float fLimit = mpMover->GetCharBody()->GetSize().y*0.82f;
 			if(fDist > fLimit) vNormal = cVector3f(0,1,0);
@@ -1214,20 +1214,20 @@ void iGameEnemy::UpdateEnemyPose(float afTimeStep)
 		if(vNormal != cVector3f(0,1,0))
 		{
 			fDist -= mpMover->GetCharBody()->GetSize().y/2.0f;
-			
+
 			mtxPoseRotation.SetTranslation(vNormal * -fDist);
 		}
 		else
 		{
 			mtxPoseRotation.SetTranslation(0);
 		}
-	
+
 		m_mtxGoalPose = mtxPoseRotation;
 	}
 	else
 	{
 		cMatrixf mtxPoseRotation =cMath::MatrixSlerp(mfPoseCount,m_mtxStartPose,m_mtxGoalPose,true);
-        
+
 		mpMover->GetCharBody()->SetEntityPostOffset(mtxPoseRotation);
 	}
 
@@ -1239,13 +1239,13 @@ void iGameEnemy::UpdateEnemyPose(float afTimeStep)
 
 void iGameEnemy::UpdateCheckForPlayer(float afTimeStep)
 {
-	
+
 
 	//Do not check for player at pre update.
 	if(mpInit->mpMapHandler->IsPreUpdating() ||
 		mpInit->mpPlayer->IsDead() ||
 		mbUsesTriggers == false ||
-		mfHealth <= 0) 
+		mfHealth <= 0)
 	{
 		mbCanSeePlayer = false;
 		return;
@@ -1267,13 +1267,13 @@ void iGameEnemy::UpdateCheckForPlayer(float afTimeStep)
 		mfCheckForPlayerCount += afTimeStep;
 		return;
 	}
-	
+
 	mfCheckForPlayerCount =0;
 
 	iCharacterBody *pPlayerBody = mpInit->mpPlayer->GetCharacterBody();
 
 	float fDist = cMath::Vector3Dist(mpMover->GetCharBody()->GetPosition(),pPlayerBody->GetPosition());
-	float fMinLength = mpMover->GetCharBody()->GetBody()->GetBV()->GetRadius() + 
+	float fMinLength = mpMover->GetCharBody()->GetBody()->GetBV()->GetRadius() +
 						pPlayerBody->GetBody()->GetBV()->GetRadius();
 
 	//Lower some stuff if player is hidden
@@ -1309,7 +1309,7 @@ void iGameEnemy::UpdateCheckForPlayer(float afTimeStep)
 	gfCurrentViewDist = fDist;
 	gfCurrentMaxViewDist = mfMaxSeeDist;
 
-	if( (fDist <= mfMaxSeeDist && LineOfSight(pPlayerBody->GetPosition(), pPlayerBody->GetSize())) || 
+	if( (fDist <= mfMaxSeeDist && LineOfSight(pPlayerBody->GetPosition(), pPlayerBody->GetSize())) ||
 		fDist <=  fMinLength)
 	{
 		//Increase LOS counter,
@@ -1322,9 +1322,9 @@ void iGameEnemy::UpdateCheckForPlayer(float afTimeStep)
 
 			float fChance=0;
 
-			if(fDist > mfMaxSeeDist) 
+			if(fDist > mfMaxSeeDist)
 				fChance =0;
-			else 
+			else
 				fChance = 1 - (fDist / mfMaxSeeDist);
 
 			if(mbCanSeePlayer==false)
@@ -1334,7 +1334,7 @@ void iGameEnemy::UpdateCheckForPlayer(float afTimeStep)
 			}
 
 			mvLastPlayerPos = pPlayerBody->GetFeetPosition();
-			
+
 			mbCanSeePlayer = true;
 			mfCanSeePlayerCount = 1.0f/ 3.0f;
 			mfCalcPlayerHiddenPosCount = 1.5f;
@@ -1342,11 +1342,11 @@ void iGameEnemy::UpdateCheckForPlayer(float afTimeStep)
 	}
 	else
 	{
-        //Reset LOS counter,
+		//Reset LOS counter,
 		mlPlayerInLOSCount--;
 		if(mlPlayerInLOSCount<0)mlPlayerInLOSCount=0;
 
-		//this is so that the enemy get a little better last pos 
+		//this is so that the enemy get a little better last pos
 		//and thus improving path finding.
 		if(mfCalcPlayerHiddenPosCount >0)
 		{
@@ -1366,14 +1366,14 @@ void iGameEnemy::UpdateCheckForPlayer(float afTimeStep)
 void iGameEnemy::UpdateAnimations(float afTimeStep)
 {
 	iCharacterBody *pBody = mpMover->GetCharBody();
-	
+
 	float fMoveSpeed = pBody->GetMoveSpeed(eCharDir_Forward);
-	
+
 	float fSpeed = pBody->GetVelocity(afTimeStep).Length();
 	if(fMoveSpeed <0) fSpeed = -fSpeed;
-	
+
 	float fTurnSpeed = mpMover->GetTurnSpeed();
-	
+
 	////////////////////////////////
 	// Override animation
 	if(mbOverideMoveState && mpCurrentAnimation!=NULL)
@@ -1382,7 +1382,7 @@ void iGameEnemy::UpdateAnimations(float afTimeStep)
 		{
 			mvStates[mlCurrentState]->OnAnimationOver(mpCurrentAnimation->GetName());
 		}
-		
+
 		if(mbAnimationIsSpeedDependant)
 		{
 			if(std::abs(fSpeed) > 0.05f)
@@ -1403,7 +1403,7 @@ void iGameEnemy::UpdateAnimations(float afTimeStep)
 		case eEnemyMoveState_Backward:
 			if(fSpeed >= 0)
 				mMoveState = eEnemyMoveState_Stopped;
-			
+
 			break;
 
 		// Stopped State
@@ -1414,9 +1414,9 @@ void iGameEnemy::UpdateAnimations(float afTimeStep)
 					mMoveState = eEnemyMoveState_Walking;
 				else if(std::abs(fTurnSpeed) > 0.07f)
 					mMoveState = eEnemyMoveState_Walking;
-				
+
 				break;
-		
+
 		// Walking State
 		case eEnemyMoveState_Walking:
 			if(fSpeed >= mfWalkToRunSpeed)
@@ -1425,14 +1425,14 @@ void iGameEnemy::UpdateAnimations(float afTimeStep)
 			{
 				if(std::abs(fTurnSpeed) < 0.03f) mMoveState = eEnemyMoveState_Stopped;
 			}
-			
+
 			break;
-		
+
 		// Running State
 		case eEnemyMoveState_Running:
 			if(fSpeed <= mfRunToWalkSpeed)
 				mMoveState = eEnemyMoveState_Walking;
-			
+
 			break;
 
 		// NULL
@@ -1440,10 +1440,10 @@ void iGameEnemy::UpdateAnimations(float afTimeStep)
 			mMoveState = eEnemyMoveState_Stopped;
 			break;
 		}
-		
+
 		//////////////////////////////////////////////
 		//If move state has changed, change animation
-        if(prevMoveState != mMoveState)
+		if(prevMoveState != mMoveState)
 		{
 			//Backward
 			if(mMoveState == eEnemyMoveState_Backward)
@@ -1470,7 +1470,7 @@ void iGameEnemy::UpdateAnimations(float afTimeStep)
 				PlayAnim(msRunAnim,true,0.2f,true,mfMoveAnimSpeedMul,bSync,false);
 			}
 		}
-		
+
 		/////////////////////////////////
 		//Update animation speed
 		if(mbAnimationIsSpeedDependant)
@@ -1511,7 +1511,7 @@ static const cVector2f gvPosAdds[] = {cVector2f(0,0),
 										cVector2f(-1,0),
 										cVector2f(0,1),
 										cVector2f(0,-1)
-};	
+};
 
 bool iGameEnemy::LineOfSight(const cVector3f &avPos, const cVector3f &avSize)
 {
@@ -1520,7 +1520,7 @@ bool iGameEnemy::LineOfSight(const cVector3f &avPos, const cVector3f &avSize)
 	//if(mvRayEndPoses.size()<5) mvRayEndPoses.resize(5);
 
 	iPhysicsWorld *pPhysicsWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
-	
+
 	cVector3f vStartCenter = mpMover->GetCharBody()->GetPosition();
 	cVector3f vEndCenter = avPos;
 
@@ -1535,7 +1535,7 @@ bool iGameEnemy::LineOfSight(const cVector3f &avPos, const cVector3f &avSize)
 	if(mfFOV < k2Pif)
 	{
 		cVector3f vEnemyForward = mpMover->GetCharBody()->GetForward();
-		
+
 		//float fAngle = cMath::Vector3Angle(vEnemyForward, vForward);
 		//if(fAngle > mfFOV*0.5f) return false;
 
@@ -1554,7 +1554,7 @@ bool iGameEnemy::LineOfSight(const cVector3f &avPos, const cVector3f &avSize)
 	//Get the half with and height. Make them a little smaller so that player can slide over funk on floor.
 	const float fHalfWidth = avSize.x * 0.4f;
 	const float fHalfHeight = avSize.y * 0.4f;
-	
+
 	//Count of 2 is need for a line of sight sucess.
 	int lCount=0;
 	//Iterate through all the rays.
@@ -1563,17 +1563,17 @@ bool iGameEnemy::LineOfSight(const cVector3f &avPos, const cVector3f &avSize)
 		cVector3f vAdd = vRight * (gvPosAdds[i].x*fHalfWidth) + vUp * (gvPosAdds[i].y*fHalfHeight);
 		cVector3f vStart = vStartCenter + vAdd;
 		cVector3f vEnd = vEndCenter + vAdd;
-		
+
 		//mvRayStartPoses[i] = vStart;
 		//mvRayEndPoses[i] =vEnd;
-		
-		mRayCallback.Reset(); 
+
+		mRayCallback.Reset();
 		pPhysicsWorld->CastRay(&mRayCallback,vStart,vEnd,false,false,false);
 		if(mRayCallback.Intersected()==false) lCount++;
 
 		if(lCount==2) return true;
 	}
-	
+
 	return false;
 }
 
@@ -1601,7 +1601,7 @@ cEntityLoader_GameEnemy::~cEntityLoader_GameEnemy()
 void cEntityLoader_GameEnemy::BeforeLoad(TiXmlElement *apRootElem, const cMatrixf &a_mtxTransform,
 											   cWorld3D *apWorld)
 {
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -1626,13 +1626,13 @@ void cEntityLoader_GameEnemy::AfterLoad(TiXmlElement *apRootElem, const cMatrixf
 	{
 		Error("Couldn't find main element for entity '%s'\n",mpEntity->GetName().c_str());
 	}
-	
+
 	///////////////////////////////////
 	// Load the enemy type
 
 	TiXmlElement *pGameElem = apRootElem->FirstChildElement("GAME");
 
-    
+
 	if(sSubtype == "Dog")
 	{
 		pEnemy = hplNew( cGameEnemy_Dog, (mpInit,mpEntity->GetName(),pGameElem) );
@@ -1647,12 +1647,12 @@ void cEntityLoader_GameEnemy::AfterLoad(TiXmlElement *apRootElem, const cMatrixf
 		pEnemy = hplNew( cGameEnemy_Worm, (mpInit,mpEntity->GetName(),pGameElem) );
 	}
 #endif
-	
+
 	pEnemy->msSubType = sSubtype;
 	pEnemy->msEnemyType = msName;
 	pEnemy->msFileName = msFileName;
 	pEnemy->m_mtxOnLoadTransform = a_mtxTransform;
-	
+
 	//Do stuff that is not done when loading from savegame.
 	pEnemy->SetMeshEntity(mpEntity);
 	pEnemy->SetBodies(mvBodies);
@@ -1662,7 +1662,7 @@ void cEntityLoader_GameEnemy::AfterLoad(TiXmlElement *apRootElem, const cMatrixf
 	// Add to map handler
 	mpInit->mpMapHandler->AddGameEntity(pEnemy);
 	mpInit->mpMapHandler->AddGameEnemy(pEnemy);
-	
+
 	iCharacterBody *pBody = pEnemy->mpMover->GetCharBody();
 	pBody->SetPosition(mpEntity->GetWorldPosition() + cVector3f(0,pBody->GetSize().y/2,0));
 
@@ -1671,7 +1671,7 @@ void cEntityLoader_GameEnemy::AfterLoad(TiXmlElement *apRootElem, const cMatrixf
 	cVector3f vBodyRotation = cMath::GetAngleFromPoints3D(cVector3f(0,0,0), mtxInv.GetForward()*-1);
 
 	pBody->SetYaw(vBodyRotation.y);
-	
+
 	//Log("Loaded enemy!\n");
 }
 
@@ -1711,7 +1711,7 @@ kEndSerialize()
 
 iGameEntity* iGameEnemy_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------
@@ -1731,7 +1731,7 @@ void iGameEnemy::SaveToSaveData(iGameEntity_SaveData *apSaveData)
 	kCopyToVar(pData,mbHasBeenActivated);
 
 	pData->mvCharBodyPosition = mpMover->GetCharBody()->GetPosition();
-	
+
 	pData->mvCharBodyRotation.x = mpMover->GetCharBody()->GetPitch();
 	pData->mvCharBodyRotation.y = mpMover->GetCharBody()->GetYaw();
 
@@ -1745,7 +1745,7 @@ void iGameEnemy::SaveToSaveData(iGameEntity_SaveData *apSaveData)
 	kCopyToVar(pData,mbHasDisappeared);
 
 	kCopyToVar(pData,mbUsesTriggers);
-	
+
 	pData->mvPatrolNodes.Resize(mvPatrolNodes.size());
 	for(size_t i=0; i< mvPatrolNodes.size(); ++i)
 	{

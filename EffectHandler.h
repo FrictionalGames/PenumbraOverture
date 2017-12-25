@@ -87,7 +87,7 @@ private:
 	cVector3f mvAdd;
 
 	iHapticForce *mpForce;
-	
+
 	std::list<cEffect_ShakeScreen_Shake> mlstShakes;
 };
 
@@ -121,14 +121,14 @@ private:
 	bool mbActive;
 	int mlState;
 	bool mbAutoSave;
-	
+
 	cVector3f mvPosition;
-	
+
 	float mfFlashAlpha;
 	cColor mFlashColor;
-	
+
 	float mfTime;
-	
+
 	float mfStartFov;
 	float mfFov;
 };
@@ -143,7 +143,7 @@ public:
 
 	void SetDisabled(bool abX);
 	bool IsDisabled(){ return mbDisabled;}
-	
+
 	void SetActive(bool abX, float afFadeTime);
 	bool IsActive(){ return mbActive;}
 
@@ -151,21 +151,21 @@ public:
 
 	void SetFocusBody(iPhysicsBody *apBody){mpFocusBody = apBody;}
 	void FocusOnBody(iPhysicsBody *apBody);
-	
+
 	void Update(float afTimeStep);
-	
+
 	void Reset();
 private:
 	cInit *mpInit;
 	cRendererPostEffects *mpPostEffects;
 
 	iPhysicsBody *mpFocusBody;
-	
+
 	bool mbActive;
 	bool mbDisabled;
 
 	float mfFadeSpeed;
-	
+
 	float mfMaxBlur;
 };
 //-----------------------------------------
@@ -189,9 +189,9 @@ private:
 
 	bool mbActive;
 	float mfAlpha;
-	
+
 	int mlStep;
-	
+
 	float mfCount;
 
 	float mfFadeInSpeed;
@@ -229,8 +229,8 @@ private:
 	cGraphicsDrawer *mpDrawer;
 
 	iFontData *mpFont;
-	
-    tSubTitleList mlstSubTitles;	
+
+	tSubTitleList mlstSubTitles;
 };
 
 //-----------------------------------------

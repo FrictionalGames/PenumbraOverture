@@ -127,7 +127,7 @@ cButtonHandler::cButtonHandler(cInit *apInit)  : iUpdateable("ButtonHandler")
 	else
 		mpLowLevelHaptic = NULL;
 
-	
+
 	mState = eButtonHandlerState_Game;
 
 	mlNumOfActions =0;
@@ -150,7 +150,7 @@ cButtonHandler::cButtonHandler(cInit *apInit)  : iUpdateable("ButtonHandler")
 			Warning("Couldn't create action from '%s' and %d\n",pBHAction->msType.c_str(),
 																pBHAction->mlVal);
 		}
-		
+
 		++pBHAction;
 		++mlNumOfActions;
 	}
@@ -166,7 +166,7 @@ cButtonHandler::cButtonHandler(cInit *apInit)  : iUpdateable("ButtonHandler")
 
 cButtonHandler::~cButtonHandler(void)
 {
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -217,7 +217,7 @@ void cButtonHandler::Update(float afTimeStep)
 		while(FileExists(cString::To16Char(sFileName)))
 		{
 			sFileName = "screenshot";
-            if(lCount < 10)sFileName+= "00";
+			if(lCount < 10)sFileName+= "00";
 			else if(lCount < 100)sFileName+= "0";
 			sFileName += cString::ToString(lCount);
 			sFileName += ".bmp";
@@ -238,7 +238,7 @@ void cButtonHandler::Update(float afTimeStep)
 	///////////////////////////////////
 	if(mState == eButtonHandlerState_DemoEndText)
 	{
-		if(	mpInput->BecameTriggerd("Escape"))	
+		if(	mpInput->BecameTriggerd("Escape"))
 			mpInit->mpDemoEndText->OnButtonDown();
 		if(mpInput->BecameTriggerd("LeftClick"))
 			mpInit->mpDemoEndText->OnMouseDown(eMButton_Left);
@@ -250,7 +250,7 @@ void cButtonHandler::Update(float afTimeStep)
 	///////////////////////////////////
 	else if(mState == eButtonHandlerState_Credits)
 	{
-		if(	mpInput->BecameTriggerd("Escape"))	
+		if(	mpInput->BecameTriggerd("Escape"))
 			mpInit->mpCredits->OnButtonDown();
 		if(mpInput->BecameTriggerd("LeftClick"))
 			mpInit->mpCredits->OnMouseDown(eMButton_Left);
@@ -262,7 +262,7 @@ void cButtonHandler::Update(float afTimeStep)
 	///////////////////////////////////
 	else if(mState == eButtonHandlerState_PreMenu)
 	{
-		if(	mpInput->BecameTriggerd("Escape"))	
+		if(	mpInput->BecameTriggerd("Escape"))
 			mpInit->mpPreMenu->OnButtonDown();
 		if(mpInput->BecameTriggerd("LeftClick"))
 			mpInit->mpPreMenu->OnMouseDown(eMButton_Left);
@@ -306,7 +306,7 @@ void cButtonHandler::Update(float afTimeStep)
 			mpInit->mpMainMenu->OnMouseDoubleClick(eMButton_Right);
 		}
 
-		if(	mpInput->BecameTriggerd("LeftClick") || 
+		if(	mpInput->BecameTriggerd("LeftClick") ||
 			(mpInit->mbHasHaptics && mpInput->BecameTriggerd("MouseClick")) )
 		{
 			mpInit->mpMainMenu->OnMouseDown(eMButton_Left);
@@ -334,7 +334,7 @@ void cButtonHandler::Update(float afTimeStep)
 			cVector2f vRel = mpInput->GetMouse()->GetRelPosition();
 			mpInit->mpMainMenu->AddMousePos(vRel * mfMouseSensitivity);
 		}
-		
+
 	}
 	///////////////////////////////////
 	// INTRO BUTTON STATE
@@ -464,7 +464,7 @@ void cButtonHandler::Update(float afTimeStep)
 			{
 				mpInit->mpNotebook->OnExit();
 			}
-			
+
 			if(mpInput->BecameTriggerd("LeftClick"))
 			{
 				mpInit->mpNotebook->OnMouseDown(eMButton_Left);
@@ -489,7 +489,7 @@ void cButtonHandler::Update(float afTimeStep)
 					pStateMachine->ChangeState(eNotebookState_TaskList);
 				}
 			}
-			
+
 			if(mpInit->mbHasHaptics)
 			{
 				mpInit->mpNotebook->AddMousePos(mpLowLevelHaptic->GetRelativeVirtualMousePos() * mfMouseSensitivity);
@@ -511,14 +511,14 @@ void cButtonHandler::Update(float afTimeStep)
 			{
 				mpInit->mpInventory->OnInventoryDown();
 			}
-			
+
 			if(mpInput->BecameTriggerd("LeftClick"))
 			{
 				mpInit->mpInventory->OnMouseDown(eMButton_Left);
 
 				mpInput->BecameTriggerd("Interact");
 			}
-			
+
 			if(mpInput->DoubleTriggerd("LeftClick",0.2f))
 			{
 				mpInit->mpInventory->OnDoubleClick(eMButton_Left);
@@ -528,18 +528,18 @@ void cButtonHandler::Update(float afTimeStep)
 				mpInit->mpInventory->OnMouseUp(eMButton_Left);
 			}
 
-				
+
 			if(mpInput->BecameTriggerd("RightClick"))
 			{
 				mpInit->mpInventory->OnMouseDown(eMButton_Right);
-				
+
 				mpInput->BecameTriggerd("Examine");
 			}
 			if(mpInput->WasTriggerd("RightClick"))
 			{
 				mpInit->mpInventory->OnMouseUp(eMButton_Right);
 			}
-			
+
 			//////////////////////////////
 			//Short cut keys
 			if(mpInput->BecameTriggerd("One")) mpInit->mpInventory->OnShortcutDown(0);
@@ -551,7 +551,7 @@ void cButtonHandler::Update(float afTimeStep)
 			if(mpInput->BecameTriggerd("Seven")) mpInit->mpInventory->OnShortcutDown(6);
 			if(mpInput->BecameTriggerd("Eight")) mpInit->mpInventory->OnShortcutDown(7);
 			if(mpInput->BecameTriggerd("Nine")) mpInit->mpInventory->OnShortcutDown(8);
-			
+
 			if(mpInit->mbHasHaptics)
 			{
 				cVector2f vRel = mpLowLevelHaptic->GetRelativeVirtualMousePos();
@@ -564,7 +564,7 @@ void cButtonHandler::Update(float afTimeStep)
 				mpInit->mpInventory->AddMousePos(vRel * mfMouseSensitivity);
 			}
 		}
-		else 
+		else
 		{
 			bPlayerStateIsActive = true;
 
@@ -587,12 +587,12 @@ void cButtonHandler::Update(float afTimeStep)
 																		false,0.01f);
 				/*cVector3f vPos = mpInit->mpPlayer->GetCharacterBody()->GetPosition();
 				cSoundEntity *pSound = mpInit->mpGame->GetScene()->GetWorld3D()->CreateSoundEntity("Taunt","interact_homer",true);
-                if(pSound)
+				if(pSound)
 				{
 					pSound->SetPosition(vPos);
 				}*/
 			}
-			
+
 			if(mpPlayer->IsActive() || mpPlayer->GetState() == ePlayerState_Message)
 			{
 				if(mpPlayer->IsActive())
@@ -611,7 +611,7 @@ void cButtonHandler::Update(float afTimeStep)
 						mpInit->mpNotebook->SetActive(true);
 						mpInit->mpNotebook->GetStateMachine()->ChangeState(eNotebookState_TaskList);
 					}
-	                
+
 					if(mpInput->BecameTriggerd("Flashlight"))
 					{
 						mpPlayer->StartFlashLightButton();
@@ -659,7 +659,7 @@ void cButtonHandler::Update(float afTimeStep)
 					{
 						mpPlayer->Lean(1,afTimeStep);
 					}
-					
+
 
 					if(mpInput->BecameTriggerd("Jump"))
 					{
@@ -669,14 +669,14 @@ void cButtonHandler::Update(float afTimeStep)
 					{
 						mpPlayer->SetJumpButtonDown(true);
 					}
-					
+
 					if(mpInput->BecameTriggerd("Run"))
 					{
 						mpPlayer->StartRun();
 					}
 					if(mpInput->WasTriggerd("Run"))
 					{
-						mpPlayer->StopRun();	
+						mpPlayer->StopRun();
 					}
 
 					if(mpInput->BecameTriggerd("Crouch"))
@@ -685,11 +685,11 @@ void cButtonHandler::Update(float afTimeStep)
 					}
 					if(GetToggleCrouch())
 					{
-						if(mpInput->WasTriggerd("Crouch"))	mpPlayer->StopCrouch();	
+						if(mpInput->WasTriggerd("Crouch"))	mpPlayer->StopCrouch();
 					}
 					else
 					{
-						if(mpInput->IsTriggerd("Crouch")==false) mpPlayer->StopCrouch();	
+						if(mpInput->IsTriggerd("Crouch")==false) mpPlayer->StopCrouch();
 					}
 
 					if(mpInput->BecameTriggerd("InteractMode"))
@@ -703,7 +703,7 @@ void cButtonHandler::Update(float afTimeStep)
 							//DO nothing for the time being.
 						}
 					}
-					
+
 					//Get the mouse pos and convert it to 0 - 1
 					if(mpInit->mbHasHaptics==false)
 					{
@@ -782,13 +782,13 @@ void cButtonHandler::OnExit()
 	for(int i=0; i< mlNumOfActions; ++i)
 	{
 		//Log(" Action %s\n",gvDefaultActions[i].msName.c_str());
-		
+
 		iAction *pAction = mpInput->GetAction(gvDefaultActions[i].msName);
 		tString sType="", sVal="";
 		TypeAndValFromAction(pAction,&sType,&sVal);
 
 		//Log(" type %s val: %s\n",sType.c_str(),sVal.c_str());
-		
+
 		mpInit->mpConfig->SetString("Keys",gvDefaultActions[i].msName+"_Type",sType);
 		mpInit->mpConfig->SetString("Keys",gvDefaultActions[i].msName+"_Val",sVal);
 	}
@@ -804,9 +804,9 @@ void cButtonHandler::SetDefaultKeys()
 		tString sName = pBHAction->msName;
 		tString sType = pBHAction->msType;
 		tString sVal = cString::ToString(pBHAction->mlVal);
-		
+
 		iAction *pAction = ActionFromTypeAndVal(sName, sType, sVal);
-		
+
 		if(pAction)
 		{
 			mpInput->DestroyAction(sName);
@@ -834,7 +834,7 @@ tString cButtonHandler::GetActionName(const tString &asInputName,const tString &
 		tString sVal = cString::ToString(pBHAction->mlVal);
 
 		iAction *pAction = mpInput->GetAction(sName);
-		
+
 		if(asSkipAction != sName && pAction && pAction->GetInputName() == asInputName) return sName;
 
 		//If at last player action, skip the rest.
@@ -867,7 +867,7 @@ iAction* cButtonHandler::ActionFromTypeAndVal(const tString& asName,const tStrin
 		if(mpInit->mbHasHaptics && asName != "MouseClick")
 		{
 			int lNum = cString::ToInt(asVal.c_str(),0);
-			if(lNum==2)lNum = 2; 
+			if(lNum==2)lNum = 2;
 			else if(lNum==1)lNum = 1;
 			return hplNew( cActionHaptic, (asName,mpInit->mpGame->GetHaptic(),lNum) );
 		}
@@ -900,7 +900,7 @@ void cButtonHandler::TypeAndValFromAction(iAction *apAction, tString *apType, tS
 			{
 				cActionHaptic *pHapticAction = static_cast<cActionHaptic*>(apAction);
 				*apVal = cString::ToString(pHapticAction->GetButton());
-				if(*apVal=="2")*apVal = "2"; 
+				if(*apVal=="2")*apVal = "2";
 				else if(*apVal=="1")*apVal = "1";
 			}
 			else

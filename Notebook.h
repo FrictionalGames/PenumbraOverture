@@ -73,9 +73,9 @@ class iNotebookState : public iAIState
 {
 public:
 	iNotebookState(cInit *apInit, cNotebook *apNotebook) : iAIState(){mpInit = apInit;mpNotebook = apNotebook;}
-	
+
 	virtual void OnMouseDown(eMButton aButton){}
-	
+
 	virtual void OnDraw(){}
 
 	virtual void OnExit(){}
@@ -102,7 +102,7 @@ class cNotebookState_Front : public iNotebookState
 {
 public:
 	cNotebookState_Front(cInit *apInit, cNotebook *apNotebook);
-	
+
 	void OnEnterState(int alLastState);
 	void OnLeaveState(int alNextState);
 
@@ -155,7 +155,7 @@ public:
 	float mfFontSize;
 
 	int mlCurrentPage;
-	std::vector<cNotebook_TaskPage> mvTaskPages; 
+	std::vector<cNotebook_TaskPage> mvTaskPages;
 
 	int mlSelected;
 	std::vector<cNoteBook_Option> mvOptions;
@@ -184,7 +184,7 @@ public:
 
 	int mlMaxNotesPerPage;
 	int mlFirstNote;
-	
+
 	int mlSelected;
 
 	iFontData *mpTextFont;
@@ -221,13 +221,13 @@ public:
 	iFontData *mpTextFont;
 	iFontData *mpNavigateFont;
 	tWStringVec mvRows;
-	
+
 	std::vector<cNotePage> mvPages;
 
 	int mlCurrentPage;
 	int mlMaxRows;
 	cVector2f mvSize;
-	
+
 	int mlSelected;
 	std::vector<cNoteBook_Option> mvOptions;
 	cGraphicsDrawer *mpDrawer;
@@ -280,7 +280,7 @@ public:
 	void OnMouseUp(eMButton aButton);
 
 	void OnExit();
-	
+
 	void SetActive(bool abX);
 	bool IsActive(){ return mbActive;}
 
@@ -298,7 +298,7 @@ public:
 	void AddTask(const tString &asName, const tWString &asText);
 	void RemoveTask(const tString &asName);
 	int GetTaskNum(){ return (int)mlstTasks.size();}
-	
+
 	cNotebook_Note* GetSelectedNote(){ return mpSelectedNote;}
 	void SetSelectedNote(cNotebook_Note* apNote){ mpSelectedNote = apNote;}
 
@@ -314,9 +314,9 @@ private:
 	cGraphicsDrawer *mpDrawer;
 
 	cGfxObject *mpGfxBackground;
-		
+
 	cStateMachine mStateMachine;
-	
+
 	bool mbActive;
 	float mfAlpha;
 

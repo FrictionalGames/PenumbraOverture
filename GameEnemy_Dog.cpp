@@ -34,7 +34,7 @@
 
 iGameEnemyState_Dog_Base::iGameEnemyState_Dog_Base(int alId, cInit *apInit, iGameEnemy *apEnemy)
 							: iGameEnemyState(alId,apInit,apEnemy)
-{	
+{
 	mpEnemyDog = static_cast<cGameEnemy_Dog*>(mpEnemy);
 }
 
@@ -48,7 +48,7 @@ void iGameEnemyState_Dog_Base::OnSeePlayer(const cVector3f &avPosition, float af
 	if(afChance >= mpEnemyDog->mfIdleMinSeeChance)
 	{
 		/*if( (mlId == STATE_IDLE || mlId == STATE_INVESTIGATE || mlId == STATE_PATROL) &&
-			cMath::RandRectf(0,1) < mpEnemyDog->mfIdleCallBackupChance && 
+			cMath::RandRectf(0,1) < mpEnemyDog->mfIdleCallBackupChance &&
 			mpEnemy->CheckForTeamMate(8,true)==false)
 		{
 			mpEnemy->ChangeState(STATE_CALLBACKUP);
@@ -56,7 +56,7 @@ void iGameEnemyState_Dog_Base::OnSeePlayer(const cVector3f &avPosition, float af
 		else
 		{
 			//mpEnemy->ChangeState(STATE_HUNT);
-			//mpEnemyDog->PlaySound(mpEnemyDog->msIdleFoundPlayerSound);	
+			//mpEnemyDog->PlaySound(mpEnemyDog->msIdleFoundPlayerSound);
 		}*/
 
 		float fDist = cMath::Vector3Dist(mpMover->GetCharBody()->GetFeetPosition(),
@@ -68,7 +68,7 @@ void iGameEnemyState_Dog_Base::OnSeePlayer(const cVector3f &avPosition, float af
 		else
 		{
 			mpEnemy->ChangeState(STATE_HUNT);
-			mpEnemyDog->PlaySound(mpEnemyDog->msIdleFoundPlayerSound);	
+			mpEnemyDog->PlaySound(mpEnemyDog->msIdleFoundPlayerSound);
 		}
 
 	}
@@ -123,7 +123,7 @@ void iGameEnemyState_Dog_Base::OnFlashlight(const cVector3f &avPosition)
 {
 	//mpInit->mpEffectHandler->GetSubTitle()->Add("Flashlight!",0.5f,true);
 	//OnSeePlayer(mpPlayer->GetCharacterBody()->GetFeetPosition(),1.0f);
-	
+
 	//mpEnemy->SetLastPlayerPos(mpPlayer->GetCharacterBody()->GetFeetPosition());
 	//mpEnemy->ChangeState(STATE_HUNT);
 
@@ -217,7 +217,7 @@ void cGameEnemyState_Dog_Patrol::OnEnterState(iGameEnemyState *apPrevState)
 	{
 		//tString sStr = "Could not get to path node "+pPatrolNode->msNodeName;
 		//mpInit->mpEffectHandler->GetSubTitle()->Add(sStr,3,true);
-		
+
 		mpEnemy->IncCurrentPatrolNode();
 		mbWaiting = true;
 		mpEnemy->SetWaitTime(1.0f);
@@ -227,8 +227,8 @@ void cGameEnemyState_Dog_Patrol::OnEnterState(iGameEnemyState *apPrevState)
 		//tString sStr = "Moving to path node "+pPatrolNode->msNodeName;
 		//mpInit->mpEffectHandler->GetSubTitle()->Add(sStr,3,true);
 	}
-	
-	
+
+
 	mpInit->mpMusicHandler->RemoveAttacker(mpEnemy);
 }
 
@@ -241,7 +241,7 @@ void cGameEnemyState_Dog_Patrol::OnLeaveState(iGameEnemyState *apNextState)
 //-----------------------------------------------------------------------
 
 void cGameEnemyState_Dog_Patrol::OnUpdate(float afTimeStep)
-{	
+{
 	/////////////////////////////////
 	//Waiting for timer or animation to end
 	if(mbWaiting)
@@ -269,10 +269,10 @@ void cGameEnemyState_Dog_Patrol::OnUpdate(float afTimeStep)
 				mpEnemy->SetWaitTimeCount(0);
 				cEnemyPatrolNode *pPatrolNode = mpEnemy->CurrentPatrolNode();
 				cAINode *pNode = mpMover->GetNodeContainer()->GetNodeFromName(pPatrolNode->msNodeName);
-				
+
 				mpEnemy->UseMoveStateAnimations();
 				mbWaiting = false;
-				
+
 				if(mpMover->MoveToPos(pNode->GetPosition())==false)
 				{
 					//tString sStr = "Could not get to path node "+pPatrolNode->msNodeName;
@@ -286,7 +286,7 @@ void cGameEnemyState_Dog_Patrol::OnUpdate(float afTimeStep)
 					//tString sStr = "Moving to path node "+pPatrolNode->msNodeName;
 					//mpInit->mpEffectHandler->GetSubTitle()->Add(sStr,3,false);
 				}
-				
+
 			}
 			else
 			{
@@ -345,7 +345,7 @@ void cGameEnemyState_Dog_Patrol::OnUpdate(float afTimeStep)
 
 			mpEnemy->SetWaitTime(pPatrolNode->mfWaitTime);
 			mpEnemy->IncCurrentPatrolNode();
-            
+
 			if(pPatrolNode->msAnimation != "")
 			{
 				mpEnemy->PlayAnim(pPatrolNode->msAnimation,true,0.2f);
@@ -385,9 +385,9 @@ void cGameEnemyState_Dog_Attention::OnEnterState(iGameEnemyState *apPrevState)
 	mpMover->Stop();
 	mpMover->TurnToPos(mpPlayer->GetCharacterBody()->GetFeetPosition());
 
-	mpEnemy->PlaySound(mpEnemyDog->msAttentionSound);	
+	mpEnemy->PlaySound(mpEnemyDog->msAttentionSound);
 	mfTime = mpEnemyDog->mfAttentionTime;
-	
+
 #ifndef DEMO_VERSION
 	if(mpInit->mDifficulty == eGameDifficulty_Easy) mfTime *=1.7f;
 	if(mpInit->mbHasHaptics) mfTime *= 1.3f;
@@ -413,7 +413,7 @@ void cGameEnemyState_Dog_Attention::OnUpdate(float afTimeStep)
 		if(mpEnemy->CanSeePlayer())
 		{
 			mpEnemy->ChangeState(STATE_HUNT);
-			mpEnemy->PlaySound(mpEnemyDog->msIdleFoundPlayerSound);	
+			mpEnemy->PlaySound(mpEnemyDog->msIdleFoundPlayerSound);
 		}
 		else
 		{
@@ -483,7 +483,7 @@ void cGameEnemyState_Dog_Eat::OnLeaveState(iGameEnemyState *apNextState)
 //-----------------------------------------------------------------------
 
 void cGameEnemyState_Dog_Eat::OnUpdate(float afTimeStep)
-{	
+{
 	mfTime -= afTimeStep;
 	if(mfTime <=0)
 	{
@@ -547,7 +547,7 @@ void cGameEnemyState_Dog_Investigate::OnEnterState(iGameEnemyState *apPrevState)
 		mpEnemy->SetDoorBreakCount(0);
 		mpMover->SetMaxDoorToughness(0);
 	}
-	
+
 	if(pNode)
 	{
 		if(mpMover->MoveToPos(pNode->GetPosition())==false)
@@ -584,7 +584,7 @@ void cGameEnemyState_Dog_Investigate::OnLeaveState(iGameEnemyState *apNextState)
 //-----------------------------------------------------------------------
 
 void cGameEnemyState_Dog_Investigate::OnUpdate(float afTimeStep)
-{	
+{
 	if(mfHearSoundCount >0){
 		mfHearSoundCount-=afTimeStep;
 		if(mfHearSoundCount<=0)mfHearSoundCount=0;
@@ -669,7 +669,7 @@ void cGameEnemyState_Dog_MoveTo::OnEnterState(iGameEnemyState *apPrevState)
 
 	//Play sound
 	mpEnemy->PlaySound(mpEnemyDog->msInvestigateSound);
-	
+
 	if(mpMover->MoveToPos(mpEnemy->GetTempPosition())==false)
 	{
 		//mpInit->mpEffectHandler->GetSubTitle()->Add("Could not move to pos!\n",3,true);
@@ -680,7 +680,7 @@ void cGameEnemyState_Dog_MoveTo::OnEnterState(iGameEnemyState *apPrevState)
 	{
 		//mpInit->mpEffectHandler->GetSubTitle()->Add("Moving to pos!\n",3,true);
 	}
-	
+
 	mpInit->mpMusicHandler->RemoveAttacker(mpEnemy);
 
 	mfIdleSoundTime = cMath::RandRectf(	mpEnemyDog->mfIdleSoundMinInteraval,
@@ -698,7 +698,7 @@ void cGameEnemyState_Dog_MoveTo::OnLeaveState(iGameEnemyState *apNextState)
 //-----------------------------------------------------------------------
 
 void cGameEnemyState_Dog_MoveTo::OnUpdate(float afTimeStep)
-{	
+{
 	////////////////////////////////
 	//Play idle sound
 	if(mfIdleSoundTime<=0)
@@ -763,7 +763,7 @@ void cGameEnemyState_Dog_Hunt::OnEnterState(iGameEnemyState *apPrevState)
 		mpMover->GetCharBody()->SetMaxPositiveMoveSpeed(eCharDir_Forward,mpEnemyDog->mfHuntSpeed*0.7f*fMul);
 	else if(mpInit->mDifficulty == eGameDifficulty_Normal)
 		mpMover->GetCharBody()->SetMaxPositiveMoveSpeed(eCharDir_Forward,mpEnemyDog->mfHuntSpeed*fMul);
-	else 
+	else
 		mpMover->GetCharBody()->SetMaxPositiveMoveSpeed(eCharDir_Forward,mpEnemyDog->mfHuntSpeed*1.25f*fMul);
 #else
 	mpMover->GetCharBody()->SetMaxPositiveMoveSpeed(eCharDir_Forward,mpEnemyDog->mfHuntSpeed);
@@ -776,7 +776,7 @@ void cGameEnemyState_Dog_Hunt::OnEnterState(iGameEnemyState *apPrevState)
 	mfUpdatePathCount =0;
 	mfUpdateFreq = 1.0f;
 	mbFreePlayerPath = false;
-	
+
 	if(mbBreakingDoor && mpEnemy->CanSeePlayer()==false)
 	{
 		mlBreakDoorCount++;
@@ -790,16 +790,16 @@ void cGameEnemyState_Dog_Hunt::OnEnterState(iGameEnemyState *apPrevState)
 	{
 		mlBreakDoorCount =0;
 	}
-	
+
 	mbBreakingDoor = false;
 	mbFoundNoPath = false;
 	mbLostPlayer = false;
-	mfLostPlayerCount =0;	
+	mfLostPlayerCount =0;
 	mfMaxLostPlayerCount = mpEnemyDog->mfHuntForLostPlayerTime;
 
 	mlStuckAtMaxCount =0;
 
-    mpInit->mpMusicHandler->AddAttacker(mpEnemy);
+	mpInit->mpMusicHandler->AddAttacker(mpEnemy);
 }
 
 //-----------------------------------------------------------------------
@@ -841,11 +841,11 @@ void cGameEnemyState_Dog_Hunt::OnUpdate(float afTimeStep)
 		mbFoundNoPath = false;
 		//mpInit->mpEffectHandler->GetSubTitle()->Add("Update Path!",1.0f,true);
 		mfUpdatePathCount = mfUpdateFreq;
-		
+
 		cAINodeContainer *pNodeCont = mpEnemy->GetMover()->GetNodeContainer();
 
 		//Log("%s: Checking free path\n",mpEnemy->GetName().c_str());
-		
+
 		//Check if there is a free path to the player
 		if(mbLostPlayer == false && mpMover->FreeDirectPathToChar(mpPlayer->GetCharacterBody()))
 		{
@@ -857,7 +857,7 @@ void cGameEnemyState_Dog_Hunt::OnUpdate(float afTimeStep)
 		{
 			mbFreePlayerPath = false;
 		}
-		
+
 		//Get path to player
 		if(mbFreePlayerPath==false && mbLostPlayer == false)
 		{
@@ -883,7 +883,7 @@ void cGameEnemyState_Dog_Hunt::OnUpdate(float afTimeStep)
 						bFoundAnotherWay = true;
 					}
 				}*/
-				
+
 				if(bFoundAnotherWay == false)
 				{
 					mfUpdatePathCount = mfUpdateFreq*5.0f;
@@ -900,33 +900,33 @@ void cGameEnemyState_Dog_Hunt::OnUpdate(float afTimeStep)
 	{
 		mfUpdatePathCount -= afTimeStep;
 	}
-	
+
 	////////////////////////////////
 	//Go directly towards the player
 	if(mbFreePlayerPath || (mbFoundNoPath && mpMover->IsMoving()==false))
 	{
 		//Go towards player
 		mpMover->MoveDirectToPos(mpPlayer->GetCharacterBody()->GetFeetPosition(),afTimeStep);
-		
-        //Check if he should attack.
+
+		//Check if he should attack.
 		if(mpMover->DistanceToChar2D(mpPlayer->GetCharacterBody()) < mpEnemyDog->mfAttackDistance)
 		{
 			float fHeight = mpMover->GetCharBody()->GetPosition().y -
 							mpPlayer->GetCharacterBody()->GetPosition().y;
-			
+
 			//Player is above
 			if(fHeight < 0)
 			{
 				fHeight += mpMover->GetCharBody()->GetSize().y/2.0f;
 				float fMax = mpEnemyDog->mvAttackDamageSize.y;///2.0f;
-				if(fHeight > -fMax)	
+				if(fHeight > -fMax)
 				{
 					mpEnemy->ChangeState(STATE_ATTACK);
 				}
 				else
 				{
 					//random attack if player is not too far up.
-					if(cMath::RandRectf(0,1)<0.2f)//fHeight*2 > -fMax && 
+					if(cMath::RandRectf(0,1)<0.2f)//fHeight*2 > -fMax &&
 						mpEnemy->ChangeState(STATE_ATTACK);
 					else
 						mpEnemy->ChangeState(STATE_FLEE);
@@ -936,8 +936,8 @@ void cGameEnemyState_Dog_Hunt::OnUpdate(float afTimeStep)
 			{
 				mpEnemy->ChangeState(STATE_ATTACK);
 			}
-			
-			
+
+
 		}
 	}
 	////////////////////////////////
@@ -949,11 +949,11 @@ void cGameEnemyState_Dog_Hunt::OnUpdate(float afTimeStep)
 			mbLostPlayer = true;
 			mfLostPlayerCount = mfMaxLostPlayerCount;
 		}
-		
+
 		if(mbLostPlayer)
 		{
 			mpMover->GetCharBody()->Move(eCharDir_Forward,1.0f,afTimeStep);
-			
+
 			mfLostPlayerCount -= afTimeStep;
 			if(mfLostPlayerCount <= 0 || mpMover->GetStuckCounter()>0.5f)
 			{
@@ -998,7 +998,7 @@ bool cGameEnemyState_Dog_Hunt::OnHearNoise(const cVector3f &avPosition, float af
 			}
 		}
 	}
-	
+
 	return false;
 }
 
@@ -1007,7 +1007,7 @@ bool cGameEnemyState_Dog_Hunt::OnHearNoise(const cVector3f &avPosition, float af
 void cGameEnemyState_Dog_Hunt::OnDraw()
 {
 	float fWantedSpeed = mpMover->GetCharBody()->GetMoveSpeed(eCharDir_Forward);
-	float fRealSpeed = cMath::Vector3Dist(	mpMover->GetCharBody()->GetPosition(), 
+	float fRealSpeed = cMath::Vector3Dist(	mpMover->GetCharBody()->GetPosition(),
 											mpMover->GetCharBody()->GetLastPosition());
 	fRealSpeed = fRealSpeed / (1.0f/60.0f);
 
@@ -1043,12 +1043,12 @@ void cGameEnemyState_Dog_Attack::OnEnterState(iGameEnemyState *apPrevState)
 
 		//mpMover->SetMinBreakAngle(cMath::ToRad(140));
 	}
-	
+
 	///////////////
 	//Animation
 	float fHeight = mpPlayer->GetCharacterBody()->GetPosition().y -
 					mpMover->GetCharBody()->GetPosition().y;
-	
+
 	//Player is above
 	if(fHeight > 0.1f)
 		mpEnemy->PlayAnim("Attack",false,0.2f);
@@ -1077,7 +1077,7 @@ void cGameEnemyState_Dog_Attack::OnLeaveState(iGameEnemyState *apNextState)
 	mpEnemyDog->SetSkipSoundTriggerCount(2.0f);
 	mpMover->ResetStuckCounter();
 
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -1116,15 +1116,15 @@ void cGameEnemyState_Dog_Attack::OnUpdate(float afTimeStep)
 		if(mbAttacked == false)
 		{
 			cVector3f vPos =	mpMover->GetCharBody()->GetPosition() +
-								mpMover->GetCharBody()->GetForward() * 
+								mpMover->GetCharBody()->GetForward() *
 								mpEnemyDog->mfAttackDamageRange;
 
 			cVector3f vRot = cVector3f(0,mpMover->GetCharBody()->GetYaw(),0);
 			cMatrixf mtxOffset = cMath::MatrixRotate(vRot,eEulerRotationOrder_XYZ);
 			mtxOffset.SetTranslation(vPos);
-			
+
 			eAttackTargetFlag target = eAttackTargetFlag_Player | eAttackTargetFlag_Bodies;
-			
+
 			mpInit->mpPlayer->mbDamageFromPos = true;
 			mpInit->mpPlayer->mvDamagePos = mpMover->GetCharBody()->GetPosition();
 			if(mpInit->mpAttackHandler->CreateShapeAttack(mpEnemyDog->GetAttackShape(),
@@ -1132,10 +1132,10 @@ void cGameEnemyState_Dog_Attack::OnUpdate(float afTimeStep)
 										mpMover->GetCharBody()->GetPosition(),
 										cMath::RandRectf(	mpEnemyDog->mfAttackMinDamage,
 															mpEnemyDog->mfAttackMaxDamage),
-										
+
 										mpEnemyDog->mfAttackMinMass, mpEnemyDog->mfAttackMaxMass,
 										mpEnemyDog->mfAttackMinImpulse, mpEnemyDog->mfAttackMaxImpulse,
-										
+
 										mpEnemyDog->mlAttackStrength,
 
 										target,NULL))
@@ -1181,16 +1181,16 @@ void cGameEnemyState_Dog_Attack::OnAnimationOver(const tString &asName)
 void cGameEnemyState_Dog_Attack::OnPostSceneDraw()
 {
 	cCamera3D *pCamera = static_cast<cCamera3D*>(mpInit->mpGame->GetScene()->GetCamera());
-	
+
 	cVector3f vPos =	mpMover->GetCharBody()->GetPosition() +
-						mpMover->GetCharBody()->GetForward() * 
+						mpMover->GetCharBody()->GetForward() *
 						mpEnemyDog->mfAttackDamageRange;
 
 	cVector3f vRot = cVector3f(0,mpMover->GetCharBody()->GetYaw(),0);
 	cMatrixf mtxOffset = cMath::MatrixRotate(vRot,eEulerRotationOrder_XYZ);
-	mtxOffset.SetTranslation(vPos);	
-	
-	
+	mtxOffset.SetTranslation(vPos);
+
+
 	cMatrixf mtxCollider = cMath::MatrixMul(pCamera->GetViewMatrix(),mtxOffset);
 
 	mpInit->mpGame->GetGraphics()->GetLowLevel()->SetMatrix(eMatrix_ModelView,mtxCollider);
@@ -1218,10 +1218,10 @@ void cGameEnemyState_Dog_Flee::OnEnterState(iGameEnemyState *apPrevState)
 	mpEnemy->SetupBody();
 	mpMover->GetCharBody()->SetMaxPositiveMoveSpeed(eCharDir_Forward,mpEnemyDog->mfHuntSpeed);
 	mpMover->GetCharBody()->SetMaxNegativeMoveSpeed(eCharDir_Forward,-mpEnemyDog->mfFleeBackSpeed);
-	
+
 	float fPosMul = 1;
 	if(apPrevState->GetId() == STATE_KNOCKDOWN) fPosMul = 4.0f;
-	
+
 	mbBackingFromBreakDoor = false;
 	if(apPrevState->GetId() == STATE_BREAKDOOR)
 		mbBackingFromBreakDoor = true;
@@ -1241,12 +1241,12 @@ void cGameEnemyState_Dog_Flee::OnEnterState(iGameEnemyState *apPrevState)
 	else
 	{
 		if(	(	apPrevState->GetId() == STATE_KNOCKDOWN || apPrevState->GetId() == STATE_HUNT ||
-				cMath::RandRectf(0,1) < 0)//mpEnemyDog->mfFleePositionChance) 
+				cMath::RandRectf(0,1) < 0)//mpEnemyDog->mfFleePositionChance)
 			)
 		{
 			cAINode *pNode = mpMover->GetAINodeInRange(	mpEnemyDog->mfFleePositionMinDistance * fPosMul,
 														mpEnemyDog->mfFleePositionMaxDistance * fPosMul);
-			if(pNode) 
+			if(pNode)
 			{
 				mpMover->MoveToPos(pNode->GetPosition());
 			}
@@ -1296,7 +1296,7 @@ void cGameEnemyState_Dog_Flee::OnUpdate(float afTimeStep)
 												NULL, NULL, 1.9f);
 			if(bHit)
 			{
-                if(mbBackingFromBreakDoor)
+				if(mbBackingFromBreakDoor)
 				{
 					if(mlPreviousState == STATE_FLEE)
 						mpEnemy->ChangeState(STATE_HUNT);
@@ -1330,7 +1330,7 @@ void cGameEnemyState_Dog_Flee::OnUpdate(float afTimeStep)
 		if(mpMover->IsMoving()==false || mpMover->GetStuckCounter() > 0.3f	|| mfTimer <=0)
 		{
 			//Check if there is any enemies nearaby and if anyone is allready fighting
-			if(	mpEnemy->CheckForTeamMate(mpEnemyDog->mfCallBackupRange*1.5f,false) && 
+			if(	mpEnemy->CheckForTeamMate(mpEnemyDog->mfCallBackupRange*1.5f,false) &&
 				mpEnemy->CheckForTeamMate(8,true)==false)
 			{
 				float fPlayerDist = mpMover->DistanceToChar(mpInit->mpPlayer->GetCharacterBody());
@@ -1372,10 +1372,10 @@ void cGameEnemyState_Dog_CallBackup::OnEnterState(iGameEnemyState *apPrevState)
 {
 	//Animation
 	mpEnemy->PlayAnim(mpEnemyDog->msCallBackupAnimation,false,0.2f);
-	
+
 	//Sound
 	mpEnemyDog->PlaySound(mpEnemyDog->msCallBackupSound);
-	
+
 	//Iterate enemies and show them the player
 	cVector3f vPostion = mpMover->GetCharBody()->GetFeetPosition();
 
@@ -1488,7 +1488,7 @@ void cGameEnemyState_Dog_BreakDoor::OnUpdate(float afTimeStep)
 		if(mbAttacked == false)
 		{
 			cVector3f vPos =	mpMover->GetCharBody()->GetPosition() +
-								mpMover->GetCharBody()->GetForward() * 
+								mpMover->GetCharBody()->GetForward() *
 								mpEnemyDog->mfBreakDoorDamageRange;
 
 			cVector3f vRot = cVector3f(0,mpMover->GetCharBody()->GetYaw(),0);
@@ -1577,7 +1577,7 @@ void cGameEnemyState_Dog_BreakDoor::OnAnimationOver(const tString &asName)
 	}
 	else
 	{
-        //mpEnemy->ChangeState(mlPreviousState);
+		//mpEnemy->ChangeState(mlPreviousState);
 		mpEnemy->ChangeState(STATE_FLEE);
 		mpEnemy->GetState(STATE_FLEE)->SetPreviousState(mlPreviousState);
 	}
@@ -1590,12 +1590,12 @@ void cGameEnemyState_Dog_BreakDoor::OnPostSceneDraw()
 	cCamera3D *pCamera = static_cast<cCamera3D*>(mpInit->mpGame->GetScene()->GetCamera());
 
 	cVector3f vPos =	mpMover->GetCharBody()->GetPosition() +
-						mpMover->GetCharBody()->GetForward() * 
+						mpMover->GetCharBody()->GetForward() *
 						mpEnemyDog->mfBreakDoorDamageRange;
 
 	cVector3f vRot = cVector3f(0,mpMover->GetCharBody()->GetYaw(),0);
 	cMatrixf mtxOffset = cMath::MatrixRotate(vRot,eEulerRotationOrder_XYZ);
-	mtxOffset.SetTranslation(vPos);	
+	mtxOffset.SetTranslation(vPos);
 
 
 	cMatrixf mtxCollider = cMath::MatrixMul(pCamera->GetViewMatrix(),mtxOffset);
@@ -1664,7 +1664,7 @@ void cGameEnemyState_Dog_KnockDown::OnUpdate(float afTimeStep)
 	{
 		iCharacterBody *pCharBody = mpEnemy->GetMover()->GetCharBody();
 		cBoundingVolume *pBV = pCharBody->GetBody()->GetBoundingVolume();
-		
+
 		////////////////////////////////////////////////
 		//Add a force to all objects around dog.
 		iPhysicsWorld *pWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
@@ -1694,7 +1694,7 @@ void cGameEnemyState_Dog_KnockDown::OnUpdate(float afTimeStep)
 				//vDir.y *= 0.1f;
 				//if(vDir.x ==0 && vDir.z ==0) vDir.x = 0.3f;
 				vDir.Normalise();
-				
+
 				if(fLength==0) fLength = 0.001f;
 				float fForce = (1 / fLength) * 2;
 				if(fForce > 300) fForce = 300;
@@ -1703,7 +1703,7 @@ void cGameEnemyState_Dog_KnockDown::OnUpdate(float afTimeStep)
 				{
 					fForce *= 40;
 				}
-				
+
 				if(pBody->IsCharacter())
 				{
 					pBody->GetCharacterBody()->AddForce(vDir * fForce *10 *
@@ -1725,13 +1725,13 @@ void cGameEnemyState_Dog_KnockDown::OnUpdate(float afTimeStep)
 			//Get the forward vector from root bone (the right vector)
 			cNodeIterator StateIt = mpEnemy->GetMeshEntity()->GetRootNode()->GetChildIterator();
 			cBoneState *pBoneState = static_cast<cBoneState*>(StateIt.Next());
-			
+
 			cVector3f vRight = cMath::MatrixInverse(pBoneState->GetWorldMatrix()).GetForward();
 
 			//Play animation and fade physics
 			float fFadeTime = 1.0f;
 			mbCheckAnim = true;
-			
+
 			mpEnemy->GetMeshEntity()->Stop();
 			if(cMath::Vector3Dot(vRight,cVector3f(0,1,0))<0)
 				mpEnemy->PlayAnim("RiseRight",false,fFadeTime);
@@ -1744,19 +1744,19 @@ void cGameEnemyState_Dog_KnockDown::OnUpdate(float afTimeStep)
 			cVector3f vPosition;
 			cVector3f vAngles;
 			cMatrixf mtxTransform = mpEnemy->GetMeshEntity()->CalculateTransformFromSkeleton(&vPosition,&vAngles);
-			
+
 			//Seems to work better...
 			vPosition = mpEnemy->GetMeshEntity()->GetBoundingVolume()->GetWorldCenter();
 			cVector3f vGroundPos = vPosition;
-			
+
 			bool bFoundGround = mpEnemy->GetGroundFinder()->GetGround(vPosition,cVector3f(0,-1,0),&vGroundPos,NULL);
 
 			//Log("Found ground: %d | %s -> %s\n",bFoundGround,vPosition.ToString().c_str(),
 			//									vGroundPos.ToString().c_str());
-			
+
 			//Set body
 			iCharacterBody *pCharBody = mpEnemy->GetMover()->GetCharBody();
-			
+
 			//vGroundPos -= pCharBody->GetEntityOffset().GetTranslation();
 			float fYAngle = vAngles.y - mpEnemy->GetModelOffsetAngles().y;
 			//cVector3f vAdd = cVector3f(0,0,pCharBody->GetEntityOffset().GetTranslation().z);
@@ -1768,7 +1768,7 @@ void cGameEnemyState_Dog_KnockDown::OnUpdate(float afTimeStep)
 			pCharBody->SetActive(true);
 			//pCharBody->Update(1.0f / 60.0f);
 			//pCharBody->SetActive(false);
-			
+
 			for(int i=0; i<3; ++i)
 			{
 				pCharBody->Update(1.0f/60.0f);
@@ -1786,7 +1786,7 @@ void cGameEnemyState_Dog_KnockDown::OnAnimationOver(const tString &asName)
 {
 	iCharacterBody *pCharBody = mpEnemy->GetMover()->GetCharBody();
 
-	if(	mpEnemy->CheckForTeamMate(mpEnemyDog->mfCallBackupRange*1.5f,false) && 
+	if(	mpEnemy->CheckForTeamMate(mpEnemyDog->mfCallBackupRange*1.5f,false) &&
 		mpEnemy->CheckForTeamMate(14,true)==false)
 	{
 		pCharBody->SetActive(true);
@@ -1823,7 +1823,7 @@ void cGameEnemyState_Dog_Dead::OnEnterState(iGameEnemyState *apPrevState)
 	//Go to ragdoll
 	if(mpEnemy->IsLoading()==false)
 		mpEnemy->GetMeshEntity()->AlignBodiesToSkeleton(false);
-	
+
 	mpEnemy->GetMeshEntity()->SetSkeletonPhysicsActive(true);
 	mpEnemy->GetMeshEntity()->Stop();
 
@@ -1859,16 +1859,16 @@ void cGameEnemyState_Dog_Dead::OnUpdate(float afTimeStep)
 cGameEnemy_Dog::cGameEnemy_Dog(cInit *apInit,const tString& asName,TiXmlElement *apGameElem) : iGameEnemy(apInit,asName,apGameElem)
 {
 	LoadBaseProperties(apGameElem);
-	
+
 	//////////////////////////////
-	//Special properties 
+	//Special properties
 
 	mfLengthBodyToAss = cString::ToFloat(apGameElem->Attribute("LengthBodyToAss"),1.5f);
-	
+
 	mfMinKnockDamage = cString::ToFloat(apGameElem->Attribute("MinKnockDamage"),0);
 	mfCertainKnockDamage = cString::ToFloat(apGameElem->Attribute("CertainKnockDamage"),0);
 
-		
+
 	//////////////////////////////
 	//State properties
 	mfIdleFOV = cMath::ToRad(cString::ToFloat(apGameElem->Attribute("IdleFOV"),0));
@@ -1993,7 +1993,7 @@ void cGameEnemy_Dog::OnLoad()
 	iPhysicsWorld *pPhysicsWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
 	mpAttackShape = pPhysicsWorld->CreateBoxShape(mvAttackDamageSize,NULL);
 	mpBreakDoorShape = pPhysicsWorld->CreateBoxShape(mvBreakDoorDamageSize,NULL);
-	
+
 	//Set up shape
 	ChangeState(STATE_IDLE);
 }
@@ -2003,7 +2003,7 @@ void cGameEnemy_Dog::OnLoad()
 void cGameEnemy_Dog::OnUpdate(float afTimeStep)
 {
 	if(IsActive()==false) return;
-	
+
 	///////////////////////////////////
 	//Regenerate health:
 	if(mfHealth > 0)
@@ -2025,7 +2025,7 @@ void cGameEnemy_Dog::OnUpdate(float afTimeStep)
 		if(lAssCount % 2 == 0)
 		{
 			iCharacterBody *pCharBody = mpMover->GetCharBody();
-			
+
 			cVector3f vPos, vNormal;
 			mFindGround.GetGround(pCharBody->GetPosition(), pCharBody->GetForward()*-1,
 									&vPos,&vNormal,mfLengthBodyToAss);
@@ -2034,7 +2034,7 @@ void cGameEnemy_Dog::OnUpdate(float afTimeStep)
 			{
 				float fAdd = mfLengthBodyToAss - fDist;
 				if(fAdd > fMaxMove) fAdd = fMaxMove;
-				
+
 				cVector3f vAdd = pCharBody->GetForward() * fAdd;
 				pCharBody->SetPosition(pCharBody->GetPosition() + vAdd);
 			}
@@ -2046,7 +2046,7 @@ void cGameEnemy_Dog::OnUpdate(float afTimeStep)
 
 void cGameEnemy_Dog::ShowPlayer(const cVector3f& avPlayerFeetPos)
 {
-	if(	mlCurrentState == STATE_IDLE || mlCurrentState == STATE_PATROL || 
+	if(	mlCurrentState == STATE_IDLE || mlCurrentState == STATE_PATROL ||
 		mlCurrentState == STATE_INVESTIGATE)
 	{
 		mvLastPlayerPos = avPlayerFeetPos;
@@ -2075,7 +2075,7 @@ bool cGameEnemy_Dog::MoveToPos(const cVector3f& avFeetPos)
 bool cGameEnemy_Dog::IsFighting()
 {
 	if( mfHealth <= 0 || IsActive()==false) return false;
-	if(	mlCurrentState == STATE_IDLE || mlCurrentState == STATE_PATROL || 
+	if(	mlCurrentState == STATE_IDLE || mlCurrentState == STATE_PATROL ||
 		mlCurrentState == STATE_INVESTIGATE) return false;
 
 	return true;

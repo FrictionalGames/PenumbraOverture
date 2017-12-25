@@ -37,19 +37,19 @@ public:
 
 	void ClearScreen(const cColor &aColor);
 	void DrawTexture(iTexture *apTex, const cVector3f& avPos, const cVector3f& avSize, const cColor &aColor);
-	
+
 	void DrawLoadingScreen(const tString &asFile);
 
 	void SwapBuffers();
 
 private:
 	tVertexVec mvVtx;
-	
+
 	cInit *mpInit;
 	iLowLevelGraphics *mpLowLevelGfx;
 	cTextureManager *mpTexManager;
-	
-    cGraphicsDrawer *mpDrawer;
+
+	cGraphicsDrawer *mpDrawer;
 
 	iFontData *mpFont;
 };

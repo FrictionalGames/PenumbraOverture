@@ -38,7 +38,7 @@ public:
 	tString msSound;
 
 	bool mbHasBeenUsed;
-	
+
 	iGameEntity* CreateEntity();
 };
 
@@ -70,7 +70,7 @@ public:
 	tString& GetSound(){ return msSound;}
 
 	bool GetHasBeenUsed(){ return mbHasBeenUsed;}
-		
+
 	//SaveObject implementation
 	iGameEntity_SaveData* CreateSaveData();
 	void SaveToSaveData(iGameEntity_SaveData *apSaveData);

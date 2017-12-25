@@ -31,18 +31,18 @@ class cGameLiquidArea_SaveData : public iGameEntity_SaveData
 	kSerializableClassInit(cGameLiquidArea_SaveData);
 public:
 	cVector3f mvSize;
-	
+
 	float mfDensity;
 	float mfLinearViscosity;
 	float mfAngularViscosity;
 	cColor mColor;
 
 	tString msPhysicsMaterial;
-	
+
 	cPlanef mSurfacePlane;
 
 	bool mbHasWaves;
-		
+
 	iGameEntity* CreateEntity();
 };
 
@@ -61,18 +61,18 @@ public:
 	void OnPlayerPick();
 
 	void Update(float afTimeStep);
-	
+
 	void SetDensity(float afX){ mfDensity = afX;}
 	void SetLinearViscosity(float afX){ mfLinearViscosity = afX;}
 	void SetAngularViscosity(float afX){ mfAngularViscosity = afX;}
 	void SetPhysicsMaterial(const tString asName);
 	void SetColor(const cColor &aColor){ mColor = aColor;}
 	void SetHasWaves(bool abX){ mbHasWaves = abX;}
-    
+
 	void Setup();
 
 	iPhysicsMaterial* GetPhysicsMaterial(){ return mpPhysicsMaterial;}
-	
+
 	//SaveObject implementation
 	iGameEntity_SaveData* CreateSaveData();
 	void SaveToSaveData(iGameEntity_SaveData *apSaveData);

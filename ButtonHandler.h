@@ -49,7 +49,7 @@ public:
 
 	bool GetInvertMouseY(){ return mbInvertMouseY;}
 	bool GetToggleCrouch(){ return mbToggleCrouch;}
-	
+
 	//Settings
 	float mfMouseSensitivity;
 	bool mbInvertMouseY;
@@ -57,7 +57,7 @@ public:
 private:
 	iAction * ActionFromTypeAndVal(const tString& asName,const tString& asType, const tString& asVal);
 	void TypeAndValFromAction(iAction *apAction, tString *apType, tString *apVal);
-	
+
 	int mlNumOfActions;
 
 	cInit *mpInit;

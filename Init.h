@@ -87,7 +87,7 @@ public:
 	bool Init(tString asCommandLine);
 	void Run();
 	void Exit();
-	
+
 	void OnStart();
 	void Update(float afTimeStep);
 	void Reset();
@@ -100,7 +100,7 @@ public:
 
 	void PreloadSoundEntityData(const tString &asFile);
 	void PreloadParticleSystem(const tString &asFile);
-	
+
 	//Main objects
 	cConfigFile* mpConfig;
 	cConfigFile* mpGameConfig;
@@ -108,7 +108,7 @@ public:
 	iScript *mpGlobalScript;
 
 	iFontData *mpDefaultFont;
-	
+
 	//Main properties
 	cVector2l mvScreenSize;
 	bool mbFullScreen;
@@ -121,7 +121,7 @@ public:
 	bool mbShowIntro;
 	int mlFSAA;
 	eGameDifficulty mDifficulty;
-	
+
 	bool mbHasHaptics;
 	bool mbHasHapticsOnRestart;
 	bool mbHapticsAvailable;
@@ -131,9 +131,9 @@ public:
 	float mfHapticProxyRadius;
 	float mfHapticOffsetZ;
 	float mfHapticMaxInteractDist;
-		
+
 	int mlMaxSoundChannels;
-    int mlStreamUpdateFreq;
+	int mlStreamUpdateFreq;
 	bool mbUseSoundHardware;
 	bool mbUseSoundThreading;
 	int mlMaxMonoChannelsHint;
@@ -145,7 +145,7 @@ public:
 
 	tString msStartMap;
 	tString msStartLink;
-	
+
 	bool mbSubtitles;
 	bool mbSimpleWeaponSwing;
 	bool mbDisablePersonalNotes;
@@ -193,10 +193,10 @@ public:
 	cPreMenu *mpPreMenu;
 	cCredits *mpCredits;
 	cDemoEndText *mpDemoEndText;
-	
+
 	cMainMenu *mpMainMenu;
 
-	cIntroStory* mpIntroStory;	
+	cIntroStory* mpIntroStory;
 
 };
 

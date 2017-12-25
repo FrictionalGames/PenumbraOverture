@@ -194,7 +194,7 @@ enum eGameCollideScriptType
 enum eGameItemType
 {
 	eGameItemType_Normal,
-	eGameItemType_Notebook, 
+	eGameItemType_Notebook,
 	eGameItemType_Note,
 	eGameItemType_Battery,
 	eGameItemType_Flashlight,
@@ -294,7 +294,7 @@ class cGameCollideScript
 {
 public:
 	cGameCollideScript();
-	
+
 	tString msFuncName[3];
 
 	iGameEntity *mpEntity;

@@ -57,7 +57,7 @@ void cGameObjectBodyCallback::OnCollide(iPhysicsBody *apBody, iPhysicsBody *apCo
 										cPhysicsContactData* apContactData)
 {
 	//Log("OnCollide %s vs %s\n",apBody->GetName().c_str(),apCollideBody->GetName().c_str());
-	
+
 	/////////////////////////////////////////
 	// Damage on enemies
 	if(apCollideBody->IsCharacter())
@@ -69,7 +69,7 @@ void cGameObjectBodyCallback::OnCollide(iPhysicsBody *apBody, iPhysicsBody *apCo
 		{
 			float fSpeed =  apBody->GetLinearVelocity().Length();
 			float fImpulseSize = fSpeed * apBody->GetMass();
-			
+
 			if(fSpeed > 4.5f && fImpulseSize > 25 && std::abs(apContactData->mfMaxContactNormalSpeed) >= 1.0f)
 			{
 				pEnemy->Damage(fImpulseSize * 0.1f,1);
@@ -108,33 +108,33 @@ void cGameObjectBodyCallback::OnCollide(iPhysicsBody *apBody, iPhysicsBody *apCo
 	if(mpObject->mDamageProps.mbActive)
 	{
 		float fDamage =0;
-		
+
 		//Damage by linear velocity.
 		float fSpeed = apBody->GetLinearVelocity().Length();
 		if(fSpeed > mpObject->mDamageProps.mfMinLinearDamageSpeed)
 		{
 			if(fSpeed > mpObject->mDamageProps.mfMaxLinearDamageSpeed) fSpeed = mpObject->mDamageProps.mfMaxLinearDamageSpeed;
-			
-			fDamage =	mpObject->mDamageProps.mfMinDamage + 
-						(mpObject->mDamageProps.mfMaxDamage - mpObject->mDamageProps.mfMinDamage) * 
-						((fSpeed - mpObject->mDamageProps.mfMinLinearDamageSpeed) / 
+
+			fDamage =	mpObject->mDamageProps.mfMinDamage +
+						(mpObject->mDamageProps.mfMaxDamage - mpObject->mDamageProps.mfMinDamage) *
+						((fSpeed - mpObject->mDamageProps.mfMinLinearDamageSpeed) /
 						 (mpObject->mDamageProps.mfMaxLinearDamageSpeed - mpObject->mDamageProps.mfMinLinearDamageSpeed));
 		}
-		
+
 		//Damage by angular velocity.
 		fSpeed = apBody->GetAngularVelocity().Length();
 		if(fSpeed > mpObject->mDamageProps.mfMinAngularDamageSpeed)
 		{
 			if(fSpeed > mpObject->mDamageProps.mfMaxAngularDamageSpeed) fSpeed = mpObject->mDamageProps.mfMaxAngularDamageSpeed;
 
-			float fTempDamage =	mpObject->mDamageProps.mfMinDamage + 
-								(mpObject->mDamageProps.mfMaxDamage - mpObject->mDamageProps.mfMinDamage) * 
-								((fSpeed - mpObject->mDamageProps.mfMinAngularDamageSpeed) / 
+			float fTempDamage =	mpObject->mDamageProps.mfMinDamage +
+								(mpObject->mDamageProps.mfMaxDamage - mpObject->mDamageProps.mfMinDamage) *
+								((fSpeed - mpObject->mDamageProps.mfMinAngularDamageSpeed) /
 								 (mpObject->mDamageProps.mfMaxAngularDamageSpeed - mpObject->mDamageProps.mfMinAngularDamageSpeed));
-			
+
 			if(fTempDamage > fDamage) fDamage = fTempDamage;
 		}
-		
+
 		//////////////////////////
 		//Do the damage
 		if(fDamage>0)
@@ -197,7 +197,7 @@ cEntityLoader_GameObject::cEntityLoader_GameObject(const tString &asName, cInit 
 
 cEntityLoader_GameObject::~cEntityLoader_GameObject()
 {
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -205,7 +205,7 @@ cEntityLoader_GameObject::~cEntityLoader_GameObject()
 void cEntityLoader_GameObject::BeforeLoad(TiXmlElement *apRootElem, const cMatrixf &a_mtxTransform,
 										  cWorld3D *apWorld)
 {
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -217,7 +217,7 @@ void cEntityLoader_GameObject::AfterLoad(TiXmlElement *apRootElem, const cMatrix
 
 	pObject->msFileName = msFileName;
 	pObject->m_mtxOnLoadTransform = a_mtxTransform;
-	
+
 	// Set the engine objects to the object
 	pObject->SetBodies(mvBodies);
 	pObject->SetBeams(mvBeams);
@@ -235,13 +235,13 @@ void cEntityLoader_GameObject::AfterLoad(TiXmlElement *apRootElem, const cMatrix
 		////////////////////////////////////////////
 		//General
 		pObject->mInteractMode = ToInteractMode(pGameElem->Attribute("InteractMode"));
-		
+
 		pObject->mfHealth = cString::ToFloat(pGameElem->Attribute("Health"),0);
 		pObject->mlToughness = cString::ToInt(pGameElem->Attribute("Toughness"),0);
 
 		pObject->mfForwardUpMul = cString::ToFloat(pGameElem->Attribute("ForwardUpMul"),1);
 		pObject->mfForwardRightMul = cString::ToFloat(pGameElem->Attribute("ForwardRightMul"),1);
-		
+
 		pObject->mfUpMul = cString::ToFloat(pGameElem->Attribute("UpMul"),1);
 		pObject->mfRightMul = cString::ToFloat(pGameElem->Attribute("RightMul"),1);
 
@@ -249,7 +249,7 @@ void cEntityLoader_GameObject::AfterLoad(TiXmlElement *apRootElem, const cMatrix
 		pObject->mbRotateWithPlayer = cString::ToBool(pGameElem->Attribute("RotateWithPlayer"),true);
 		pObject->mbUseNormalMass = cString::ToBool(pGameElem->Attribute("UseNormalMass"),false);
 		pObject->mfGrabMassMul = cString::ToFloat(pGameElem->Attribute("GrabMassMul"),1.0f);
-		
+
 		pObject->mbCanBeThrown = cString::ToBool(pGameElem->Attribute("CanBeThrown"),true);
 		pObject->mbCanBePulled = cString::ToBool(pGameElem->Attribute("CanBePulled"),true);
 
@@ -264,7 +264,7 @@ void cEntityLoader_GameObject::AfterLoad(TiXmlElement *apRootElem, const cMatrix
 		pObject->mvLightOffset = cString::ToVector3f(pGameElem->Attribute("LightOffset"),0);
 
 		pObject->mfHapticTorqueMul = cString::ToFloat(pGameElem->Attribute("HapticTorqueMul"),1.0f);
-		
+
 		////////////////////////////////////////////
 		//Disappear
 		pObject->mDisappearProps.mbActive = cString::ToBool(pGameElem->Attribute("Disappear"),false);
@@ -288,12 +288,12 @@ void cEntityLoader_GameObject::AfterLoad(TiXmlElement *apRootElem, const cMatrix
 			pObject->mBreakProps.msSound = cString::ToString(pGameElem->Attribute("BreakSound"),"");
 			pObject->mBreakProps.msEntity = cString::ToString(pGameElem->Attribute("BreakEntity"),"");
 			pObject->mBreakProps.msPS = cString::ToString(pGameElem->Attribute("BreakPS"),"");
-			
+
 			pObject->mBreakProps.mfMinImpulse = cString::ToFloat(pGameElem->Attribute("BreakImpulse"),99999);
 			pObject->mBreakProps.mfMinNormalSpeed = cString::ToFloat(pGameElem->Attribute("BreakNormalSpeed"),99999);
 			pObject->mBreakProps.mfMinPlayerImpulse = cString::ToFloat(pGameElem->Attribute("BreakPlayerImpulse"),99999);
 			pObject->mBreakProps.mfCenterForce = cString::ToFloat(pGameElem->Attribute("BreakCenterForce"),0);
-			
+
 			pObject->mBreakProps.mbExplosion = cString::ToBool(pGameElem->Attribute("BreakExplosion"),false);
 			pObject->mBreakProps.mfExpl_Radius = cString::ToFloat(pGameElem->Attribute("BreakExpl_Radius"),0);
 			pObject->mBreakProps.mfExpl_MinDamage = cString::ToFloat(pGameElem->Attribute("BreakExpl_MinDamage"),0);
@@ -333,8 +333,8 @@ void cEntityLoader_GameObject::AfterLoad(TiXmlElement *apRootElem, const cMatrix
 			pObject->mAttractProps.mbIsEaten = cString::ToBool(pGameElem->Attribute("AttractIsEaten"),false);
 			pObject->mAttractProps.mfEatLength = cString::ToFloat(pGameElem->Attribute("AttractEatLength"),0);
 		}
-		
-		
+
+
 		////////////////////////////////////////////
 		//Mode specific
 
@@ -371,7 +371,7 @@ void cEntityLoader_GameObject::AfterLoad(TiXmlElement *apRootElem, const cMatrix
 				pObject->mfMaxInteractDist = cString::ToFloat(pGameElem->Attribute("MaxInteractDist"),mpInit->mpPlayer->GetMaxGrabDist());
 			pObject->mbHasInteraction = true;
 		}
-		
+
 		/////////////////////////////////////
 		//Damage
 		pObject->mDamageProps.mbActive = cString::ToBool(pGameElem->Attribute("DamageCharacter"),false);
@@ -406,7 +406,7 @@ void cEntityLoader_GameObject::AfterLoad(TiXmlElement *apRootElem, const cMatrix
 		}
 	}
 
-	
+
 	/////////////////////////////////
 	// Add to map handler
 	mpInit->mpMapHandler->AddGameEntity(pObject);
@@ -450,7 +450,7 @@ cGameObject::cGameObject(cInit *apInit,const tString& asName) : iGameEntity(apIn
 {
 	mType = eGameEntityType_Object;
 	mInteractMode = eObjectInteractMode_Static;
-	
+
 	mpBodyCallback = NULL;
 
 	mpCurrentAttraction = NULL;
@@ -478,8 +478,8 @@ cGameObject::~cGameObject(void)
 
 void cGameObject::OnPlayerPick()
 {
-	if(	mvCallbackScripts[eGameEntityScriptType_PlayerInteract] && 
-		mpInit->mpPlayer->GetPickedDist() < mfMaxInteractDist && 
+	if(	mvCallbackScripts[eGameEntityScriptType_PlayerInteract] &&
+		mpInit->mpPlayer->GetPickedDist() < mfMaxInteractDist &&
 		mpInit->mpPlayer->mbProxyTouching)
 	{
 		mpInit->mpPlayer->SetCrossHairState(eCrossHairState_Active);
@@ -533,7 +533,7 @@ void cGameObject::Update(float afTimeStep)
 		//TODO: Check per body!
 		float fMinDist = cMath::Vector3Dist(mpInit->mpPlayer->GetCamera()->GetPosition(),
 											mvBodies[0]->GetWorldPosition());
-		
+
 		for(size_t i=1; i< mvBodies.size(); ++i)
 		{
 			if(mvBodies[i]==NULL) continue;
@@ -551,7 +551,7 @@ void cGameObject::Update(float afTimeStep)
 				Break();
 			}
 		}
-		
+
 		if(mDisappearProps.mfMinCloseDistance > 0)
 		{
 			cVector3f vPos = mpMeshEntity->GetBoundingVolume()->GetWorldCenter();
@@ -570,7 +570,7 @@ void cGameObject::Update(float afTimeStep)
 					if(pEntity->GetFileName() != GetFileName()) continue;
 
 					cGameObject *pObject = static_cast<cGameObject*>(pEntity);
-					
+
 					float fSqrDist = cMath::Vector3DistSqr(
 									pObject->GetMeshEntity()->GetBoundingVolume()->GetWorldCenter(),
 									vPos);
@@ -579,7 +579,7 @@ void cGameObject::Update(float afTimeStep)
 						mDisappearProps.mfTime =0;
 						Break();
 					}
-                }
+				}
 			}
 			else
 			{
@@ -596,7 +596,7 @@ void cGameObject::Update(float afTimeStep)
 		{
 			iLight3D *pLight = mvLights[i];
 
-			pLight->SetMatrix(cMath::MatrixMul(mpMeshEntity->GetWorldMatrix(), 
+			pLight->SetMatrix(cMath::MatrixMul(mpMeshEntity->GetWorldMatrix(),
 												mvLightLocalOffsets[i]));
 
 			pLight->SetPosition(pLight->GetWorldPosition() + mvLightOffset);
@@ -611,7 +611,7 @@ void cGameObject::OnPlayerGravityCollide(iCharacterBody *apCharBody, cCollideDat
 	if(mBreakProps.mbActive)
 	{
 		///////////////////////////////////////////////
-		// Check so that the player is really on top of the 
+		// Check so that the player is really on top of the
 		// object and not just sliding
 		bool bPushDown = false;
 		for(int i=0; i< apCollideData->mlNumOfPoints; i++)
@@ -652,7 +652,7 @@ void cGameObject::OnPlayerGravityCollide(iCharacterBody *apCharBody, cCollideDat
 //-----------------------------------------------------------------------
 
 void cGameObject::SetInteractMode(eObjectInteractMode aInteractMode)
-{ 
+{
 	mInteractMode = aInteractMode;
 
 	if(mInteractMode == eObjectInteractMode_Static)
@@ -677,7 +677,7 @@ void cGameObject::BreakAction()
 	{
 		if(pParentBody->GetMass() != 0)
 		{
-			if(mvBodies[i]->GetMass() > pParentBody->GetMass() || mvBodies[i]->GetMass()==0) 
+			if(mvBodies[i]->GetMass() > pParentBody->GetMass() || mvBodies[i]->GetMass()==0)
 				pParentBody = mvBodies[i];
 		}
 	}
@@ -692,7 +692,7 @@ void cGameObject::BreakAction()
 	}
 
 	cWorld3D *pWorld = mpInit->mpGame->GetScene()->GetWorld3D();
-	
+
 	//////////////////
 	//Check if player os holding object
 	if( (mpInit->mpPlayer->GetState()==ePlayerState_Grab ||
@@ -705,7 +705,7 @@ void cGameObject::BreakAction()
 	}
 
 	//////////////////
-    //Sound
+	//Sound
 	if(mBreakProps.msSound != "")
 	{
 		cSoundEntity *pSound = pWorld->CreateSoundEntity("Break",mBreakProps.msSound,true);
@@ -714,7 +714,7 @@ void cGameObject::BreakAction()
 
 	//////////////////
 	//Particle System
-    if(mBreakProps.msPS != "")
+	if(mBreakProps.msPS != "")
 	{
 		cParticleSystem3D *pPS = pWorld->CreateParticleSystem("Break",mBreakProps.msPS,cVector3f(1,1,1),
 															pParentBody->GetWorldMatrix());
@@ -758,7 +758,7 @@ void cGameObject::BreakAction()
 								mBreakProps.mfExpl_Radius,
 								mBreakProps.mfExpl_MinDamage,mBreakProps.mfExpl_MaxDamage,
 								mBreakProps.mfExpl_MinForce,mBreakProps.mfExpl_MaxForce,
-								mBreakProps.mfExpl_MaxImpulse, 
+								mBreakProps.mfExpl_MaxImpulse,
 								eAttackTargetFlag_Bodies | eAttackTargetFlag_Player | eAttackTargetFlag_Enemy,
 								mBreakProps.mfExpl_MinMass,
 								mBreakProps.mlExpl_Strength);
@@ -767,9 +767,9 @@ void cGameObject::BreakAction()
 	//////////////////
 	//Light flash
 	if(mBreakProps.mbLightFlash)
-	{	
+	{
 		mpInit->mpMapHandler->AddLightFlash(pParentBody->GetWorldPosition() + mBreakProps.mvLight_Offset,
-											mBreakProps.mfLight_Radius,								
+											mBreakProps.mfLight_Radius,
 											mBreakProps.mLight_Color,
 											mBreakProps.mfLight_AddTime,
 											mBreakProps.mfLight_NegTime);
@@ -790,7 +790,7 @@ void cGameObject::BreakAction()
 			pPlayer->GetEarRing()->Start(mBreakProps.mfEarRing_Time);
 		}
 	}
-	
+
 	mpInit->mpGame->ResetLogicTimer();
 }
 
@@ -808,11 +808,11 @@ void cGameObject::OnDeath(float afDamage)
 //-----------------------------------------------------------------------
 
 void cGameObject::SetupBreakObject()
-{	
+{
 	if(mBreakProps.mbActive==false) return;
 
 	if(mBreakProps.msEntity!="") PreloadModel(mBreakProps.msEntity);
-	if(mBreakProps.msPS!="") 
+	if(mBreakProps.msPS!="")
 	{
 		cParticleSystem3D *pPS  = mpInit->mpGame->GetResources()->GetParticleManager()->CreatePS3D(
 															"",mBreakProps.msPS,1,cMatrixf::Identity);
@@ -834,7 +834,7 @@ void cGameObject::SetupForceOffset()
 	for(size_t i=0; i<mvLights.size(); ++i)
 	{
 		mvLightLocalOffsets[i] = mvLights[i]->GetLocalMatrix();
-		
+
 		if(mvLights[i]->GetParent())
 			mvLights[i]->GetParent()->RemoveEntity(mvLights[i]);
 		if(mvLights[i]->GetEntityParent())
@@ -856,14 +856,14 @@ void cGameObject::GrabObject()
 	{
 		if(mpInit->mpPlayer->GetState() == ePlayerState_InteractMode)
 			mpInit->mpEffectHandler->GetSubTitle()->Add(kTranslate("Player", "ObjectTooFar"),2.0f,true);
-		
+
 		return;
 	}
-	
+
 	//Set some properties
 	mpInit->mpPlayer->mbGrabbingMoveBody = mbIsMover;
 	mpInit->mpPlayer->mfHapticTorqueMul = mfHapticTorqueMul;
-	
+
 	mpInit->mpPlayer->mbPickAtPoint = mbPickAtPoint;
 	mpInit->mpPlayer->mbRotateWithPlayer = mbRotateWithPlayer;
 	mpInit->mpPlayer->mbUseNormalMass = mbUseNormalMass;
@@ -872,7 +872,7 @@ void cGameObject::GrabObject()
 	mpInit->mpPlayer->mbCanBeThrown = mbCanBeThrown;
 
 	mpInit->mpPlayer->mfCurrentMaxInteractDist = mfMaxInteractDist;
-		
+
 	mpInit->mpPlayer->SetPushBody(mpInit->mpPlayer->GetPickedBody());
 	mpInit->mpPlayer->ChangeState(ePlayerState_Grab);
 }
@@ -887,7 +887,7 @@ void cGameObject::MoveObject()
 	{
 		if(mpInit->mpPlayer->GetState() == ePlayerState_InteractMode)
 			mpInit->mpEffectHandler->GetSubTitle()->Add(kTranslate("Player", "ObjectTooFar"),2.0f,true);
-		
+
 		return;
 	}
 
@@ -907,7 +907,7 @@ void cGameObject::MoveObject()
 }
 
 float cGameObject::GetMoveDist()
-{	
+{
 	/*cVector3f vBodyPos = mpInit->mpPlayer->GetPickedPos();
 	cVector3f vPlayerPos = mpInit->mpPlayer->GetCamera()->GetPosition();
 
@@ -927,7 +927,7 @@ void cGameObject::PushObject()
 	{
 		if(mpInit->mpPlayer->GetState() == ePlayerState_InteractMode)
 			mpInit->mpEffectHandler->GetSubTitle()->Add(kTranslate("Player", "ObjectTooFar"),2.0f,true);
-		
+
 		return;
 	}
 
@@ -937,7 +937,7 @@ void cGameObject::PushObject()
 	mpInit->mpPlayer->mbCanBePulled = mbCanBePulled;
 
 	mpInit->mpPlayer->mfCurrentMaxInteractDist = mfMaxInteractDist;
-	
+
 	mpInit->mpPlayer->SetPushBody(mpInit->mpPlayer->GetPickedBody());
 	mpInit->mpPlayer->ChangeState(ePlayerState_Push);
 }
@@ -957,7 +957,7 @@ float cGameObject::GetPushDist()
 void cGameObject::UpdateAttraction(float afTimeStep)
 {
 	if(mAttractProps.mbActive==false) return;
-	
+
 
 	///////////////////////////////////////////////
 	//Check if the current attraction is near enough
@@ -1009,8 +1009,8 @@ void cGameObject::UpdateAttraction(float afTimeStep)
 			{
 				iGameEnemy *pEnemy = enemyIt.Next();
 
-				if(	pEnemy->GetHealth() <= 0 || pEnemy->IsActive()==false || 
-					pEnemy->IsAttracted()) 
+				if(	pEnemy->GetHealth() <= 0 || pEnemy->IsActive()==false ||
+					pEnemy->IsAttracted())
 				{
 					continue;
 				}
@@ -1022,20 +1022,20 @@ void cGameObject::UpdateAttraction(float afTimeStep)
 				}
 
 				if(bCorrectSub==false) continue;
-				
+
 				//Check if the enemy has already been attracted by this object
 				if(m_setAttractedEnemies.find(pEnemy) != m_setAttractedEnemies.end()) continue;
 
 				float fDist = cMath::Vector3Dist(	pEnemy->GetMover()->GetCharBody()->GetFeetPosition(),
 													mvBodies[0]->GetWorldPosition());
-				
+
 				if(fDist < mAttractProps.mfDistance && fDist < fClosestDist)
 				{
 					fClosestDist = fDist;
 					pChosenEnemy = pEnemy;
 				}
 			}
-			
+
 			if(pChosenEnemy)
 			{
 				if(pChosenEnemy->MoveToPos(mvBodies[0]->GetWorldPosition() +cVector3f(0,0.2f,0)))
@@ -1072,7 +1072,7 @@ kEndSerialize()
 
 iGameEntity* cGameObject_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------

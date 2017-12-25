@@ -42,13 +42,13 @@ cCredits::cCredits(cInit *apInit)  : iUpdateable("Credits")
 
 	//Load fonts
 	mpFont = mpInit->mpGame->GetResources()->GetFontManager()->CreateFontData("verdana.fnt");
-	
+
 	//Load config file
-	
+
 	//Load text
 	tWString sText = kTranslate("MainMenu", "CreditsText");
 	mpFont->GetWordWrapRows(750, 19,17,sText,&mvTextRows);
-	
+
 	Reset();
 }
 
@@ -69,7 +69,7 @@ cCredits::~cCredits(void)
 void cCredits::Reset()
 {
 	mbActive = false;
-	
+
 	mfYPos =600;
 }
 
@@ -78,7 +78,7 @@ void cCredits::Reset()
 void cCredits::OnPostSceneDraw()
 {
 	mpInit->mpGraphicsHelper->ClearScreen(cColor(0,0));
-	
+
 }
 
 //-----------------------------------------------------------------------
@@ -106,7 +106,7 @@ void cCredits::OnDraw()
 
 			float fAlpha = fY/300;
 			if(fAlpha > 1) fAlpha = (2 - fAlpha);
-			
+
 			if(lSize==0)
 				mpFont->Draw(cVector3f(400,fY,10),fSize[lSize],cColor(1,fAlpha),eFontAlign_Center,
 							mvTextRows[i].c_str());

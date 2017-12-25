@@ -42,13 +42,13 @@ void cGameItem_InViewRay::SetUp(iPhysicsBody *apSkipBody)
 bool cGameItem_InViewRay::OnIntersect(iPhysicsBody *apBody,cPhysicsRayParams *apParams)
 {
 	float &fDist = apParams->mfDist;
-	
+
 	//Must be positive
 	if(apParams->mfT < 0 || apParams->mfT >1) return true;
-	
+
 	//No characters or skip body allowed
 	if(apBody->IsCharacter() || apBody == mpSkipBody) return true;
-	
+
 	if(apBody->GetCollide()==false || apBody->IsActive()==false) return true;
 
 	mbIntersected = true;
@@ -89,7 +89,7 @@ void cEntityLoader_GameItem::AfterLoad(TiXmlElement *apRootElem, const cMatrixf 
 										 cWorld3D *apWorld)
 {
 	cGameItem *pObject = hplNew( cGameItem, (mpInit,mpEntity->GetName()) );
-	
+
 	pObject->msSubType = msSubType;
 	pObject->msFileName = msFileName;
 	pObject->m_mtxOnLoadTransform = a_mtxTransform;
@@ -248,9 +248,9 @@ void cGameItem::OnPlayerInteract()
 bool cGameItem::IsInView(float afMinDist)
 {
 	cCamera3D *pCam = mpInit->mpPlayer->GetCamera();
-	
+
 	//Distance
-	float fDistSqr = cMath::Vector3DistSqr(	pCam->GetPosition(), 
+	float fDistSqr = cMath::Vector3DistSqr(	pCam->GetPosition(),
 											mvBodies[0]->GetWorldPosition());
 	if(fDistSqr > afMinDist*afMinDist){
 		return false;
@@ -265,7 +265,7 @@ bool cGameItem::IsInView(float afMinDist)
 	}
 
 	if(mbSkipRayCheck) return true;
-	
+
 	//Raycast
 	iPhysicsWorld *pPhysicsWorld = mpInit->mpGame->GetScene()->GetWorld3D()->GetPhysicsWorld();
 	mRayCallback.SetUp(mvBodies[0]);
@@ -275,8 +275,8 @@ bool cGameItem::IsInView(float afMinDist)
 	if(mRayCallback.mbIntersected){
 		return false;
 	}
-	
-	
+
+
 	return true;
 }
 
@@ -316,7 +316,7 @@ void cGameItem::Update(float afTimeStep)
 	else if(mbHasBeenFlashed == false)
 	{
 		mfCheckFlashCount += afTimeStep;
-		
+
 		if(mfCheckFlashCount >= mfCheckFlashMax)
 		{
 			mfCheckFlashCount =0;
@@ -373,7 +373,7 @@ void cGameItem::OnPostSceneDraw()
 	/*iLowLevelGraphics *pLowGfx = mpInit->mpGame->GetGraphics()->GetLowLevel();
 	cCamera3D *pCam = mpInit->mpPlayer->GetCamera();
 
-	
+
 	pLowGfx->SetDepthTestActive(true);
 	pLowGfx->SetDepthWriteActive(false);
 
@@ -423,7 +423,7 @@ kEndSerialize()
 
 iGameEntity* cGameItem_SaveData::CreateEntity()
 {
-	return NULL;	
+	return NULL;
 }
 
 //-----------------------------------------------------------------------
@@ -451,7 +451,7 @@ void cGameItem::LoadFromSaveData(iGameEntity_SaveData *apSaveData)
 {
 	__super::LoadFromSaveData(apSaveData);
 	cGameItem_SaveData *pData = static_cast<cGameItem_SaveData*>(apSaveData);
-	
+
 	kCopyFromVar(pData,mbHasBeenFlashed);
 	kCopyFromVar(pData,mfEnterFlashDist);
 	kCopyFromVar(pData,mfExitFlashDist);

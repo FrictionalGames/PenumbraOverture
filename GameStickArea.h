@@ -48,9 +48,9 @@ public:
 	bool mbCheckCenterInArea;
 
 	float mfPoseTime;
-	
+
 	float mfSetMtxTime;
-	
+
 	iGameEntity* CreateEntity();
 };
 
@@ -97,7 +97,7 @@ public:
 	bool GetRotateBody(){ return mbRotateBody;}
 
 	tString GetCallbackFunc(const tString &asFunc,iPhysicsBody *apBody);
-	
+
 	static bool mbAllowAttachment;
 
 	//SaveObject implementation

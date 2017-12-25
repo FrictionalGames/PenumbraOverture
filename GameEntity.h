@@ -37,7 +37,7 @@ class cGameEntityScript : public iSerializable
 	kSerializableClassInit(cGameEntityScript)
 public:
 	cGameEntityScript() : msScriptFunc(""){}
-	
+
 	int mlNum;
 	tString msScriptFunc;
 };
@@ -62,7 +62,7 @@ class cGameEntityAnimation_SaveData : public iSerializable
 public:
 	bool mbActive;
 	bool mbLoop;
-	
+
 	float mfWeight;
 	float mfFadeStep;
 	float mfTimePos;
@@ -83,12 +83,12 @@ public:
 	tString msName;
 
 	float mfHealth;
-	
+
 	float mfMaxExamineDist;
 	float mfMaxInteractDist;
 
 	bool mbHasBeenExamined;
-    	
+
 	tWString msGameName;
 	tWString msDescription;
 
@@ -110,7 +110,7 @@ public:
 
 	//Animations
 	cContainerVec<cGameEntityAnimation_SaveData> mvAnimations;
-	
+
 	//Callbacks
 	cContainerList<cSaveGame_cGameCollideScript> mlstCollideCallbacks;
 
@@ -118,7 +118,7 @@ public:
 
 	//Script variables
 	cContainerList<cScriptVar> mlstVars;
-	
+
 	//Creation
 	virtual iGameEntity* CreateEntity()=0;
 };
@@ -151,7 +151,7 @@ public:
 
 	eGameEntityType GetType(){ return mType;}
 
-	const tString& GetSubType(){ return msSubType;}	
+	const tString& GetSubType(){ return msSubType;}
 
 	void SetDescription(const tWString& asDesc){ msDescription = asDesc;}
 	const tWString& GetDescription(){ return msDescription;}
@@ -176,12 +176,12 @@ public:
 	iLight3D* GetLight(int alX){ return mvLights[alX];}
 	void SetLights(std::vector<iLight3D*> &avLights){mvLights = avLights;}
 
-	
+
 	void SetParticleSystems(std::vector<cParticleSystem3D*> &avParticleSystems){mvParticleSystems = avParticleSystems;}
 	void SetBillboards(std::vector<cBillboard*> &avBillboards){mvBillboards = avBillboards;}
 	void SetBeams(std::vector<cBeam*> &avBeams){mvBeams = avBeams;}
 	void SetSoundEntities(std::vector<cSoundEntity*> &avSoundEntities){mvSoundEntities = avSoundEntities;}
-	
+
 	size_t GetHapticShapeNum(){ return mvHapticShapes.size();}
 	iHapticShape* GetHapticShape(size_t alNum){ return mvHapticShapes[alNum];}
 	void SetHapticShapes(std::vector<iHapticShape*> &avShapes){mvHapticShapes = avShapes;}
@@ -190,10 +190,10 @@ public:
 	void DestroyParticleSystem(cParticleSystem3D* apPS);
 	void DestroyBillboard(cBillboard* apBillboard);
 	void SetSoundEntity(cSoundEntity* apSound);
-	
+
 	cMeshEntity *GetMeshEntity(){return mpMeshEntity;}
 	void SetMeshEntity(cMeshEntity *apEnity){mpMeshEntity = apEnity;}
-	
+
 	void PlayerPick();
 	void PlayerInteract();
 	void PlayerExamine();
@@ -224,7 +224,7 @@ public:
 	void AddCollideScript(eGameCollideScriptType aType,const tString &asFunc, const tString &asEntity);
 	void RemoveCollideScript(eGameCollideScriptType aType,const tString &asFunc);
 	void RemoveCollideScriptWithChildEntity(iGameEntity *apEntity);
-	
+
 	void AddScript(eGameEntityScriptType aType,const tString &asFunc);
 	void RemoveScript(eGameEntityScriptType aType);
 
@@ -242,10 +242,10 @@ public:
 
 	bool GetDestroyMe(){ return mbDestroyMe;}
 	bool GetBreakMe(){ return mbBreakMe;}
-	
+
 	void Break(){ mbBreakMe = true;}
 
-    void SetCharBody(iCharacterBody *apCharBody){ mpCharBody = apCharBody;}
+	void SetCharBody(iCharacterBody *apCharBody){ mpCharBody = apCharBody;}
 	iCharacterBody* SetCharBody(){ return mpCharBody;}
 
 	void SetUpTransMaterials();
@@ -302,7 +302,7 @@ protected:
 
 	float mfHealth;
 	int mlToughness;
-	
+
 	tWString msGameName;
 	tWString msDescription;
 
@@ -324,7 +324,7 @@ protected:
 	std::vector<iPhysicsJoint*> mvJoints;
 
 	std::vector<iHapticShape*> mvHapticShapes;
-	
+
 	std::vector<iLight3D*> mvLights;
 	std::vector<cParticleSystem3D*> mvParticleSystems;
 	std::vector<cBillboard*> mvBillboards;
@@ -332,7 +332,7 @@ protected:
 	std::vector<cSoundEntity*> mvSoundEntities;
 
 	bool mbSaveLights;
-	
+
 	cMeshEntity *mpMeshEntity;
 
 	std::vector<iMaterial*> mvNormalMaterials;
@@ -340,7 +340,7 @@ protected:
 	bool mbTransActive;
 	bool mbTransShadow;
 
-	cVector3f mvLastImpulse; 
+	cVector3f mvLastImpulse;
 
 	std::vector<cMesh*> mvPreloadedBreakMeshes;
 
